@@ -89,8 +89,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.68, y: 0.07, z: 0}
-  m_LocalScale: {x: 4.6305184, y: 4.6305184, z: 4.6305184}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6858606875923951978}
   m_Father: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba91c6e0da682ae47b37f6ae289d3aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  friction: 0.5
+  movementSpeed: 5
   rigidbody2d: {fileID: 5981204155692804977}
 --- !u!212 &594475666362590995
 SpriteRenderer:
@@ -198,7 +200,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.1
+  m_Radius: 0.37289274
 --- !u!50 &5981204155692804977
 Rigidbody2D:
   serializedVersion: 5
@@ -207,14 +209,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9108688046645523271}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
