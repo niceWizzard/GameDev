@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Normal : State<PlayerController>
@@ -5,13 +6,15 @@ public class Normal : State<PlayerController>
     public override State<PlayerController> FixedDo()
     {
         var a = base.FixedDo();
-        if (a != null)
+        if (a)
             return a;
 
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Debug.Log(input);
-        controller.rigidbody2d.linearVelocity = input.normalized * 5.5f;
+        if (!controller) return null;
         
+        var vel = controller.rigidbody2d.linearVelocity;
+        vel = Vector2.Lerp(vel, input.normalized * controller.movementSpeed, controller.friction);
+        controller.rigidbody2d.linearVelocity = vel;
         return null;
     }
 }
