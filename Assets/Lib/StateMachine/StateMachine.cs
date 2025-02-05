@@ -41,4 +41,13 @@ public class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
             SetState(next);
         }
     }
+
+    private void FixedUpdate()
+    {
+        var next = currentState?.FixedDo();
+        if (next != null)
+        {
+            SetState(next);
+        }
+    }
 }

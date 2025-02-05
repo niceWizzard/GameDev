@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class State<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private T? controller;
+    protected T? controller;
     public virtual void Initialize(T? controller)
     {
         this.controller = controller;

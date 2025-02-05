@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba91c6e0da682ae47b37f6ae289d3aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody2d: {fileID: 877728158}
 --- !u!4 &877728157
 Transform:
   m_ObjectHideFlags: 0
@@ -440,7 +441,7 @@ Transform:
   m_GameObject: {fileID: 877728155}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.68, y: 0.07, z: 0}
   m_LocalScale: {x: 4.6305184, y: 4.6305184, z: 4.6305184}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -455,7 +456,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877728155}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
