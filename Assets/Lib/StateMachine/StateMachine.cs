@@ -1,53 +1,51 @@
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class StateMachine<T, K> : MonoBehaviour,  IStateMachineInitializer
+    where T : MonoBehaviour where K : Enum
 {
-    private List<State<T>> states;
     [SerializeField]
-    private State<T>? currentState = null;
-    public State<T>? CurrentState { get { return currentState; } }
+    private State<T, K>? currentState = null;
+    public State<T,K>? CurrentState { get { return currentState; } }
 
+    public Dictionary<K, State<T,K>> StatesMap { get; private set; } =  new();
     
     public T? controller;
+    public List<State<T, K>> AllStates => StatesMap.Values.ToList();
 
-    private void SetState(State<T>? newState)
+    protected virtual void Start()
     {
-        if (currentState != null)
-        {
-            currentState.Exit();
-        }
-        currentState = newState;
-        if (currentState != null) {
-            currentState.Enter();
-        }
-    }
-
-    void Start()
-    {
-        states = GetComponentsInChildren<State<T>>().ToList();
-        states.ForEach(state => state.Initialize(controller));
-        states.ForEach(state => state.Prepare());
+        InitializeStates();
+        AllStates.ForEach(state => state.Initialize(controller, this));
+        AllStates.ForEach(state => state.Prepare());
     }
 
     void Update()
     {
-        var next = currentState?.Do();
-        if (next != null)
-        {
-            SetState(next);
-        }
+        currentState?.Do();
     }
 
     private void FixedUpdate()
     {
-        var next = currentState?.FixedDo();
-        if (next != null)
-        {
-            SetState(next);
-        }
+       currentState?.FixedDo();
     }
+
+    public abstract void InitializeStates();
+    public void ChangeState(K newState)
+    {
+        var s = StatesMap[newState];
+        currentState?.Exit();
+        currentState = s;
+        currentState?.Enter();
+    }
+}
+
+
+public interface IStateMachineInitializer
+{
+    void InitializeStates();
 }

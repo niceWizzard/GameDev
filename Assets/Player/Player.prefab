@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 4555069260229167414}
   controller: {fileID: 3967427713516798673}
+  normalState: {fileID: 4555069260229167414}
+  dashState: {fileID: 5544195624552018457}
 --- !u!114 &4555069260229167414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +62,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cd223be94dfd845b5a7bd80ea7fd81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashState: {fileID: 5544195624552018457}
 --- !u!114 &5544195624552018457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b51c90ce94b4abf71ea38de8bc1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalState: {fileID: 4555069260229167414}
 --- !u!1 &8770326998433031620
 GameObject:
   m_ObjectHideFlags: 0

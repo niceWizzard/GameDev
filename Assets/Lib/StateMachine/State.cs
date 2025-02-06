@@ -1,26 +1,29 @@
+using System;
 using UnityEngine;
 #nullable enable
 
-public class State<T> : MonoBehaviour where T : MonoBehaviour
+public class State<T, K> : MonoBehaviour 
+    where T : MonoBehaviour
+    where K : Enum
 {
     protected T? controller;
-    public virtual void Initialize(T? controller)
+    protected StateMachine<T, K>? sm; 
+    public virtual void Initialize(T? controller, StateMachine<T, K>? stateMachine)
     {
         this.controller = controller;
+        sm = stateMachine;
     }
     public virtual void Prepare()
     {
 
     }
 
-    public virtual State<T>? Do()
+    public virtual void Do()
     {
-        return null;
     }
 
-    public virtual State<T>? FixedDo()
+    public virtual void FixedDo()
     {
-        return null;
     }
 
     public virtual void Exit()
@@ -29,5 +32,10 @@ public class State<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void Enter()
     {
+    }
+
+    protected void ChangeState(K state)
+    {
+        sm.ChangeState(state);
     }
 }

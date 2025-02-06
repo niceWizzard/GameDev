@@ -1,50 +1,41 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Normal : State<PlayerController>
+public class Normal : State<PlayerController, PlayerState>
 {
     private Camera _camera;
 
-    [SerializeField] private State<PlayerController> dashState;
 
     private void Start()
     {
         _camera = Camera.main;
     }
 
-    public override State<PlayerController> Do()
+    public override void Do()
     {
-        var a = base.Do();
-        if (a)
-            return a;
+        base.Do();
         if (!controller)
-            return null;
+            return ;
         
         if (Input.GetMouseButtonDown(0))
         {
             controller.Gun.Shoot();
         } else if (Input.GetKeyDown(KeyCode.Space))
         {
-            return dashState;
+            ChangeState(PlayerState.Dash);
         }
-        return null;
     }
 
-    public override State<PlayerController> FixedDo()
+    public override void FixedDo()
     {
-        var a = base.FixedDo();
-        if (a)
-            return a;
-
+        base.FixedDo();
         var input = controller.GetMovementInput();
-        if (!controller) return null;
+        if (!controller) return ;
         controller.UpdateFacingDirection(input);
         RotateGun();
         var vel = controller.rigidbody2d.linearVelocity;
         vel = Vector2.Lerp(vel, input.normalized * controller.movementSpeed, controller.friction);
         controller.rigidbody2d.linearVelocity = vel;
-        
-        return null;
     }
 
     private void RotateGun()
