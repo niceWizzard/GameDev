@@ -10,9 +10,13 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rigidbody2d;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
-    
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    [SerializeField]
+    private GameObject gun;
 
+    [SerializeField] private Transform gunAnchor;
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject Gun => gun;
+    public Transform GunAnchor => gunAnchor;
     public float FacingDirection { get; private set; } = 1;
 
     public void UpdateFacingDirection(Vector2 input)
