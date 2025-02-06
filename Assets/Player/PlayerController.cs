@@ -5,8 +5,11 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+    [Header("Stats")]
     public float friction = 0.5f;
-    public float movementSpeed = 5f;
+    public float movementSpeed = 3f;
+    public float dashDistance = 1f;
+    [Header("Components")]
     public Rigidbody2D rigidbody2d;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -40,4 +43,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         spriteRenderer.flipX = FacingDirection < 0;
     }
 
+    public Vector2 GetMovementInput()
+    {
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
 }

@@ -5,6 +5,8 @@ public class Normal : State<PlayerController>
 {
     private Camera _camera;
 
+    [SerializeField] private State<PlayerController> dashState;
+
     private void Start()
     {
         _camera = Camera.main;
@@ -21,8 +23,10 @@ public class Normal : State<PlayerController>
         if (Input.GetMouseButtonDown(0))
         {
             controller.Gun.Shoot();
+        } else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return dashState;
         }
-
         return null;
     }
 
@@ -32,7 +36,7 @@ public class Normal : State<PlayerController>
         if (a)
             return a;
 
-        var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        var input = controller.GetMovementInput();
         if (!controller) return null;
         controller.UpdateFacingDirection(input);
         RotateGun();

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6858606875923951978}
   - component: {fileID: 5444630011709940008}
   - component: {fileID: 4555069260229167414}
+  - component: {fileID: 5544195624552018457}
   m_Layer: 0
   m_Name: StateMachine
   m_TagString: Untagged
@@ -59,6 +60,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cd223be94dfd845b5a7bd80ea7fd81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashState: {fileID: 5544195624552018457}
+--- !u!114 &5544195624552018457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826311768857627014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51b51c90ce94b4abf71ea38de8bc1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalState: {fileID: 4555069260229167414}
 --- !u!1 &8770326998433031620
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friction: 0.5
-  movementSpeed: 5
+  movementSpeed: 4
+  dashDistance: 1.5
   rigidbody2d: {fileID: 5981204155692804977}
   spriteRenderer: {fileID: 594475666362590995}
   gun: {fileID: 9144056739718323003}
