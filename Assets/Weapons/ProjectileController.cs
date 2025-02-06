@@ -8,15 +8,19 @@ public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float maxTravelDistance = 5f;
+    [SerializeField] private ParticleSystem hitParticles;
     private GameObject? _projectileSender;
     private Vector2 _direction = Vector2.zero;
     
     private CircleCollider2D? _circleCollider2D ;
 
     private float traveledDistance = 0f;
+    private SpriteRenderer _spriteRenderer;
+
     private void Awake()
     {
         _circleCollider2D = GetComponent<CircleCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -46,7 +50,13 @@ public class ProjectileController : MonoBehaviour
         other.gameObject.GetComponent<IDamageable>()?.TakeDamage(
             new DamageInfo(50, _projectileSender)    
         );
-        Destroy(gameObject);
+        Destroy(gameObject,0.2f);
+        if (_circleCollider2D)
+            _circleCollider2D.enabled = false;
+        _spriteRenderer.enabled = false;
+        _direction *= 0;
+        hitParticles.Play();
+
     }
 
 
