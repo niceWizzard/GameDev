@@ -5,11 +5,13 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxTravelDistance = 5f;
     private GameObject? _projectileSender;
     private Vector2 _direction = Vector2.zero;
     
     private CircleCollider2D? _circleCollider2D ;
 
+    private float traveledDistance = 0f;
     private void Awake()
     {
         _circleCollider2D = GetComponent<CircleCollider2D>();
@@ -17,7 +19,14 @@ public class ProjectileController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += ((Vector3)_direction) * (Time.fixedDeltaTime*speed);
+        var v = _direction * (Time.fixedDeltaTime * speed);
+        
+        transform.position += (Vector3) v;
+        traveledDistance += v.magnitude;
+        if (traveledDistance >= maxTravelDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Setup(Vector2 dir, GameObject sender)
