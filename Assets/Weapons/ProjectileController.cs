@@ -50,6 +50,9 @@ public class ProjectileController : MonoBehaviour
         other.gameObject.GetComponent<Hurtbox>()?.Hurt(
             new DamageInfo(50, _projectileSender)    
         );
+        other.gameObject.GetComponent<IDamageable>()?.TakeDamage(
+            new DamageInfo(50, _projectileSender)
+        );
         Destroy(gameObject,0.2f);
         if (_circleCollider2D)
             _circleCollider2D.enabled = false;
