@@ -30,13 +30,14 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
-    public void Setup(Vector2 pos,Vector2 dir, GameObject sender)
+    public void Setup(Vector2 pos,Vector2 dir, GameObject sender, float maxDistance)
     {
         _direction = dir.normalized;
         _projectileSender = sender;
         var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.localEulerAngles = new Vector3(0,0, angle);
         transform.position = pos;
+        maxTravelDistance = maxDistance;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
