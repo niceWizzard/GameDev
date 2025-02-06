@@ -15,6 +15,5 @@ public class PlayerStateMachine : StateMachine<PlayerController, PlayerState>
     {
         StatesMap.Add(PlayerState.Dash, dashState);
         StatesMap.Add(PlayerState.Normal, normalState);
-        Debug.Log(StatesMap);
     }
 }

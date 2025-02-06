@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5444630011709940008}
   - component: {fileID: 4555069260229167414}
   - component: {fileID: 5544195624552018457}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StateMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,6 +75,88 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashColor: {r: 0.36320752, g: 0.6633519, b: 1, a: 1}
+--- !u!1 &7747478372042950199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4876725753566515398}
+  - component: {fileID: 5887018179657812183}
+  - component: {fileID: 972943662124109601}
+  m_Layer: 11
+  m_Name: Hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4876725753566515398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747478372042950199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118855774158821603}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &5887018179657812183
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747478372042950199}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.06626588}
+  m_Size: {x: 0.38393143, y: 0.7178304}
+  m_Direction: 0
+--- !u!114 &972943662124109601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747478372042950199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acd9ced42f03b34eb0460ec6b00c352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8770326998433031620
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3636795893187299168}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +203,7 @@ GameObject:
   - component: {fileID: 5185112708580247980}
   - component: {fileID: 5981204155692804977}
   - component: {fileID: 6706000480422274695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +225,7 @@ Transform:
   m_Children:
   - {fileID: 6858606875923951978}
   - {fileID: 3636795893187299168}
+  - {fileID: 4876725753566515398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3967427713516798673
@@ -164,6 +247,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 594475666362590995}
   gun: {fileID: 9144056739718323003}
   circleCollider2D: {fileID: 5185112708580247980}
+  hurtbox: {fileID: 972943662124109601}
   gunAnchor: {fileID: 3636795893187299168}
 --- !u!212 &594475666362590995
 SpriteRenderer:
@@ -348,14 +432,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 2499261553075575925, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2704914007306224917, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: m_FlipY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879555940745677737, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7207362074447506898, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: owner
       value: 
       objectReference: {fileID: 9108688046645523271}
+    - target: {fileID: 8015167064124695382, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

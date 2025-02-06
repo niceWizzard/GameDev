@@ -14,10 +14,10 @@ TagManager:
   - Player
   - Mob
   - World
-  - 
-  - 
-  - 
-  - 
+  - Player Hitbox
+  - Enemy Hitbox
+  - Player Hurtbox
+  - Enemy Hurtbox
   - 
   - 
   - 

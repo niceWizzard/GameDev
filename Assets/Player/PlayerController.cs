@@ -17,13 +17,22 @@ public class PlayerController : MonoBehaviour, IDamageable
     private GunController gun;
     [SerializeField]
     private CircleCollider2D circleCollider2D;
+    [SerializeField]
+    private Hurtbox hurtbox;
+    
     private HealthComponent _healthComponent;
     public HealthComponent HealthComponent => _healthComponent;
     public CircleCollider2D CircleCollider2D => circleCollider2D;
     private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
+        hurtbox.OnHurt += HurtboxOnOnHurt;
         _healthComponent.OnHealthZero += OnHealthZero;
+    }
+
+    private void HurtboxOnOnHurt(DamageInfo obj)
+    {
+        _healthComponent.ReduceHealth(obj.damage);
     }
 
     private void OnHealthZero()
