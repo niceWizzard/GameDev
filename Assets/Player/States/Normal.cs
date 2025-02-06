@@ -11,6 +11,22 @@ public class Normal : State<PlayerController>
         _camera = Camera.main;
     }
 
+    public override State<PlayerController> Do()
+    {
+        var a = base.Do();
+        if (a)
+            return a;
+        if (!controller)
+            return null;
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            controller.Gun.Shoot();
+        }
+
+        return null;
+    }
+
     public override State<PlayerController> FixedDo()
     {
         var a = base.FixedDo();
@@ -24,6 +40,7 @@ public class Normal : State<PlayerController>
         var vel = controller.rigidbody2d.linearVelocity;
         vel = Vector2.Lerp(vel, input.normalized * controller.movementSpeed, controller.friction);
         controller.rigidbody2d.linearVelocity = vel;
+        
         return null;
     }
 
