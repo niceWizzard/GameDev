@@ -1,15 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GunController : MonoBehaviour
 {
     [SerializeField]
     private ProjectileController projectilePrefab;
+
+    [SerializeField] private Transform leftNozzleTransform;
+    [SerializeField] private Transform rightNozzleTransform;
     private SpriteRenderer _spriteRenderer;
     private Camera _camera;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
     public GameObject Owner => transform.parent.gameObject;
+    private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
 
     private void Start()
     {
@@ -33,6 +38,6 @@ public class GunController : MonoBehaviour
             return;
         var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
-        projectile.Setup(mouseDir, Owner);
+        projectile.Setup(NozzleTransform.position,mouseDir, Owner);
     }
 }
