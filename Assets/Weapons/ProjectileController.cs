@@ -1,4 +1,5 @@
 #nullable enable
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
@@ -23,6 +24,8 @@ public class ProjectileController : MonoBehaviour
     {
         _direction = dir.normalized;
         _projectileSender = sender;
+        var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.localEulerAngles = new Vector3(0,0, angle);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
