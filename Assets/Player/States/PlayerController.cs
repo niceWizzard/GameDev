@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public float friction = 0.5f;
     public float movementSpeed = 5f;
@@ -12,6 +12,19 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private GunController gun;
+    private HealthComponent _healthComponent;
+    public HealthComponent HealthComponent => _healthComponent;
+
+    private void Awake()
+    {
+        _healthComponent = GetComponent<HealthComponent>();
+        _healthComponent.OnHealthZero += OnHealthZero;
+    }
+
+    private void OnHealthZero()
+    {
+        Destroy(gameObject);
+    }
 
     [SerializeField] private Transform gunAnchor;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
@@ -26,4 +39,5 @@ public class PlayerController : MonoBehaviour
         FacingDirection = math.sign(input.x);
         spriteRenderer.flipX = FacingDirection < 0;
     }
+
 }

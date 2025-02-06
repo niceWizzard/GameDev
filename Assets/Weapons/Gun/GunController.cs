@@ -13,13 +13,14 @@ public class GunController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform leftNozzleTransform;
     [SerializeField] private Transform rightNozzleTransform;
+    [SerializeField] private GameObject owner;
     [SerializeField, Space(10)]
     private ProjectileController projectilePrefab;
     private SpriteRenderer _spriteRenderer;
     private Camera _camera;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
-    public GameObject Owner => transform.parent.gameObject;
+    public GameObject Owner => owner;
     private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
 
     private bool _canShoot = true;

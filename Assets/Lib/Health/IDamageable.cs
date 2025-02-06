@@ -4,9 +4,8 @@ public interface IDamageable
 {
     public HealthComponent HealthComponent { get; }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(DamageInfo damageInfo)
     {
-        Debug.Log("DAMGED");
-        HealthComponent.ReduceHealth(damage);
+        HealthComponent.ReduceHealth(damageInfo.damage);
     }
 }

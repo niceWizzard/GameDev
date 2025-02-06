@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BarrelController : MonoBehaviour, IDamageable
@@ -25,6 +26,5 @@ public class BarrelController : MonoBehaviour, IDamageable
         _particleSystem.Play();
         Destroy(gameObject, 0.5f);
     }
-
 
 }
