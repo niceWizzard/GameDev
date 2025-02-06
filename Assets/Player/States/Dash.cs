@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Dash : State<PlayerController, PlayerState>
 {
+    [SerializeField]
+    private Color dashColor;
     private Vector2 direction = Vector2.zero;
     private float traveledDistance = 0;
     
@@ -19,6 +21,13 @@ public class Dash : State<PlayerController, PlayerState>
         if (dir.magnitude < 0.1f)
             dir = new Vector2(-controller.FacingDirection, 0);
         direction = dir.normalized;
+        controller!.SpriteRenderer.color = dashColor;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        controller!.SpriteRenderer.color = Color.white;
     }
 
     public override void FixedDo()

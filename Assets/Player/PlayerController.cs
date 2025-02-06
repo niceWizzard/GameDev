@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private GunController gun;
+    [SerializeField]
+    private CircleCollider2D circleCollider2D;
     private HealthComponent _healthComponent;
     public HealthComponent HealthComponent => _healthComponent;
-
+    public CircleCollider2D CircleCollider2D => circleCollider2D;
     private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();

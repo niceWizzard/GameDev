@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b51c90ce94b4abf71ea38de8bc1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashColor: {r: 0.36320752, g: 0.6633519, b: 1, a: 1}
 --- !u!1 &8770326998433031620
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +163,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 5981204155692804977}
   spriteRenderer: {fileID: 594475666362590995}
   gun: {fileID: 9144056739718323003}
+  circleCollider2D: {fileID: 5185112708580247980}
   gunAnchor: {fileID: 3636795893187299168}
 --- !u!212 &594475666362590995
 SpriteRenderer:
