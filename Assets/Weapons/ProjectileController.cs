@@ -2,6 +2,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ProjectileController : MonoBehaviour
 {
@@ -42,11 +43,9 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        other.gameObject.GetComponent<IDamageable>()?.TakeDamage(50f);
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        Destroy(gameObject);
-    }
+
 }
