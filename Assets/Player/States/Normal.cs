@@ -11,6 +11,7 @@ public class Normal : State<PlayerController>
 
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (!controller) return null;
+        controller.UpdateFacingDirection(input);
         
         var vel = controller.rigidbody2d.linearVelocity;
         vel = Vector2.Lerp(vel, input.normalized * controller.movementSpeed, controller.friction);

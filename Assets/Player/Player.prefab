@@ -110,6 +110,7 @@ MonoBehaviour:
   friction: 0.5
   movementSpeed: 5
   rigidbody2d: {fileID: 5981204155692804977}
+  spriteRenderer: {fileID: 594475666362590995}
 --- !u!212 &594475666362590995
 SpriteRenderer:
   m_ObjectHideFlags: 0
