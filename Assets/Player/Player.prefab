@@ -274,7 +274,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1748180853710962659, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.88
+      value: 0.723
       objectReference: {fileID: 0}
     - target: {fileID: 1748180853710962659, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -315,6 +315,10 @@ PrefabInstance:
     - target: {fileID: 2499261553075575925, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2704914007306224917, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
+      propertyPath: m_FlipY
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
