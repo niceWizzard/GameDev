@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
     [SerializeField]
-    private GameObject gun;
+    private GunController gun;
 
     [SerializeField] private Transform gunAnchor;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject Gun => gun;
+    public GunController Gun => gun;
     public Transform GunAnchor => gunAnchor;
     public float FacingDirection { get; private set; } = 1;
 

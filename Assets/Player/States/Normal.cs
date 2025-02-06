@@ -27,7 +27,7 @@ public class Normal : State<PlayerController>
         return null;
     }
 
-    void RotateGun()
+    private void RotateGun()
     {
         if (!controller ||  !_camera)
             return;
@@ -35,6 +35,6 @@ public class Normal : State<PlayerController>
         Vector2 toMouse = (mouse - controller.transform.position).normalized;
         var angle = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
         controller.GunAnchor.localEulerAngles = new Vector3(0, 0, angle);
-        controller.Gun.transform.localScale = math.abs(angle) > 90 ? new Vector3(1, -1, 1) : new Vector3(1, 1, 1);
+        controller.Gun.FlipSprite(math.abs(angle) > 90);
     }
 }
