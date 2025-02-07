@@ -2,10 +2,14 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Hurtbox : MonoBehaviour
+public class Hurtbox : MonoBehaviour, IDamageable
 {
+    [SerializeField]
+    private HealthComponent ownerHealth;
     private Collider2D _collider;
     public event Action<DamageInfo> OnHurt;
+    
+    public HealthComponent HealthComponent => ownerHealth;
 
     private void Awake()
     {
@@ -21,8 +25,10 @@ public class Hurtbox : MonoBehaviour
     {
         _collider.enabled = true;
     }
-    public void Hurt(DamageInfo damageInfo)
+
+    public void TakeDamage(DamageInfo damageInfo)
     {
         OnHurt?.Invoke(damageInfo);
-    }        
+    }
+
 }

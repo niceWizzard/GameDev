@@ -47,9 +47,6 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.gameObject.GetComponent<Hurtbox>()?.Hurt(
-            new DamageInfo(50, _projectileSender)    
-        );
         other.gameObject.GetComponent<IDamageable>()?.TakeDamage(
             new DamageInfo(50, _projectileSender)
         );
