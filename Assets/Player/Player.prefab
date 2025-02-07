@@ -241,14 +241,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba91c6e0da682ae47b37f6ae289d3aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthComponent: {fileID: 6706000480422274695}
+  hurtbox: {fileID: 972943662124109601}
+  spriteRenderer: {fileID: 594475666362590995}
   friction: 0.5
   movementSpeed: 4
   dashDistance: 1.5
   rigidbody2d: {fileID: 5981204155692804977}
-  spriteRenderer: {fileID: 594475666362590995}
   gun: {fileID: 9144056739718323003}
   circleCollider2D: {fileID: 5185112708580247980}
-  hurtbox: {fileID: 972943662124109601}
   gunAnchor: {fileID: 3636795893187299168}
 --- !u!212 &594475666362590995
 SpriteRenderer:

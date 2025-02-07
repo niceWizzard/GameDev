@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MobController, IDamageable
 {
     [Header("Stats")]
     public float friction = 0.5f;
@@ -12,36 +12,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("Components")]
     public Rigidbody2D rigidbody2d;
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
-    [SerializeField]
     private GunController gun;
     [SerializeField]
     private CircleCollider2D circleCollider2D;
-    [SerializeField]
-    private Hurtbox hurtbox;
-    
-    private HealthComponent _healthComponent;
-    public HealthComponent HealthComponent => _healthComponent;
     public CircleCollider2D CircleCollider2D => circleCollider2D;
-    private void Awake()
-    {
-        _healthComponent = GetComponent<HealthComponent>();
-        hurtbox.OnHurt += HurtboxOnOnHurt;
-        _healthComponent.OnHealthZero += OnHealthZero;
-    }
-
-    private void HurtboxOnOnHurt(DamageInfo obj)
-    {
-        _healthComponent.ReduceHealth(obj.damage);
-    }
-
-    private void OnHealthZero()
-    {
-        Destroy(gameObject);
-    }
 
     [SerializeField] private Transform gunAnchor;
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GunController Gun => gun;
     public Transform GunAnchor => gunAnchor;
     public float FacingDirection { get; private set; } = 1;

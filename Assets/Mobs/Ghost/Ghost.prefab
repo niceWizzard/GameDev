@@ -197,5 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8005b3bb6678c9e46b8786ccdc7ff066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtbox: {fileID: 27498408140041973}
   healthComponent: {fileID: 6611883880406582598}
+  hurtbox: {fileID: 27498408140041973}
+  spriteRenderer: {fileID: 1871215968226044275}
