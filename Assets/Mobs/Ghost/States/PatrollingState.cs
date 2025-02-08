@@ -27,14 +27,6 @@ public class PatrollingState : State<GhostController, GhostState>
         _targetPoint = GetRandomPoint(_spawnPoint);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(
-            controller.transform.position,
-            _targetPoint
-            );
-    }
-
     public override void FixedDo()
     {
         base.FixedDo();
