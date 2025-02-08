@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEditor.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 enum PatrolState
@@ -19,9 +20,19 @@ public class PatrollingState : State<GhostController, GhostState>
     private PatrolState _state = PatrolState.Walking;
     private int direction = 1;
     private Vector2 _spawnPoint;
+    private Vector2 _targetPoint;
     public override void Prepare()
     {
         _spawnPoint = controller.transform.position;
+        _targetPoint = GetRandomPoint(_spawnPoint);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(
+            controller.transform.position,
+            _targetPoint
+            );
     }
 
     public override void FixedDo()
@@ -33,12 +44,45 @@ public class PatrollingState : State<GhostController, GhostState>
                 controller.Rigidbody2D.linearVelocity = Vector2.zero;
                 break;
             case PatrolState.Walking:
-                var vel = controller.Rigidbody2D.linearVelocity.normalized + ContextBasedSteer(Vector2.right) * Time.fixedDeltaTime;
+                Vector2 toTarget = ((Vector3)_targetPoint - controller.transform.position);
+                var targetDir = toTarget.normalized;
+                var vel = targetDir + ContextBasedSteer(targetDir) * 0.5f;
                 controller.Rigidbody2D.linearVelocity = vel.normalized * 2f;
+
+                if (toTarget.magnitude < 0.1f)
+                {
+                    _state = PatrolState.Idle;
+                    StartCoroutine(ChangePatrolPoint());
+                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private IEnumerator ChangePatrolPoint()
+    {
+        yield return new WaitForSeconds(1);
+        _targetPoint = GetRandomPoint(_spawnPoint);
+        _state = PatrolState.Walking;
+    }
+
+    private Vector2 GetRandomPoint(Vector2 origin, float radius = 3f)
+    {
+        var iteration = 0;
+        while (iteration++ < 1000)
+        {
+            var angle = Random.Range(0f, 360f);
+            var distance = Random.Range(0.5f, radius);
+            Vector2 point = (Vector3)origin + Quaternion.Euler(0, 0, angle) * Vector2.right * distance;
+            controller.Collider2D.enabled = false;
+            var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, dangerMask);
+            controller.Collider2D.enabled = true;
+            if (hit) continue;
+            return point;
+        }
+
+        throw new Exception("While Loop took too long!");
     }
 
     private Vector2 ContextBasedSteer(Vector2 desiredVelocity)
@@ -71,11 +115,5 @@ public class PatrollingState : State<GhostController, GhostState>
         return rays.Select((v, i) => v * interests[i]).Aggregate(Vector2.zero, (current, next) => current + next).normalized;
     }
 
-    private IEnumerator ChangePatrolDirection()
-    {
-        yield return new WaitForSeconds(1f);
-        _state = PatrolState.Walking;
-        _spawnPoint = controller.transform.position;
-        direction *= -1;
-    }
+
 }
