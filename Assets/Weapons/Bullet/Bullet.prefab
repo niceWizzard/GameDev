@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  maxTravelDistance: 5
+  accuracy: 7
   hitParticles: {fileID: 8821372353425978074}
 --- !u!58 &4066963711072737397
 CircleCollider2D:

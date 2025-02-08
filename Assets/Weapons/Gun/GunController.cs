@@ -8,8 +8,8 @@ public class GunController : MonoBehaviour
 {
     [Header("Stats")] 
     [SerializeField, Range(0, 15)] private int attackPerSecond = 2;
-    [SerializeField] private float attackRange = 5f;
-    
+
+    [SerializeField, Range(4, 10)] private int accuracy = 4;
     [Header("Components")]
     [SerializeField] private Transform leftNozzleTransform;
     [SerializeField] private Transform rightNozzleTransform;
@@ -44,7 +44,7 @@ public class GunController : MonoBehaviour
         _canShoot = false;
         var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
-        projectile.Setup(NozzleTransform.position,mouseDir, Owner, attackRange);
+        projectile.Setup(NozzleTransform.position,mouseDir, Owner ,accuracy);
         StartCoroutine(StartAttackCdTimer());
     }
 
