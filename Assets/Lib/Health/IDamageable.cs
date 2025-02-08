@@ -1,11 +1,12 @@
-using UnityEngine;
-
-public interface IDamageable 
+namespace Lib.Health
 {
-    public HealthComponent HealthComponent { get; }
-
-    public void TakeDamage(DamageInfo damageInfo)
+    public interface IDamageable 
     {
-        HealthComponent.ReduceHealth(damageInfo.damage);
+        public HealthComponent HealthComponent { get; }
+
+        public void TakeDamage(DamageInfo damageInfo)
+        {
+            HealthComponent.ReduceHealth(damageInfo.damage);
+        }
     }
 }

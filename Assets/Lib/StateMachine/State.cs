@@ -1,41 +1,45 @@
-using System;
-using UnityEngine;
 #nullable enable
 
-public class State<T, K> : MonoBehaviour 
-    where T : MonoBehaviour
-    where K : Enum
+using System;
+using UnityEngine;
+
+namespace Lib.StateMachine
 {
-    protected T? controller;
-    protected StateMachine<T, K>? sm; 
-    public virtual void Initialize(T? controller, StateMachine<T, K>? stateMachine)
+    public class State<T, K> : MonoBehaviour 
+        where T : MonoBehaviour
+        where K : Enum
     {
-        this.controller = controller;
-        sm = stateMachine;
-    }
-    public virtual void Prepare()
-    {
+        protected T? controller;
+        protected StateMachine<T, K>? sm; 
+        public virtual void Initialize(T? controller, StateMachine<T, K>? stateMachine)
+        {
+            this.controller = controller;
+            sm = stateMachine;
+        }
+        public virtual void Prepare()
+        {
 
-    }
+        }
 
-    public virtual void Do()
-    {
-    }
+        public virtual void Do()
+        {
+        }
 
-    public virtual void FixedDo()
-    {
-    }
+        public virtual void FixedDo()
+        {
+        }
 
-    public virtual void Exit()
-    {
-    }
+        public virtual void Exit()
+        {
+        }
 
-    public virtual void Enter()
-    {
-    }
+        public virtual void Enter()
+        {
+        }
 
-    protected void ChangeState(K state)
-    {
-        sm.ChangeState(state);
+        protected void ChangeState(K state)
+        {
+            sm.ChangeState(state);
+        }
     }
 }

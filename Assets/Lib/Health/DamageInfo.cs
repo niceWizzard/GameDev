@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public struct DamageInfo
+namespace Lib.Health
 {
-    public DamageInfo(float damage, GameObject source)
+    public struct DamageInfo
     {
-        this.damage = damage;
-        damageSource = source;
-    } 
-    public readonly float damage;
-    public readonly GameObject damageSource;
+        public DamageInfo(float damage, GameObject source)
+        {
+            this.damage = damage;
+            damageSource = source;
+        } 
+        public readonly float damage;
+        public readonly GameObject damageSource;
+    }
 }

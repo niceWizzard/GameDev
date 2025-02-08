@@ -1,90 +1,91 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
-using Unity.Mathematics;
+using Lib.StateMachine;
 using UnityEngine;
 
-
-enum DashStates
+namespace Player.States
 {
-    Invulnerable,
-    Recovery,
-}
+    internal enum DashStates
+    {
+        Invulnerable,
+        Recovery,
+    }
 
-public class Dash : State<PlayerController, PlayerState>
-{
-    [SerializeField]
-    private Color dashColor;
-    private Vector2 direction = Vector2.zero;
-    private float traveledDistance = 0;
+    public class Dash : State<PlayerController, PlayerState>
+    {
+        [SerializeField]
+        private Color dashColor;
+        private Vector2 direction = Vector2.zero;
+        private float traveledDistance = 0;
     
-    private DashStates _state = DashStates.Invulnerable;
+        private DashStates _state = DashStates.Invulnerable;
 
-    private float _recoveryTimer = 0;
+        private float _recoveryTimer = 0;
     
-    public override void Enter()
-    {
-        base.Enter();
-        if (!controller)
+        public override void Enter()
         {
-            Debug.LogError("Controller is not set!");
-            return;
+            base.Enter();
+            if (!controller)
+            {
+                Debug.LogError("Controller is not set!");
+                return;
+            }
+            var dir = controller.GetMovementInput();
+            if (dir.magnitude < 0.1f)
+                dir = new Vector2(-controller.FacingDirection, 0);
+            direction = dir.normalized;
+            controller!.SpriteRenderer.color = dashColor;
+            ChangeInternalState(DashStates.Invulnerable);
         }
-        var dir = controller.GetMovementInput();
-        if (dir.magnitude < 0.1f)
-            dir = new Vector2(-controller.FacingDirection, 0);
-        direction = dir.normalized;
-        controller!.SpriteRenderer.color = dashColor;
-        ChangeInternalState(DashStates.Invulnerable);
-    }
 
-    public override void Exit()
-    {
-        base.Exit();
-        controller!.SpriteRenderer.color = Color.white;
-        _recoveryTimer = 0;
-    }
-
-    private void ChangeInternalState(DashStates newState)
-    {
-        switch (_state)
+        public override void Exit()
         {
-            case DashStates.Invulnerable:
-                controller.CircleCollider2D.enabled = true;
-                controller.SpriteRenderer.color = Color.white;
-                break;
-            case DashStates.Recovery:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            base.Exit();
+            controller!.SpriteRenderer.color = Color.white;
+            _recoveryTimer = 0;
         }
-        _state = newState;
-    }
 
-    public override void FixedDo()
-    {
-        base.FixedDo();
-        if (!controller) 
-            return ;
-        switch (_state)
+        private void ChangeInternalState(DashStates newState)
         {
-            case DashStates.Invulnerable:
-                const float f = 10f;
-                controller.rigidbody2d.linearVelocity = direction * f;
-                traveledDistance += f * Time.fixedDeltaTime;
-                if (traveledDistance < controller.dashDistance)
-                    return ;
-                traveledDistance = 0;
-                ChangeInternalState(DashStates.Recovery);
-                break;
-            case DashStates.Recovery:
-                _recoveryTimer += Time.fixedDeltaTime;
-                controller.rigidbody2d.linearVelocity *= 0;
-                if (_recoveryTimer < 0.1f)
-                    return;
-                ChangeState(PlayerState.Normal);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            switch (_state)
+            {
+                case DashStates.Invulnerable:
+                    controller.CircleCollider2D.enabled = true;
+                    controller.SpriteRenderer.color = Color.white;
+                    break;
+                case DashStates.Recovery:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            _state = newState;
+        }
+
+        public override void FixedDo()
+        {
+            base.FixedDo();
+            if (!controller) 
+                return ;
+            switch (_state)
+            {
+                case DashStates.Invulnerable:
+                    const float f = 10f;
+                    controller.rigidbody2d.linearVelocity = direction * f;
+                    traveledDistance += f * Time.fixedDeltaTime;
+                    if (traveledDistance < controller.dashDistance)
+                        return ;
+                    traveledDistance = 0;
+                    ChangeInternalState(DashStates.Recovery);
+                    break;
+                case DashStates.Recovery:
+                    _recoveryTimer += Time.fixedDeltaTime;
+                    controller.rigidbody2d.linearVelocity *= 0;
+                    if (_recoveryTimer < 0.1f)
+                        return;
+                    ChangeState(PlayerState.Normal);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

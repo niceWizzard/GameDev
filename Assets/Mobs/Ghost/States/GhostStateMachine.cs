@@ -1,25 +1,29 @@
+using Lib.StateMachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public enum GhostState
+namespace Mobs.Ghost.States
 {
-    Patrolling,
-    HasTarget,
-    LostTarget,
-}
-
-
-
-public class GhostStateMachine : StateMachine<GhostController, GhostState>
-{
-    [FormerlySerializedAs("patrollingState")] [SerializeField] private PatrollingState patrollingState;
-    [SerializeField] private State<GhostController, GhostState> hasTargetState;
-    [SerializeField] private State<GhostController, GhostState> lostTargetState;
-
-    public override void InitializeStates()
+    public enum GhostState
     {
-        StatesMap.Add(GhostState.Patrolling, patrollingState);
-        // StatesMap.Add(GhostState.HasTarget, hasTargetState);
-        // StatesMap.Add(GhostState.LostTarget, lostTargetState);
+        Patrolling,
+        HasTarget,
+        LostTarget,
+    }
+
+
+
+    public class GhostStateMachine : StateMachine<GhostController, GhostState>
+    {
+        [FormerlySerializedAs("patrollingState")] [SerializeField] private PatrollingState patrollingState;
+        [SerializeField] private State<GhostController, GhostState> hasTargetState;
+        [SerializeField] private State<GhostController, GhostState> lostTargetState;
+
+        public override void InitializeStates()
+        {
+            StatesMap.Add(GhostState.Patrolling, patrollingState);
+            // StatesMap.Add(GhostState.HasTarget, hasTargetState);
+            // StatesMap.Add(GhostState.LostTarget, lostTargetState);
+        }
     }
 }

@@ -1,37 +1,40 @@
-using System;
+using Lib.Health;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Weapons.Gun;
 
-public class PlayerController : MobController, IDamageable
+namespace Player
 {
-    [Header("Stats")]
-    public float friction = 0.5f;
-    public float movementSpeed = 3f;
-    public float dashDistance = 1f;
-    [Header("Components")]
-    public Rigidbody2D rigidbody2d;
-    [SerializeField]
-    private GunController gun;
-    [SerializeField]
-    private CircleCollider2D circleCollider2D;
-    public CircleCollider2D CircleCollider2D => circleCollider2D;
-
-    [SerializeField] private Transform gunAnchor;
-    public GunController Gun => gun;
-    public Transform GunAnchor => gunAnchor;
-    public float FacingDirection { get; private set; } = 1;
-
-    public void UpdateFacingDirection(Vector2 input)
+    public class PlayerController : MobController, IDamageable
     {
-        if (math.abs(input.x) < 0.01f)
-            return;
-        FacingDirection = math.sign(input.x);
-        spriteRenderer.flipX = FacingDirection < 0;
-    }
+        [Header("Stats")]
+        public float friction = 0.5f;
+        public float movementSpeed = 3f;
+        public float dashDistance = 1f;
+        [Header("Components")]
+        public Rigidbody2D rigidbody2d;
+        [SerializeField]
+        private GunController gun;
+        [SerializeField]
+        private CircleCollider2D circleCollider2D;
+        public CircleCollider2D CircleCollider2D => circleCollider2D;
 
-    public Vector2 GetMovementInput()
-    {
-        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        [SerializeField] private Transform gunAnchor;
+        public GunController Gun => gun;
+        public Transform GunAnchor => gunAnchor;
+        public float FacingDirection { get; private set; } = 1;
+
+        public void UpdateFacingDirection(Vector2 input)
+        {
+            if (math.abs(input.x) < 0.01f)
+                return;
+            FacingDirection = math.sign(input.x);
+            spriteRenderer.flipX = FacingDirection < 0;
+        }
+
+        public Vector2 GetMovementInput()
+        {
+            return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
     }
 }

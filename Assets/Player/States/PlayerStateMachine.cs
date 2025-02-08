@@ -1,19 +1,23 @@
+using Lib.StateMachine;
 using UnityEngine;
 
-public enum PlayerState
+namespace Player.States
 {
-    Normal,
-    Dash,
-}
-
-public class PlayerStateMachine : StateMachine<PlayerController, PlayerState>
-{
-    [SerializeField] private State<PlayerController, PlayerState> normalState;
-    [SerializeField] private State<PlayerController, PlayerState> dashState;
-    
-    public override void InitializeStates()
+    public enum PlayerState
     {
-        StatesMap.Add(PlayerState.Dash, dashState);
-        StatesMap.Add(PlayerState.Normal, normalState);
+        Normal,
+        Dash,
+    }
+
+    public class PlayerStateMachine : StateMachine<PlayerController, PlayerState>
+    {
+        [SerializeField] private State<PlayerController, PlayerState> normalState;
+        [SerializeField] private State<PlayerController, PlayerState> dashState;
+    
+        public override void InitializeStates()
+        {
+            StatesMap.Add(PlayerState.Dash, dashState);
+            StatesMap.Add(PlayerState.Normal, normalState);
+        }
     }
 }

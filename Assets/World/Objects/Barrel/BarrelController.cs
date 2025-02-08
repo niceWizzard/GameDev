@@ -1,30 +1,32 @@
-using System;
-using Unity.VisualScripting;
+using Lib.Health;
 using UnityEngine;
 
-public class BarrelController : MonoBehaviour, IDamageable
+namespace World.Objects.Barrel
 {
-    public HealthComponent HealthComponent { get; private set; }
-
-    private SpriteRenderer SpriteRenderer { get; set; }
-    private ParticleSystem _particleSystem;
-    private void Awake()
+    public class BarrelController : MonoBehaviour, IDamageable
     {
-        HealthComponent = GetComponent<HealthComponent>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        _particleSystem = GetComponent<ParticleSystem>();
-        HealthComponent.OnHealthZero += OnHealthZero;
-    }
-    private void OnDestroy()
-    {
-        HealthComponent.OnHealthZero -= OnHealthZero;
-    }
+        public HealthComponent HealthComponent { get; private set; }
 
-    private void OnHealthZero()
-    {
-        SpriteRenderer.enabled = false;
-        _particleSystem.Play();
-        Destroy(gameObject, 0.5f);
-    }
+        private SpriteRenderer SpriteRenderer { get; set; }
+        private ParticleSystem _particleSystem;
+        private void Awake()
+        {
+            HealthComponent = GetComponent<HealthComponent>();
+            SpriteRenderer = GetComponent<SpriteRenderer>();
+            _particleSystem = GetComponent<ParticleSystem>();
+            HealthComponent.OnHealthZero += OnHealthZero;
+        }
+        private void OnDestroy()
+        {
+            HealthComponent.OnHealthZero -= OnHealthZero;
+        }
 
+        private void OnHealthZero()
+        {
+            SpriteRenderer.enabled = false;
+            _particleSystem.Play();
+            Destroy(gameObject, 0.5f);
+        }
+
+    }
 }
