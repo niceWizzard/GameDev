@@ -19,6 +19,7 @@ namespace Weapons
         private SpriteRenderer _spriteRenderer;
         private float _driftDirection;
         private int _accuracy = 2;
+        private float _damage;
 
         private void Awake()
         {
@@ -34,7 +35,7 @@ namespace Weapons
             traveledDistance += v.magnitude;
         }
 
-        public void Setup(Vector2 pos,Vector2 dir, GameObject sender, int accuracy)
+        public void Setup(Vector2 pos,Vector2 dir, GameObject sender, int accuracy, float damage)
         {
             var maxDriftAngle = ((11f - _accuracy) / 10f) * 10f;
             var driftAngle = Random.Range(1.5f, maxDriftAngle);
@@ -45,12 +46,13 @@ namespace Weapons
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
             _accuracy = accuracy;
+            _damage = damage;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             other.gameObject.GetComponent<IDamageable>()?.TakeDamage(
-                new DamageInfo(50, _projectileSender)
+                new DamageInfo(_damage, _projectileSender)
             );
             Destroy(gameObject,0.2f);
             if (_circleCollider2D)

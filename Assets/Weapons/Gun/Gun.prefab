@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 933347695
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -6814046994445013082, guid: d7b377608bf39544d81661a3c3384a0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,10 +103,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPerSecond: 3
-  attackRange: 7
+  ammoCapacity: 7
+  accuracy: 4
+  normalAttackDamage: 50
+  specialAttackDamage: 125
   leftNozzleTransform: {fileID: 8819877636025232071}
   rightNozzleTransform: {fileID: 4877817975505174290}
-  projectilePrefab: {fileID: 5491769752205316236, guid: a4f9711d2b2cbf14ab9ee49cc815ed41, type: 3}
+  owner: {fileID: 0}
+  normalAttackPrefab: {fileID: 5491769752205316236, guid: a4f9711d2b2cbf14ab9ee49cc815ed41, type: 3}
+  specialAttackPrefab: {fileID: 5491769752205316236, guid: 93b931e583e4fde4387557666c19bcde, type: 3}
 --- !u!1 &3879555940745677737
 GameObject:
   m_ObjectHideFlags: 0

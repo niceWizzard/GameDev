@@ -22,7 +22,10 @@ namespace Player.States
         
             if (Input.GetMouseButtonDown(0))
             {
-                controller.Gun.Shoot();
+                controller.Gun.NormalAttack();
+            } else if (Input.GetMouseButtonDown(1))
+            {
+                controller.Gun.SpecialAttack();
             } else if (Input.GetKeyDown(KeyCode.Space))
             {
                 ChangeState(PlayerState.Dash);
