@@ -246,7 +246,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 594475666362590995}
   friction: 0.5
   movementSpeed: 4
-  dashDistance: 1.5
+  dashDistance: 2.2
   rigidbody2d: {fileID: 5981204155692804977}
   gun: {fileID: 9144056739718323003}
   circleCollider2D: {fileID: 5185112708580247980}
@@ -368,7 +368,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6706000480422274695
 MonoBehaviour:
   m_ObjectHideFlags: 0

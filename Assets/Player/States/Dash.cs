@@ -1,6 +1,14 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
 using Unity.Mathematics;
 using UnityEngine;
 
+
+enum DashStates
+{
+    Invulnerable,
+    Recovery,
+}
 
 public class Dash : State<PlayerController, PlayerState>
 {
@@ -8,6 +16,10 @@ public class Dash : State<PlayerController, PlayerState>
     private Color dashColor;
     private Vector2 direction = Vector2.zero;
     private float traveledDistance = 0;
+    
+    private DashStates _state = DashStates.Invulnerable;
+
+    private float _recoveryTimer = 0;
     
     public override void Enter()
     {
@@ -22,25 +34,57 @@ public class Dash : State<PlayerController, PlayerState>
             dir = new Vector2(-controller.FacingDirection, 0);
         direction = dir.normalized;
         controller!.SpriteRenderer.color = dashColor;
+        ChangeInternalState(DashStates.Invulnerable);
     }
 
     public override void Exit()
     {
         base.Exit();
         controller!.SpriteRenderer.color = Color.white;
+        _recoveryTimer = 0;
+    }
+
+    private void ChangeInternalState(DashStates newState)
+    {
+        switch (_state)
+        {
+            case DashStates.Invulnerable:
+                controller.CircleCollider2D.enabled = true;
+                controller.SpriteRenderer.color = Color.white;
+                break;
+            case DashStates.Recovery:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        _state = newState;
     }
 
     public override void FixedDo()
     {
         base.FixedDo();
-        if (!controller) return ;
-
-        const float f = 10f;
-        controller.rigidbody2d.linearVelocity = direction * f;
-        traveledDistance += f * Time.fixedDeltaTime;
-        if (traveledDistance < controller.dashDistance)
+        if (!controller) 
             return ;
-        traveledDistance = 0;
-        ChangeState(PlayerState.Normal);
+        switch (_state)
+        {
+            case DashStates.Invulnerable:
+                const float f = 10f;
+                controller.rigidbody2d.linearVelocity = direction * f;
+                traveledDistance += f * Time.fixedDeltaTime;
+                if (traveledDistance < controller.dashDistance)
+                    return ;
+                traveledDistance = 0;
+                ChangeInternalState(DashStates.Recovery);
+                break;
+            case DashStates.Recovery:
+                _recoveryTimer += Time.fixedDeltaTime;
+                controller.rigidbody2d.linearVelocity *= 0;
+                if (_recoveryTimer < 0.1f)
+                    return;
+                ChangeState(PlayerState.Normal);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }
