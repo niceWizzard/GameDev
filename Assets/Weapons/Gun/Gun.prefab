@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPerSecond: 3
-  ammoCapacity: 7
+  ammoCapacity: 10
   accuracy: 4
   normalAttackDamage: 50
   specialAttackDamage: 125
