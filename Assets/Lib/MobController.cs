@@ -15,7 +15,7 @@ public abstract class MobController : MonoBehaviour
     public SpriteRenderer SpriteRenderer => spriteRenderer;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         hurtbox.OnHurt += OnHurtboxHurt;
         healthComponent.OnHealthZero += OnHealthZero;
