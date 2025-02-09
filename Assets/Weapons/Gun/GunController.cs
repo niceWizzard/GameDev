@@ -25,7 +25,8 @@ namespace Weapons.Gun
         private Camera _camera;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
-        public event Action OnReload;
+        public event Action OnReloadStart;
+        public event Action OnReloadEnd;
 
         public GameObject Owner => owner;
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
@@ -73,8 +74,9 @@ namespace Weapons.Gun
         {
             _isReloading = true;
             _ammoCount = 0;
-            OnReload?.Invoke();
+            OnReloadStart?.Invoke();
             yield return new WaitForSeconds(2.5f);
+            OnReloadEnd?.Invoke();
             _isReloading = false;
             _ammoCount = ammoCapacity;
             _canShoot = true;
