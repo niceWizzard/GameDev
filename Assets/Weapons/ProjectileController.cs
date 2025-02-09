@@ -37,16 +37,17 @@ namespace Weapons
 
         public void Setup(Vector2 pos,Vector2 dir, GameObject sender, int accuracy, float damage)
         {
-            var maxDriftAngle = ((11f - _accuracy) / 10f) * 10f;
-            var driftAngle = Random.Range(1.5f, maxDriftAngle);
+            _accuracy = accuracy;
+            _damage = damage;
+            
+            var maxDriftAngle = ((11f - accuracy) / 10f) * 12f;
+            var driftAngle = Random.Range(0.5f, maxDriftAngle);
             var driftDir = Random.Range(0, 2) * 2 - 1;
             _direction = Quaternion.Euler(0,0, driftAngle * driftDir) * dir.normalized;
             _projectileSender = sender;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
-            _accuracy = accuracy;
-            _damage = damage;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
