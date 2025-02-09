@@ -27,11 +27,27 @@ namespace Weapons.Gun
 
         public event Action OnReloadStart;
         public event Action OnReloadEnd;
+        public event Action<int> OnAmmoUsed;
+        
+        
 
         public GameObject Owner => owner;
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
 
-        private int _ammoCount;
+        private int _currentAmmo;
+        public int AmmoCapacity => ammoCapacity;
+
+        public int CurrentAmmo
+        {
+            get => _currentAmmo;
+            private set
+            {
+                _currentAmmo = value;
+                OnAmmoUsed?.Invoke(value);
+            }
+        }
+        
+
         private bool _canShoot = true;
         private bool _isReloading = false;
         private float AttackCd => 1f / attackPerSecond;
@@ -39,7 +55,7 @@ namespace Weapons.Gun
         {
             _camera = Camera.main;
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _ammoCount = ammoCapacity;
+            CurrentAmmo = ammoCapacity;
         }
 
         public void FlipSprite(bool isFlipped)
@@ -56,12 +72,13 @@ namespace Weapons.Gun
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,accuracy, normalAttackDamage);
-            StartCoroutine(--_ammoCount <= 0 ? StartReloadTimer() : StartAttackCdTimer());
+            StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
+            
         }
 
         public void SpecialAttack()
         {
-            if (!_camera || !_canShoot || _isReloading || _ammoCount < 3)
+            if (!_camera || !_canShoot || _isReloading || CurrentAmmo < 3)
                 return;
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -73,12 +90,12 @@ namespace Weapons.Gun
         private IEnumerator StartReloadTimer()
         {
             _isReloading = true;
-            _ammoCount = 0;
+            CurrentAmmo = 0;
             OnReloadStart?.Invoke();
             yield return new WaitForSeconds(2.5f);
             OnReloadEnd?.Invoke();
             _isReloading = false;
-            _ammoCount = ammoCapacity;
+            CurrentAmmo = ammoCapacity;
             _canShoot = true;
         }
 
