@@ -1,6 +1,9 @@
+using DG.Tweening;
 using Lib.Health;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 using Weapons.Gun;
 
 namespace Player
@@ -17,12 +20,31 @@ namespace Player
         private GunController gun;
         [SerializeField]
         private CircleCollider2D circleCollider2D;
+
+        [SerializeField] private TMP_Text reloadingText;
         public CircleCollider2D CircleCollider2D => circleCollider2D;
 
         [SerializeField] private Transform gunAnchor;
         public GunController Gun => gun;
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;
+
+        private void Start()
+        {
+            gun.OnReloadStart += GunOnReloadStart;
+            gun.OnReloadEnd += GunOnReloadEnd;
+            reloadingText.color = new Vector4(0,0,0,0);
+        }
+
+        private void GunOnReloadEnd()
+        {
+            reloadingText.DOColor(new Vector4(0,0,0,0), 0.2f);
+        }
+
+        private void GunOnReloadStart()
+        {
+            reloadingText.DOColor(Color.white, 0.3f);
+        }
 
         public void UpdateFacingDirection(Vector2 input)
         {
