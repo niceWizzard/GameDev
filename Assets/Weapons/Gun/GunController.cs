@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -23,6 +24,8 @@ namespace Weapons.Gun
         private SpriteRenderer _spriteRenderer;
         private Camera _camera;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
+
+        public event Action OnReload;
 
         public GameObject Owner => owner;
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
@@ -60,7 +63,6 @@ namespace Weapons.Gun
             if (!_camera || !_canShoot || _isReloading || _ammoCount < 3)
                 return;
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
-            _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,accuracy, specialAttackDamage);
@@ -69,6 +71,9 @@ namespace Weapons.Gun
 
         private IEnumerator StartReloadTimer()
         {
+            _isReloading = true;
+            _ammoCount = 0;
+            OnReload?.Invoke();
             yield return new WaitForSeconds(2.5f);
             _isReloading = false;
             _ammoCount = ammoCapacity;
