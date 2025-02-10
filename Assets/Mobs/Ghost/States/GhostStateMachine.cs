@@ -16,13 +16,13 @@ namespace Mobs.Ghost.States
     public class GhostStateMachine : StateMachine<GhostController, GhostState>
     {
         [FormerlySerializedAs("patrollingState")] [SerializeField] private PatrollingState patrollingState;
-        [SerializeField] private State<GhostController, GhostState> hasTargetState;
+        [SerializeField] private HasTargetState hasTargetState;
         [SerializeField] private State<GhostController, GhostState> lostTargetState;
 
         public override void InitializeStates()
         {
             StatesMap.Add(GhostState.Patrolling, patrollingState);
-            // StatesMap.Add(GhostState.HasTarget, hasTargetState);
+            StatesMap.Add(GhostState.HasTarget, hasTargetState);
             // StatesMap.Add(GhostState.LostTarget, lostTargetState);
         }
     }

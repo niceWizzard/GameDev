@@ -290,6 +290,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 4472328565976319353}
   collider2d: {fileID: 6992973875973127930}
   mobDetector: {fileID: 567971441213821253}
+  ghostStateMachine: {fileID: 9015750192031577712}
   detectedPlayer: {fileID: 0}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
@@ -365,6 +366,7 @@ GameObject:
   - component: {fileID: 266869926846399438}
   - component: {fileID: 9015750192031577712}
   - component: {fileID: 6411103942598465307}
+  - component: {fileID: 3900475148739427558}
   m_Layer: 0
   m_Name: StateMachine
   m_TagString: Untagged
@@ -402,7 +404,7 @@ MonoBehaviour:
   currentState: {fileID: 6411103942598465307}
   controller: {fileID: 8904548540393660312}
   patrollingState: {fileID: 6411103942598465307}
-  hasTargetState: {fileID: 0}
+  hasTargetState: {fileID: 3900475148739427558}
   lostTargetState: {fileID: 0}
 --- !u!114 &6411103942598465307
 MonoBehaviour:
@@ -419,3 +421,15 @@ MonoBehaviour:
   dangerMask:
     serializedVersion: 2
     m_Bits: 448
+--- !u!114 &3900475148739427558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693133638600926778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35d9588618393840a3ae73496756b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
