@@ -33,7 +33,6 @@ namespace Player.States
             if (dir.magnitude < 0.1f)
                 dir = new Vector2(-controller.FacingDirection, 0);
             direction = dir.normalized;
-            controller!.SpriteRenderer.color = dashColor;
             ChangeInternalState(DashStates.Invulnerable);
         }
 
@@ -41,23 +40,25 @@ namespace Player.States
         {
             base.Exit();
             controller!.SpriteRenderer.color = Color.white;
-            _recoveryTimer = 0;
         }
 
         private void ChangeInternalState(DashStates newState)
         {
+            _state = newState;
             switch (_state)
             {
                 case DashStates.Invulnerable:
-                    controller.CircleCollider2D.enabled = true;
-                    controller.SpriteRenderer.color = Color.white;
+                    controller!.SpriteRenderer.color = dashColor;
+                    controller!.Hurtbox.Disable();
                     break;
                 case DashStates.Recovery:
+                    controller!.Hurtbox.Enable();
+                    controller.SpriteRenderer.color = Color.white;
+                    _recoveryTimer = 0;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _state = newState;
         }
 
         public override void FixedDo()
