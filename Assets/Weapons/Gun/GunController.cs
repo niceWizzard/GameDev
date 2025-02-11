@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Weapons.Bullet;
 
 namespace Weapons.Gun
 {
@@ -18,9 +19,9 @@ namespace Weapons.Gun
         [SerializeField] private Transform rightNozzleTransform;
         [SerializeField] private GameObject owner;
         [SerializeField, Space(10)]
-        private ProjectileController normalAttackPrefab;
+        private BulletController normalAttackPrefab;
         [SerializeField]
-        private ProjectileController specialAttackPrefab;
+        private BulletController specialAttackPrefab;
         private SpriteRenderer _spriteRenderer;
         private Camera _camera;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
@@ -71,7 +72,7 @@ namespace Weapons.Gun
             _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,accuracy, normalAttackDamage);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,normalAttackDamage, accuracy);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
             
         }
@@ -83,7 +84,7 @@ namespace Weapons.Gun
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,accuracy, specialAttackDamage);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,specialAttackDamage, accuracy);
             StartCoroutine(StartReloadTimer());
         }
 
