@@ -291,6 +291,8 @@ MonoBehaviour:
   collider2d: {fileID: 6992973875973127930}
   mobDetector: {fileID: 567971441213821253}
   ghostStateMachine: {fileID: 9015750192031577712}
+  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
+  movementSpeed: 2
   detectedPlayer: {fileID: 0}
 --- !u!50 &4472328565976319353
 Rigidbody2D:

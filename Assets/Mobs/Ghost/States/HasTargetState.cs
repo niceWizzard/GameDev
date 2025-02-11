@@ -1,3 +1,4 @@
+using System.Collections;
 using Lib.StateMachine;
 using UnityEngine;
 
@@ -15,16 +16,38 @@ namespace Mobs.Ghost.States
             }
         
             Vector2 toTarget = (controller.detectedPlayer.transform.position - controller.transform.position);
-
             if (toTarget.magnitude > 12)
             {
                 ChangeState(GhostState.Patrolling);
                 return;
             }
-
             controller.Rigidbody2D.linearVelocity = toTarget.normalized * controller.MovementSpeed;
 
+            if (!controller.CanAttack)
+                return;
+            
+            StartCoroutine(Shoot());
         }
+
+        private IEnumerator Shoot()
+        {
+            controller!.CanAttack = false;
+            for (var i = 0; i < 3; i++)
+            {
+                Vector2 dir = (controller.detectedPlayer.transform.position - controller.transform.position).normalized;
+                var projectile = Instantiate(controller!.ProjectilePrefab, controller.transform.position + (Vector3) dir.normalized * 3, Quaternion.identity);
+                projectile.Setup(controller.transform.position, dir, controller.gameObject, 50);
+                yield return new WaitForSeconds(0.25f);
+            }
+            yield return StartAttackCdTimer();
+        }
+
+        private IEnumerator StartAttackCdTimer()
+        {
+            yield return new WaitForSeconds(1.5f);
+            controller.CanAttack = true;
+        }
+
 
         public override void Exit()
         {

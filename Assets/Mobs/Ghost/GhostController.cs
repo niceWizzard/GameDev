@@ -4,6 +4,7 @@ using Lib.StateMachine;
 using Mobs.Ghost.States;
 using Player;
 using UnityEngine;
+using Weapons;
 
 namespace Mobs.Ghost
 {
@@ -14,6 +15,8 @@ namespace Mobs.Ghost
         [SerializeField] private Collider2D collider2d;
         [SerializeField] private MobDetector mobDetector;
         [SerializeField] private GhostStateMachine ghostStateMachine;
+
+        [SerializeField] private ProjectileController projectilePrefab;
         
         [Header("Stats")]
         [SerializeField] private float movementSpeed = 4.5f;
@@ -24,7 +27,11 @@ namespace Mobs.Ghost
         public Collider2D Collider2D => collider2d;
 
         [HideInInspector]
-        public PlayerController detectedPlayer; 
+        public PlayerController detectedPlayer;
+        
+        public ProjectileController ProjectilePrefab => projectilePrefab;
+
+        public bool CanAttack { get; set; } = true;
 
         protected  void Start()
         {
