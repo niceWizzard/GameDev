@@ -39,7 +39,7 @@ namespace Mobs.Ghost.States
                     break;
                 Vector2 dir = (controller.detectedPlayer.transform.position - controller.transform.position).normalized;
                 var projectile = Instantiate(controller!.ProjectilePrefab, controller.transform.position + (Vector3) dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(controller.transform.position, dir, controller.gameObject, 50);
+                projectile.Setup(controller.transform.position, dir, controller.gameObject, 30);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();
