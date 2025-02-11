@@ -79,13 +79,14 @@ namespace Weapons.Gun
 
         public void SpecialAttack()
         {
-            if (!_camera || !_canShoot || _isReloading || CurrentAmmo < 3)
+            if (!_camera || !_canShoot || _isReloading || CurrentAmmo < 5)
                 return;
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,specialAttackDamage, accuracy);
-            StartCoroutine(StartReloadTimer());
+            CurrentAmmo -= 5;
+            StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
 
         private IEnumerator StartReloadTimer()
