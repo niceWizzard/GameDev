@@ -31,9 +31,12 @@ namespace Mobs.Ghost.States
 
         private IEnumerator Shoot()
         {
-            controller!.CanAttack = false;
+            if (controller ) 
+                controller.CanAttack = false;
             for (var i = 0; i < 3; i++)
             {
+                if (!controller)
+                    break;
                 Vector2 dir = (controller.detectedPlayer.transform.position - controller.transform.position).normalized;
                 var projectile = Instantiate(controller!.ProjectilePrefab, controller.transform.position + (Vector3) dir.normalized * 3, Quaternion.identity);
                 projectile.Setup(controller.transform.position, dir, controller.gameObject, 50);
