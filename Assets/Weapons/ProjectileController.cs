@@ -35,6 +35,7 @@ namespace Weapons
         public void Setup(Vector2 pos,Vector2 dir, GameObject sender,  float damage)
         {
             Damage = damage;
+            Direction = dir;
             ProjectileSender = sender;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
