@@ -105,8 +105,8 @@ MonoBehaviour:
   attackPerSecond: 3
   ammoCapacity: 10
   accuracy: 4
-  normalAttackDamage: 50
-  specialAttackDamage: 125
+  normalAttackDamage: 25
+  specialAttackDamage: 45
   leftNozzleTransform: {fileID: 8819877636025232071}
   rightNozzleTransform: {fileID: 4877817975505174290}
   owner: {fileID: 0}
