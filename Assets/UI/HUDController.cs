@@ -1,4 +1,3 @@
-using System;
 using Player;
 using UnityEngine;
 
@@ -8,10 +7,12 @@ namespace UI
     {
         [SerializeField]  private PlayerController  player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
+        [SerializeField] private HealthHUDController healthHUDController = null!;
 
         private void Awake()
         {
             ammoHUDController.player = player;
+            healthHUDController.Player = player;
         }
     }
 }
