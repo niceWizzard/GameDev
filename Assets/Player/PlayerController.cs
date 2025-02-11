@@ -3,7 +3,7 @@ using Lib.Health;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Weapons.Gun;
 
 namespace Player
@@ -33,6 +33,7 @@ namespace Player
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
+            HealthComponent.OnHealthZero+= () => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             reloadingText.color = new Vector4(0,0,0,0);
         }
 
