@@ -1,5 +1,10 @@
 using System;
+using System.Collections;
 using System.Security.Cryptography;
+using Main.Player;
+using Main.UI;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +12,23 @@ namespace Main.Lib.Singleton
 {
     public class LevelLoader : Singleton<LevelLoader>
     {
-
-        public static void FirstLoad()
+        private HUDController _hudPrefab;
+        public static void Setup(
+            HUDController hudPrefab) 
         {
-            if (Instance)
-            {
-                // Loading -- supposed to be empty
-            }
+            Instance._hudPrefab = hudPrefab;
         }
 
-        
+        public void LoadLevel(SceneAsset levelAsset)
+        {
+            StartCoroutine(LoadLevelCoroutine(levelAsset));
+        }
+
+        private IEnumerator LoadLevelCoroutine(SceneAsset levelAsset)
+        {
+            yield return SceneManager.LoadSceneAsync(levelAsset.name);
+            var o = Instantiate(_hudPrefab);
+            o.SetPlayer(FindAnyObjectByType<PlayerController>());
+        }
     }
 }

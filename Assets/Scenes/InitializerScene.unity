@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstScene: {fileID: 102900000, guid: ee149d78c26242a4c8d0736f88103706, type: 3}
+  hudPrefab: {fileID: 6784209457518122253, guid: 85e4f650aa41a704fa517e4ee7404e6a, type: 3}
 --- !u!114 &837364775
 MonoBehaviour:
   m_ObjectHideFlags: 0

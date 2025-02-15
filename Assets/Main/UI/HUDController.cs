@@ -5,11 +5,17 @@ namespace Main.UI
 {
     public class HUDController : MonoBehaviour
     {
-        [SerializeField]  private PlayerController  player;
+        [SerializeField] private PlayerController  player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
 
-        private void Awake()
+        public void SetPlayer(PlayerController player)
+        {
+            if(this.player)
+                Debug.LogError("Player already exists");
+            this.player = player;
+        }
+        private void Start()
         {
             ammoHUDController.player = player;
             healthHUDController.Player = player;
