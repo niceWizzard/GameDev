@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using Main.Lib;
+using Main.Lib.Singleton;
 using TMPro;
 using UnityEngine;
 
@@ -42,6 +43,7 @@ namespace Main.World.Objects.Lamp
 
         public void Interact()
         {
+            LevelLoader.Instance.LoadLevel();
             Toggle();
         }
 
