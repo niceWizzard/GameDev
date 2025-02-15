@@ -43,7 +43,6 @@ namespace Main.World.Objects.Lamp
 
         public void Interact()
         {
-            LevelLoader.Instance.LoadLevel();
             Toggle();
         }
 

@@ -1,17 +1,21 @@
 using System;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Singleton
 {
     public class LevelLoader : Singleton<LevelLoader>
     {
 
-        public void LoadLevel()
+        public static void FirstLoad()
         {
-            Debug.Log("LOADING!");
+            if (Instance)
+            {
+                // Loading -- supposed to be empty
+            }
         }
-        
+
         
     }
 }
