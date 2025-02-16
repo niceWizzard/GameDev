@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Singleton
 {
-    public class LevelLoader : Singleton<LevelLoader>
+    public class LevelLoader : PrefabSingleton<LevelLoader>
     {
         public static event Action OnLevelChange;
 

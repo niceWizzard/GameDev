@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Essentials
   m_GUID: 29c1e671dd0d2b545a8c0064bef8e2f6
   m_SerializeEntries:
+  - m_GUID: 06e675e89ac70ee46862e73499718fee
+    m_Address: LevelLoader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6caa8a7a703347742b8ffa5dd7a6d0cb
     m_Address: MainCamera
     m_ReadOnly: 0

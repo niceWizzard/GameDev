@@ -18,7 +18,7 @@ namespace Main
             Initialize();
             MainCamera.InitializePrefab("MainCamera");
             HUDController.InitializePrefab("HUD");
-            LevelLoader.Initialize();
+            LevelLoader.InitializePrefab("LevelLoader");
         }
 
     }
