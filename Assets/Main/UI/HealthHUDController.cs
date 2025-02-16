@@ -7,13 +7,16 @@ namespace Main.UI
     public class HealthHUDController : MonoBehaviour
     {
         [SerializeField] private Slider healthBar;
-        public PlayerController Player { get; set; }
+        private PlayerController _player;
 
-        private void Start()
+        public void Setup(PlayerController p)
         {
-            healthBar.maxValue = Player.HealthComponent.Health;
-            healthBar.value = Player.HealthComponent.Health;
-            Player.HealthComponent.OnHealthChange += health => healthBar.value = health; 
+            if (!p)
+                return;
+            _player = p;
+            healthBar.maxValue = _player.HealthComponent.Health;
+            healthBar.value = _player.HealthComponent.Health;
+            _player.HealthComponent.OnHealthChange += health => healthBar.value = health; 
         }
     }
 }

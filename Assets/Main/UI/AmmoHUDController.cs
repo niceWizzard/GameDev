@@ -10,15 +10,15 @@ namespace Main.UI
         [SerializeField] private TMP_Text currentAmmoText = null!;
         [SerializeField] private TMP_Text maxAmmoText = null!;
 
-        [HideInInspector]
-        public PlayerController? player;
-        private void Start()
+        private PlayerController? _player;
+        public void Setup(PlayerController p)
         {
-            if (!player)
+            if (!p)
                 return;
-            player.Gun.OnAmmoUsed += OnAmmoUsed;
-            SetMaxAmmo(player.Gun.AmmoCapacity);
-            SetAmmoText(player.Gun.CurrentAmmo);
+            _player = p;
+            _player.Gun.OnAmmoUsed += OnAmmoUsed;
+            SetMaxAmmo(_player.Gun.AmmoCapacity);
+            SetAmmoText(_player.Gun.CurrentAmmo);
         }
         
         private void SetAmmoText(int ammo)

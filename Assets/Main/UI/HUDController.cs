@@ -1,6 +1,7 @@
 using Main.Lib.Singleton;
 using Main.Player;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Main.UI
 {
@@ -14,11 +15,8 @@ namespace Main.UI
             if(this.player)
                 Debug.LogError("Player already exists");
             this.player = player;
-        }
-        private void Start()
-        {
-            ammoHUDController.player = player;
-            healthHUDController.Player = player;
+            ammoHUDController.Setup(player);
+            healthHUDController.Setup(player);
         }
 
     }
