@@ -1,12 +1,11 @@
-using System;
 using Main.Lib.Singleton;
 using Main.Player;
 using UnityEditor;
 using UnityEngine;
 
-namespace Main.Lib
+namespace Main.Lib.Level
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(BoxCollider2D))]
     public class LevelSwitcher : MonoBehaviour
     {
         [SerializeField] private SceneAsset levelToLoad;
