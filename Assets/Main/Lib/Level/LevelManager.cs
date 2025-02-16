@@ -1,6 +1,7 @@
 using System;
 using Main.Lib.Singleton;
 using Main.Player;
+using Main.UI;
 using UnityEngine;
 
 namespace Main.Lib.Level
@@ -9,11 +10,12 @@ namespace Main.Lib.Level
     {
         private void Awake()
         {
-            GameManager.Load();
-            MainCamera.Instance.Follow(FindAnyObjectByType<PlayerController>());
+            GameManager.LoadEssentials();
             var player = FindAnyObjectByType<PlayerController>();
             player.transform.position = transform.position;
             MainCamera.Instance.MoveTo(transform.position);
+            MainCamera.Instance.Follow(player);
+            HUDController.Instance.SetPlayer(player);
         }
 
 

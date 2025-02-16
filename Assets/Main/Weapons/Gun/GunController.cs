@@ -52,7 +52,7 @@ namespace Main.Weapons.Gun
         private bool _canShoot = true;
         private bool _isReloading = false;
         private float AttackCd => 1f / attackPerSecond;
-        private void Start()
+        private void Awake()
         {
             _camera = MainCamera.Instance.Camera;
             _spriteRenderer = GetComponent<SpriteRenderer>();

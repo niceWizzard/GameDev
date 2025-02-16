@@ -20,8 +20,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a5b16cb819abd1a4d8b0dc84995f734d
-    m_Address: GameEssentials
+  - m_GUID: 85e4f650aa41a704fa517e4ee7404e6a
+    m_Address: HUD
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

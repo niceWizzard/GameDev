@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Main.Lib.Singleton
 {
-    public class MainCamera : Singleton<MainCamera>
+    public class MainCamera : PrefabSingleton<MainCamera>
     {
         [SerializeField] private CinemachineCamera cmCamera;
         [SerializeField] private Camera mainCamera;
@@ -15,14 +15,6 @@ namespace Main.Lib.Singleton
         public void Follow(PlayerController playerController)
         {
             cmCamera.Target.TrackingTarget = playerController.transform;            
-        }
-
-        public static void TryInitializePrefab()
-        {
-            if (IsInitialized)
-                return;
-            var a = Addressables.LoadAssetsAsync<GameObject>("MainCamera").WaitForCompletion().First();
-            Instantiate(a);
         }
 
         public void MoveTo(Vector2 newPos)

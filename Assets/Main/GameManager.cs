@@ -10,25 +10,16 @@ namespace Main
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private  HUDController hudPrefab;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            LevelLoader.Setup(hudPrefab);
-        }
-
-        public static void Load()
+        public static void LoadEssentials()
         {
             if (IsInitialized)
                 return;
-            var a = Addressables.LoadSceneAsync("GameEssentials", LoadSceneMode.Additive).WaitForCompletion();
-            SetupEssentials();
+            Initialize();
+            MainCamera.InitializePrefab("MainCamera");
+            HUDController.InitializePrefab("HUD");
+            LevelLoader.Initialize();
         }
 
-        private static void SetupEssentials()
-        {
-            MainCamera.TryInitializePrefab();
-        }
     }
 }

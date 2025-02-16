@@ -1,14 +1,14 @@
+using Main.Lib.Singleton;
 using Main.Player;
 using UnityEngine;
 
 namespace Main.UI
 {
-    public class HUDController : MonoBehaviour
+    public class HUDController : PrefabSingleton<HUDController>
     {
         [SerializeField] private PlayerController  player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
-
         public void SetPlayer(PlayerController player)
         {
             if(this.player)
@@ -20,5 +20,6 @@ namespace Main.UI
             ammoHUDController.player = player;
             healthHUDController.Player = player;
         }
+
     }
 }

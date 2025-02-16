@@ -13,6 +13,7 @@ namespace Main.Lib.Singleton
     public class LevelLoader : Singleton<LevelLoader>
     {
         private HUDController _hudPrefab;
+        public static event Action OnLevelChange;
         public static void Setup(
             HUDController hudPrefab) 
         {
@@ -24,13 +25,10 @@ namespace Main.Lib.Singleton
             StartCoroutine(LoadLevelCoroutine(levelAsset));
         }
 
-        private IEnumerator LoadLevelCoroutine(SceneAsset levelAsset)
+        private static IEnumerator LoadLevelCoroutine(SceneAsset levelAsset)
         {
             yield return SceneManager.LoadSceneAsync(levelAsset.name);
-            var o = Instantiate(_hudPrefab);
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            o.SetPlayer(player);
-            MainCamera.Instance.Follow(player);
+            OnLevelChange?.Invoke();
         }
     }
 }
