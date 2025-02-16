@@ -28,7 +28,9 @@ namespace Main.Lib.Singleton
         {
             yield return SceneManager.LoadSceneAsync(levelAsset.name);
             var o = Instantiate(_hudPrefab);
-            o.SetPlayer(FindAnyObjectByType<PlayerController>());
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            o.SetPlayer(player);
+            MainCamera.Instance.Follow(player);
         }
     }
 }

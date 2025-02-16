@@ -11,11 +11,13 @@ namespace Main
     {
         [SerializeField] private SceneAsset firstScene;
         [SerializeField] private  HUDController hudPrefab;
+        [SerializeField] private MainCamera mainCameraPrefab;
 
         private void Awake()
         {
             LevelLoader.Setup(hudPrefab);
             LevelLoader.Instance.LoadLevel(firstScene);
+            Instantiate(mainCameraPrefab);
         }
     }
 }
