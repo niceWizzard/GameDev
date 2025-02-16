@@ -3,6 +3,7 @@ using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Level
 {
@@ -17,7 +18,6 @@ namespace Main.Lib.Level
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);
         }
-
 
     }
 }
