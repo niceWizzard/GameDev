@@ -19,13 +19,20 @@ namespace Main.Lib.Singleton
                 // if it's null again create a new object
                 // and attach the generic instance
                 if (_instance) return _instance;
-                var obj = new GameObject
-                {
-                    name = typeof(T).Name
-                };
-                _instance = obj.AddComponent<T>();
+                Initialize();
                 return _instance;
             }
+        }
+
+        public static void Initialize()
+        {
+            if (_instance)
+                return;
+            var obj = new GameObject
+            {
+                name = typeof(T).Name
+            };
+            _instance = obj.AddComponent<T>();
         }
 
         protected virtual void Awake()
