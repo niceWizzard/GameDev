@@ -9,8 +9,13 @@ namespace Main.Lib.Level
     {
         private void Awake()
         {
-            MainCamera.TryInitializePrefab();
+            GameManager.Load();
             MainCamera.Instance.Follow(FindAnyObjectByType<PlayerController>());
+            var player = FindAnyObjectByType<PlayerController>();
+            player.transform.position = transform.position;
+            MainCamera.Instance.MoveTo(transform.position);
         }
+
+
     }
 }

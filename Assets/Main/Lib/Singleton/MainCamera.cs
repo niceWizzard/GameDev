@@ -9,6 +9,9 @@ namespace Main.Lib.Singleton
     public class MainCamera : Singleton<MainCamera>
     {
         [SerializeField] private CinemachineCamera cmCamera;
+        [SerializeField] private Camera mainCamera;
+
+        public Camera Camera => mainCamera;
         public void Follow(PlayerController playerController)
         {
             cmCamera.Target.TrackingTarget = playerController.transform;            
@@ -20,6 +23,11 @@ namespace Main.Lib.Singleton
                 return;
             var a = Addressables.LoadAssetsAsync<GameObject>("MainCamera").WaitForCompletion().First();
             Instantiate(a);
+        }
+
+        public void MoveTo(Vector2 newPos)
+        {
+            cmCamera.ForceCameraPosition(newPos, Quaternion.identity);
         }
     }
 }

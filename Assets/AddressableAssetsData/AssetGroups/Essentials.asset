@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5b16cb819abd1a4d8b0dc84995f734d
+    m_Address: GameEssentials
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 137ddf851873b1c4194fc2bc4d5190f8, type: 2}
   m_SchemaSet:

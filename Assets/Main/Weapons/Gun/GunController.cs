@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Main.Lib.Singleton;
 using Main.Weapons.Bullet;
 using UnityEngine;
 
@@ -51,9 +52,9 @@ namespace Main.Weapons.Gun
         private bool _canShoot = true;
         private bool _isReloading = false;
         private float AttackCd => 1f / attackPerSecond;
-        private void Awake()
+        private void Start()
         {
-            _camera = Camera.main;
+            _camera = MainCamera.Instance.Camera;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             CurrentAmmo = ammoCapacity;
         }

@@ -30,6 +30,7 @@ namespace Main.Player
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;
 
+
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
