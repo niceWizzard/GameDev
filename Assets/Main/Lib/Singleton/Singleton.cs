@@ -6,6 +6,8 @@ namespace Main.Lib.Singleton
     {
         // create a private reference to T instance
         private static T _instance;
+        
+        public static bool IsInitialized => _instance;
 
         public static T Instance
         {

@@ -1,6 +1,8 @@
+using System.Linq;
 using Main.Player;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Main.Lib.Singleton
 {
@@ -10,6 +12,14 @@ namespace Main.Lib.Singleton
         public void Follow(PlayerController playerController)
         {
             cmCamera.Target.TrackingTarget = playerController.transform;            
+        }
+
+        public static void TryInitializePrefab()
+        {
+            if (IsInitialized)
+                return;
+            var a = Addressables.LoadAssetsAsync<GameObject>("MainCamera").WaitForCompletion().First();
+            Instantiate(a);
         }
     }
 }
