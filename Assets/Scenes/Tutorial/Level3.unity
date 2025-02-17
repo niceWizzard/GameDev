@@ -51680,9 +51680,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e2f017fa64e3f498ef6044f50d773f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorIdentifier: {fileID: 11400000, guid: 0ed8528d3c9921242aaf6627e1d94105, type: 2}
-  targetDoorIdentifier: {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}
-  levelName: Level1
+  doorIdentifier:
+    m_AssetGUID: 0ed8528d3c9921242aaf6627e1d94105
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  targetDoorIdentifier:
+    m_AssetGUID: 35813f586099f8a4988647670bf86a09
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  safePosition: {x: -15.57, y: 0}
 --- !u!61 &922530563
 BoxCollider2D:
   m_ObjectHideFlags: 0

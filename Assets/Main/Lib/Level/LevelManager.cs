@@ -1,9 +1,8 @@
-using System;
+using System.Collections;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Level
 {
@@ -13,11 +12,20 @@ namespace Main.Lib.Level
         {
             GameManager.LoadEssentials();
             var player = FindAnyObjectByType<PlayerController>();
-            player.transform.position = transform.position;
-            MainCamera.Instance.MoveTo(transform.position);
+            
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);
+            StartCoroutine(SetPlayerPosition(player));
         }
 
+        private IEnumerator SetPlayerPosition(PlayerController player)
+        {
+            yield return new WaitForEndOfFrame();
+            var doorLoaded = LevelLoader.Instance.GetDoorToLoad();
+            if (!doorLoaded) yield break;
+            var levelSwitcher = LevelSwitcher.FindLevelSwitch(doorLoaded);
+            player.transform.position = levelSwitcher.SafePosition;
+            MainCamera.Instance.MoveTo(levelSwitcher.SafePosition);
+        }
     }
 }

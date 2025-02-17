@@ -1,9 +1,10 @@
+#nullable enable
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Main.Lib.Level;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -16,13 +17,22 @@ namespace Main.Lib.Singleton
     public struct LevelDoorMapping
     {
         public string levelName;
-        public DoorIdentifier[] doors;
+        public UniqueIdentifier[] doors;
     }
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
-        [SerializeField] private Image blackScreen;
-        [FormerlySerializedAs("_levelDoorMap")] [SerializeField] private LevelDoorMapping[] levelDoorMap;
-        public static event Action<DoorIdentifier> OnLevelChange;
+        [SerializeField] private Image blackScreen = null!;
+        [SerializeField] private LevelDoorMapping[] levelDoorMap = null!;
+        public static event Action<UniqueIdentifier>? OnLevelChange;
+        
+        private UniqueIdentifier? DoorToLoadFrom { get; set; }
+
+        public UniqueIdentifier? GetDoorToLoad()
+        {
+            var a = DoorToLoadFrom;
+            DoorToLoadFrom = null;
+            return a;
+        }
 
         protected override void Awake()
         {
@@ -30,27 +40,30 @@ namespace Main.Lib.Singleton
             var color = blackScreen.color;
             color.a = 0;
             blackScreen.color = color;
+            
         }
 
-        public void GoToLevel(DoorIdentifier door)
+        public void GoToLevel(UniqueIdentifier unique)
         {
             blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic);
-            OnLevelChange?.Invoke(door);
-            StartCoroutine(LoadLevelCoroutine(GetSceneNameFromDoor(door)));
+            OnLevelChange?.Invoke(unique);
+            DoorToLoadFrom = unique;
+            StartCoroutine(LoadLevelCoroutine(GetSceneNameFromDoor(unique)));
         }
 
-        private string GetSceneNameFromDoor(DoorIdentifier door)
+        private string GetSceneNameFromDoor(UniqueIdentifier unique)
         {
-            var sceneName = levelDoorMap.ToList().Find(x => x.doors.Contains(door)).levelName;
-            if(sceneName == null) 
-                Debug.LogError($"Scene not found: {door.debugIdentifier}");
-            return sceneName;
+            var sceneMapping = levelDoorMap
+                .FirstOrDefault(x => x.doors.Any(d => d.GUID == unique.GUID));
+            if (sceneMapping.levelName != null) return sceneMapping.levelName;
+            Debug.LogError($"Scene not found: {unique.debugIdentifier}");
+            return string.Empty;
         }
-
+        
         private static IEnumerator LoadLevelCoroutine(string levelName)
         {
             yield return new WaitForSeconds(0.25f);
-            Addressables.LoadSceneAsync(levelName).WaitForCompletion();
+            yield return Addressables.LoadSceneAsync(levelName).Yield();
             yield return new WaitForSeconds(0.01f);
             Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic);
         }

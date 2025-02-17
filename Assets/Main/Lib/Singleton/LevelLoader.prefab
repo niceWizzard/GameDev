@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 2547175517923456490}
-  _levelDoorMap:
+  levelDoorMap:
   - levelName: Level1
     doors:
     - {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}

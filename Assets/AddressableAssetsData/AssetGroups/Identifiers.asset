@@ -10,23 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Levels
+  m_Name: Identifiers
   m_EditorClassIdentifier: 
-  m_GroupName: Levels
-  m_GUID: 1d2e54129e68a65418e5630bcce5f95a
+  m_GroupName: Identifiers
+  m_GUID: ff028b1041c0649498e00c8a003fafb3
   m_SerializeEntries:
-  - m_GUID: 3fd4dfdde98f6874fad0373e1784dedf
-    m_Address: Level2
+  - m_GUID: 0ed8528d3c9921242aaf6627e1d94105
+    m_Address: Assets/Main/World/Levels/Level3.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0fa7c321f3033a4192033760f71def0
-    m_Address: Level3
+  - m_GUID: 35813f586099f8a4988647670bf86a09
+    m_Address: Assets/Main/World/Levels/Level1D2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ee149d78c26242a4c8d0736f88103706
-    m_Address: Level1
+  - m_GUID: 67db00929340f194dbae7a2befcb4562
+    m_Address: Assets/Main/World/Levels/TrapLevel.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80791e328b18804cba63612df1427ff
+    m_Address: Assets/Main/World/Levels/Level1D1.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,5 +39,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 137ddf851873b1c4194fc2bc4d5190f8, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 309c36d95d5fc994ebb688b0413ac671, type: 2}
-    - {fileID: 11400000, guid: 6ef697b03c7ffc04eb0daaf992d87cfc, type: 2}
+    - {fileID: 11400000, guid: b6e32dac9f8ec7e4d88f9bc4d7f74a38, type: 2}
+    - {fileID: 11400000, guid: 8c49effcf98085f4d94763ef8828749a, type: 2}
