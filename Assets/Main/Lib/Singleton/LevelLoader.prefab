@@ -46,6 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 2547175517923456490}
+  _levelDoorMap:
+  - levelName: Level1
+    doors:
+    - {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}
+    - {fileID: 11400000, guid: 35813f586099f8a4988647670bf86a09, type: 2}
+  - levelName: Level2
+    doors:
+    - {fileID: 11400000, guid: 67db00929340f194dbae7a2befcb4562, type: 2}
+  - levelName: Level3
+    doors:
+    - {fileID: 11400000, guid: 0ed8528d3c9921242aaf6627e1d94105, type: 2}
 --- !u!1 &3857065684290015212
 GameObject:
   m_ObjectHideFlags: 0
