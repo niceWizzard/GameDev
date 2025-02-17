@@ -7,14 +7,15 @@ namespace Main.UI
 {
     public class HUDController : PrefabSingleton<HUDController>
     {
-        [SerializeField] private PlayerController  player;
+        private PlayerController  _player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
+        
         public void SetPlayer(PlayerController player)
         {
-            if(this.player)
+            if(this._player || this._player != null)
                 Debug.LogError("Player already exists");
-            this.player = player;
+            this._player = player;
             ammoHUDController.Setup(player);
             healthHUDController.Setup(player);
         }

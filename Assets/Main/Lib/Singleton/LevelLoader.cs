@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -21,24 +23,17 @@ namespace Main.Lib.Singleton
             blackScreen.color = color;
         }
 
-        public void LoadLevel(SceneAsset levelAsset)
+        public void LoadLevel(string levelName)
         {
             blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic);
-            OnLevelChange?.Invoke(levelAsset.name);
-            StartCoroutine(LoadLevelCoroutine(levelAsset));
+            OnLevelChange?.Invoke(levelName);
+            StartCoroutine(LoadLevelCoroutine(levelName));
         }
 
-        private static IEnumerator LoadLevelCoroutine(SceneAsset levelAsset)
+        private static IEnumerator LoadLevelCoroutine(string levelName)
         {
             yield return new WaitForSeconds(0.25f);
-            var operation = SceneManager.LoadSceneAsync(levelAsset.name);
-            if(operation == null)
-                throw new NullReferenceException("Cannot load level");
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelAsset.name));
+            Addressables.LoadSceneAsync(levelName).WaitForCompletion();
             yield return new WaitForSeconds(0.01f);
             Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic);
         }

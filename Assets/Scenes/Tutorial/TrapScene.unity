@@ -51260,7 +51260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e2f017fa64e3f498ef6044f50d773f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: {fileID: 102900000, guid: ee149d78c26242a4c8d0736f88103706, type: 3}
+  doorIdentifier: {fileID: 11400000, guid: 67db00929340f194dbae7a2befcb4562, type: 2}
+  targetDoorIdentifier: {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}
+  levelName: Level1
 --- !u!61 &922530563
 BoxCollider2D:
   m_ObjectHideFlags: 0
