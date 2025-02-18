@@ -14,12 +14,9 @@ namespace Main.Lib.Level
         {
             return DoorToLevelSwitchers[uniqueIdentifier];
         }
-        [SerializeField] private AssetReferenceT<UniqueIdentifier> doorIdentifier = null!;
-        [SerializeField] private AssetReferenceT<UniqueIdentifier> targetDoorIdentifier = null!;
+        [SerializeField] private UniqueIdentifier doorIdentifier = null!;
+        [SerializeField] private UniqueIdentifier targetDoorIdentifier = null!;
         [SerializeField] private Vector2 safePosition;
-        
-        public UniqueIdentifier UniqueIdentifier { get; private set; }
-        public UniqueIdentifier TargetUniqueIdentifier { get; private set; }
         
         public Vector2 SafePosition => (Vector2)transform.position + safePosition;
 
@@ -31,16 +28,14 @@ namespace Main.Lib.Level
                 Debug.LogError("DoorIdentifier is null!");
             if(targetDoorIdentifier == null)
                 Debug.LogError("TargetDoorIdentifier is null!");
-            UniqueIdentifier = doorIdentifier.LoadAssetAsync().WaitForCompletion();
-            TargetUniqueIdentifier = targetDoorIdentifier.LoadAssetAsync().WaitForCompletion();
-            DoorToLevelSwitchers.Add(UniqueIdentifier, this);
+            DoorToLevelSwitchers.Add(doorIdentifier, this);
         }
 
         private void OnDestroy()
         {
             if (!Application.isPlaying)
                 return;
-            DoorToLevelSwitchers.Remove(UniqueIdentifier);
+            DoorToLevelSwitchers.Remove(doorIdentifier);
         }
 
         private void OnDrawGizmos()
@@ -58,7 +53,7 @@ namespace Main.Lib.Level
                 return;
             if (!other.TryGetComponent<PlayerController>(out var player))
                 return;
-            LevelLoader.Instance.GoToLevel(TargetUniqueIdentifier);
+            LevelLoader.Instance.GoToLevel(targetDoorIdentifier);
         }
 
         

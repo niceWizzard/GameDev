@@ -54,10 +54,11 @@ namespace Main.Weapons.Gun
         private float AttackCd => 1f / attackPerSecond;
         private void Awake()
         {
-            _camera = MainCamera.Instance.Camera;
+            _camera = MainCamera.Instance?.Camera;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             CurrentAmmo = ammoCapacity;
         }
+
 
         public void FlipSprite(bool isFlipped)
         {

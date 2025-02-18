@@ -14,27 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Identifiers
   m_GUID: ff028b1041c0649498e00c8a003fafb3
-  m_SerializeEntries:
-  - m_GUID: 0ed8528d3c9921242aaf6627e1d94105
-    m_Address: Assets/Main/World/Levels/Level3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 35813f586099f8a4988647670bf86a09
-    m_Address: Assets/Main/World/Levels/Level1D2.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 67db00929340f194dbae7a2befcb4562
-    m_Address: Assets/Main/World/Levels/TrapLevel.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d80791e328b18804cba63612df1427ff
-    m_Address: Assets/Main/World/Levels/Level1D1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 137ddf851873b1c4194fc2bc4d5190f8, type: 2}
   m_SchemaSet:

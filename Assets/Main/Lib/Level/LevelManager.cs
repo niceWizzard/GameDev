@@ -10,15 +10,13 @@ namespace Main.Lib.Level
     {
         private void Awake()
         {
-            GameManager.LoadEssentials();
             var player = FindAnyObjectByType<PlayerController>();
-            
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);
             StartCoroutine(SetPlayerPosition(player));
         }
 
-        private IEnumerator SetPlayerPosition(PlayerController player)
+        private static IEnumerator SetPlayerPosition(PlayerController player)
         {
             yield return new WaitForEndOfFrame();
             var doorLoaded = LevelLoader.Instance.GetDoorToLoad();

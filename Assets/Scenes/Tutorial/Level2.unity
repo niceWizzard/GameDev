@@ -51260,18 +51260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e2f017fa64e3f498ef6044f50d773f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorIdentifier:
-    m_AssetGUID: 67db00929340f194dbae7a2befcb4562
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  targetDoorIdentifier:
-    m_AssetGUID: d80791e328b18804cba63612df1427ff
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  doorIdentifier: {fileID: 11400000, guid: 67db00929340f194dbae7a2befcb4562, type: 2}
+  targetDoorIdentifier: {fileID: 11400000, guid: 35813f586099f8a4988647670bf86a09, type: 2}
   safePosition: {x: -10.31, y: -2.46}
 --- !u!61 &922530563
 BoxCollider2D:

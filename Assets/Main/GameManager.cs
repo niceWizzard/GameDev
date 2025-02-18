@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Main.Lib.Singleton;
 using Main.UI;
 using UnityEditor;
@@ -13,11 +15,8 @@ namespace Main
 
         public static void LoadEssentials()
         {
-            if (IsInitialized)
-                return;
-            Initialize();
-            MainCamera.InitializePrefab("MainCamera");
-            HUDController.InitializePrefab("HUD");
+            MainCamera.InitializePrefab("Camera Container");
+            HUDController.InitializePrefab("HUD Canvas");
             LevelLoader.InitializePrefab("LevelLoader");
         }
 
