@@ -26,7 +26,8 @@ namespace Main.Player.States
             } else if (Input.GetMouseButtonDown(1))
             {
                 controller.Gun.SpecialAttack();
-            } else if (Input.GetKeyDown(KeyCode.Space))
+            } 
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 ChangeState(PlayerState.Dash);
             }
