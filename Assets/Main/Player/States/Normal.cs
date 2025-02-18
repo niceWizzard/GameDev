@@ -20,7 +20,7 @@ namespace Main.Player.States
             if (!controller)
                 return ;
         
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0) )
             {
                 controller.Gun.NormalAttack();
             } else if (Input.GetMouseButtonDown(1))

@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f43a820e0eba924aa4a685bff234797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPerSecond: 3
+  attackPerSecond: 5
   ammoCapacity: 10
   accuracy: 4
-  normalAttackDamage: 25
-  specialAttackDamage: 45
+  normalAttackDamage: 10
+  specialAttackDamage: 25
   leftNozzleTransform: {fileID: 8819877636025232071}
   rightNozzleTransform: {fileID: 4877817975505174290}
   owner: {fileID: 0}
