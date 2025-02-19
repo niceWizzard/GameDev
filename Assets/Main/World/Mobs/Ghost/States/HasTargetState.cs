@@ -36,7 +36,7 @@ namespace Main.World.Mobs.Ghost.States
             for (var i = 0; i < 3; i++)
             {
                 if (!controller || !controller.detectedPlayer)
-                    break;
+                    yield break;
                 Vector2 dir = (controller.detectedPlayer.transform.position - controller.transform.position).normalized;
                 var projectile = Instantiate(controller!.ProjectilePrefab, controller.transform.position + (Vector3) dir.normalized * 3, Quaternion.identity);
                 projectile.Setup(controller.transform.position, dir, controller.gameObject, 20);
