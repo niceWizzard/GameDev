@@ -38,6 +38,16 @@ namespace Main.World.Mobs.Ghost
         {
             base.Awake();
             _uniqueId = GetComponent<UniqueId>();
+            if (GameManager.HasBeenDefeated(_uniqueId))
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        protected override void OnHealthZero()
+        {
+            base.OnHealthZero();
+            GameManager.AddDefeated(_uniqueId);
         }
 
         protected  void Start()
