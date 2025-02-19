@@ -14,6 +14,8 @@ namespace Main.Lib
         {
             if (initialized) return;
             var instance = new GameObject("ScenePreloader").AddComponent<EssentialInitializer>();
+            SaveManager.Initialize();
+            SaveManager.Instance.LoadSaveGameData();
             GameManager.Initialize();
             GameManager.LoadEssentials();
         }
