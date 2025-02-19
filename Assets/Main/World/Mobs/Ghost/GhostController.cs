@@ -1,3 +1,4 @@
+using CleverCrow.Fluid.UniqueIds;
 using Main.Lib;
 using Main.Player;
 using Main.Weapons;
@@ -26,10 +27,18 @@ namespace Main.World.Mobs.Ghost
 
         [HideInInspector]
         public PlayerController detectedPlayer;
-        
+
+        private UniqueId _uniqueId = null!;
+
         public ProjectileController ProjectilePrefab => projectilePrefab;
 
         public bool CanAttack { get; set; } = true;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _uniqueId = GetComponent<UniqueId>();
+        }
 
         protected  void Start()
         {

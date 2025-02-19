@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using CleverCrow.Fluid.UniqueIds;
 using DG.Tweening;
 using Main.Lib.Level;
 using Unity.VisualScripting;
@@ -17,17 +18,17 @@ namespace Main.Lib.Singleton
     public struct LevelDoorMapping
     {
         public string levelName;
-        public UniqueIdentifier[] doors;
+        public string[] doors;
     }
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
         [SerializeField] private Image blackScreen = null!;
         [SerializeField] private LevelDoorMapping[] levelDoorMap = null!;
-        public static event Action<UniqueIdentifier>? OnLevelChange;
+        public static event Action<string>? OnLevelChange;
         
-        private UniqueIdentifier? DoorToLoadFrom { get; set; }
+        private string? DoorToLoadFrom { get; set; }
 
-        public UniqueIdentifier? GetDoorToLoad()
+        public string? GetDoorToLoad()
         {
             var a = DoorToLoadFrom;
             DoorToLoadFrom = null;
@@ -43,7 +44,7 @@ namespace Main.Lib.Singleton
             
         }
 
-        public void GoToLevel(UniqueIdentifier unique)
+        public void GoToLevel(string unique)
         {
             blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic);
             OnLevelChange?.Invoke(unique);
@@ -51,12 +52,12 @@ namespace Main.Lib.Singleton
             StartCoroutine(LoadLevelCoroutine(GetSceneNameFromDoor(unique)));
         }
 
-        private string GetSceneNameFromDoor(UniqueIdentifier unique)
+        private string GetSceneNameFromDoor(string unique)
         {
             var sceneMapping = levelDoorMap
-                .FirstOrDefault(x => x.doors.Any(d => d.GUID == unique.GUID));
+                .FirstOrDefault(x => x.doors.Any(d => d == unique));
             if (sceneMapping.levelName != null) return sceneMapping.levelName;
-            Debug.LogError($"Scene not found: {unique.debugIdentifier}");
+            Debug.LogError($"Scene not found from door id: <{unique}>");
             return string.Empty;
         }
         

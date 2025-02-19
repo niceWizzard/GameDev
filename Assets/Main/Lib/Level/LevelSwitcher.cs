@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using CleverCrow.Fluid.UniqueIds;
 using Main.Lib.Singleton;
 using Main.Player;
 using UnityEngine;
@@ -6,16 +8,16 @@ using UnityEngine.AddressableAssets;
 
 namespace Main.Lib.Level
 {
-    [RequireComponent(typeof(BoxCollider2D)), ExecuteAlways]
+    [RequireComponent(typeof(BoxCollider2D), typeof(UniqueId)), ExecuteAlways]
     public class LevelSwitcher : MonoBehaviour
     {
-        private static readonly Dictionary<UniqueIdentifier, LevelSwitcher> DoorToLevelSwitchers = new();
-        public static LevelSwitcher FindLevelSwitch(UniqueIdentifier uniqueIdentifier)
+        private static readonly Dictionary<UniqueId, LevelSwitcher> DoorToLevelSwitchers = new();
+        public static LevelSwitcher FindLevelSwitch(string uniqueIdentifier)
         {
-            return DoorToLevelSwitchers[uniqueIdentifier];
+            return DoorToLevelSwitchers.FirstOrDefault((a) =>a.Key.Id == uniqueIdentifier ).Value;
         }
-        [SerializeField] private UniqueIdentifier doorIdentifier = null!;
-        [SerializeField] private UniqueIdentifier targetDoorIdentifier = null!;
+        [SerializeField] private UniqueId doorIdentifier = null!;
+        [SerializeField] private string targetDoorIdentifier = null!;
         [SerializeField] private Vector2 safePosition;
         
         public Vector2 SafePosition => (Vector2)transform.position + safePosition;
@@ -24,8 +26,8 @@ namespace Main.Lib.Level
         {
             if (!Application.isPlaying)
                 return;
-            if(doorIdentifier == null)
-                Debug.LogError("DoorIdentifier is null!");
+            if(!doorIdentifier)
+                Debug.LogError($"DoorIdentifier of {name} is null!");
             if(targetDoorIdentifier == null)
                 Debug.LogError("TargetDoorIdentifier is null!");
             DoorToLevelSwitchers.Add(doorIdentifier, this);

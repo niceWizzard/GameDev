@@ -20,7 +20,8 @@ namespace Main.Lib.Level
         {
             yield return new WaitForEndOfFrame();
             var doorLoaded = LevelLoader.Instance.GetDoorToLoad();
-            if (!doorLoaded) yield break;
+            if (doorLoaded == null) 
+                yield break;
             var levelSwitcher = LevelSwitcher.FindLevelSwitch(doorLoaded);
             player.transform.position = levelSwitcher.SafePosition;
             MainCamera.Instance.MoveTo(levelSwitcher.SafePosition);

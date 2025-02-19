@@ -6705,6 +6705,7 @@ GameObject:
   - component: {fileID: 1290197327}
   - component: {fileID: 1290197326}
   - component: {fileID: 1290197325}
+  - component: {fileID: 1290197328}
   m_Layer: 0
   m_Name: ToTrapArea
   m_TagString: Untagged
@@ -6724,8 +6725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e2f017fa64e3f498ef6044f50d773f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorIdentifier: {fileID: 11400000, guid: 35813f586099f8a4988647670bf86a09, type: 2}
-  targetDoorIdentifier: {fileID: 11400000, guid: 67db00929340f194dbae7a2befcb4562, type: 2}
+  doorIdentifier: {fileID: 1290197328}
+  targetDoorIdentifier: f305d846-3ff7-4bdb-a732-346a00c2d49e
   safePosition: {x: -1.04, y: 4.52}
 --- !u!61 &1290197326
 BoxCollider2D:
@@ -6788,6 +6789,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1290197328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290197324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1796f3dc38e334ca54f2b0a067111d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 08ea22c0-1674-4730-9ae7-c506ed831cf5
 --- !u!1 &1626039975
 GameObject:
   m_ObjectHideFlags: 0
@@ -38446,6 +38460,7 @@ GameObject:
   - component: {fileID: 1688675737}
   - component: {fileID: 1688675736}
   - component: {fileID: 1688675735}
+  - component: {fileID: 1688675738}
   m_Layer: 0
   m_Name: ToLevel3
   m_TagString: Untagged
@@ -38465,8 +38480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e2f017fa64e3f498ef6044f50d773f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorIdentifier: {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}
-  targetDoorIdentifier: {fileID: 11400000, guid: 0ed8528d3c9921242aaf6627e1d94105, type: 2}
+  doorIdentifier: {fileID: 1688675738}
+  targetDoorIdentifier: fd88c01e-e4a4-4c9b-9946-72bbca19e205
   safePosition: {x: 1.87, y: 1.4}
 --- !u!61 &1688675736
 BoxCollider2D:
@@ -38529,6 +38544,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1688675738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688675734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1796f3dc38e334ca54f2b0a067111d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: b857af60-cdc6-4dbc-873f-b894f72045bf
 --- !u!1 &1942955431
 GameObject:
   m_ObjectHideFlags: 0

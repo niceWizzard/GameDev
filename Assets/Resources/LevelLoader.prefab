@@ -49,14 +49,14 @@ MonoBehaviour:
   levelDoorMap:
   - levelName: Level1
     doors:
-    - {fileID: 11400000, guid: d80791e328b18804cba63612df1427ff, type: 2}
-    - {fileID: 11400000, guid: 35813f586099f8a4988647670bf86a09, type: 2}
+    - b857af60-cdc6-4dbc-873f-b894f72045bf
+    - 08ea22c0-1674-4730-9ae7-c506ed831cf5
   - levelName: Level2
     doors:
-    - {fileID: 11400000, guid: 67db00929340f194dbae7a2befcb4562, type: 2}
+    - f305d846-3ff7-4bdb-a732-346a00c2d49e
   - levelName: Level3
     doors:
-    - {fileID: 11400000, guid: 0ed8528d3c9921242aaf6627e1d94105, type: 2}
+    - fd88c01e-e4a4-4c9b-9946-72bbca19e205
 --- !u!1 &3857065684290015212
 GameObject:
   m_ObjectHideFlags: 0

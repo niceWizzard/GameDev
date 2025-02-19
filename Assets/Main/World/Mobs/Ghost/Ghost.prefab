@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 8904548540393660312}
   - component: {fileID: 4472328565976319353}
   - component: {fileID: 6992973875973127930}
+  - component: {fileID: 5371952180967557097}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Untagged
@@ -357,6 +358,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.049928486, y: -0.026153326}
   m_Radius: 0.25477004
+--- !u!114 &5371952180967557097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453898687403174852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1796f3dc38e334ca54f2b0a067111d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 
 --- !u!1 &8693133638600926778
 GameObject:
   m_ObjectHideFlags: 0
