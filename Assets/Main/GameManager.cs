@@ -9,24 +9,14 @@ namespace Main
 {
     public class GameManager : Singleton<GameManager>
     {
-        private static HashSet<string> _defeatedEnemies = new();
-
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _defeatedEnemies = SaveManager.Instance.SaveGameData.defeatedEnemies.ToHashSet();
-        }
-
         public static bool HasBeenDefeated(UniqueId id)
         {
-            return _defeatedEnemies.Contains(id.Id);
+            return SaveManager.Instance.SaveGameData.defeatedEnemies.Contains(id.Id);
         }
 
         public static void AddDefeated(UniqueId id)
         {
-            _defeatedEnemies.Add(id.Id);
-            SaveManager.Instance.SaveGameData.defeatedEnemies = _defeatedEnemies.ToList();
+            SaveManager.Instance.SaveGameData.defeatedEnemies.Add(id.Id);
             SaveManager.Instance.SaveData();
         }
         
