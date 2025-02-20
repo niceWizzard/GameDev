@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
+using Main.Lib.Singleton;
 using Main.Weapons.Gun;
 using TMPro;
 using Unity.Mathematics;
@@ -40,7 +41,7 @@ namespace Main.Player
             {
                 SaveManager.Instance.SaveGameData.defeatedEnemies = new List<string>();
                 SaveManager.Instance.SaveData();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
             };
             reloadingText.color = new Vector4(0,0,0,0);
         }

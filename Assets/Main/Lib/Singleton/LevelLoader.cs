@@ -44,6 +44,11 @@ namespace Main.Lib.Singleton
             
         }
 
+        public void LoadLevel(string levelName)
+        {
+            StartCoroutine(LoadLevelCoroutine(levelName));
+        }
+
         public void GoToLevel(string unique)
         {
             blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic);
