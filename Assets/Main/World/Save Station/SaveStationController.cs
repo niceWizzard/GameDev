@@ -35,7 +35,7 @@ namespace Main.World.Save_Station
         public void Interact()
         {
             OnInteract?.Invoke();
-            SaveManager.Instance.SaveData(data => data with
+            _ = SaveManager.Instance.SaveDataAsync(data => data with
             {
                 LastSaveStation = new SaveStation()
                 {

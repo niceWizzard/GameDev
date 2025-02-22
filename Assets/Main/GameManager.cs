@@ -15,7 +15,7 @@ namespace Main
 
         public static void AddDefeated(UniqueId id)
         {
-            SaveManager.Instance.SaveData(saveGameData =>
+            _ = SaveManager.Instance.SaveDataAsync(saveGameData =>
                 saveGameData with
                 {
                     DefeatedEnemies = SaveManager.Instance.SaveGameData.DefeatedEnemies.Append(id.Id).ToList(),
