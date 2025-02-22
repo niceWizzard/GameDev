@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
+using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Weapons.Gun;
 using TMPro;
@@ -39,8 +40,12 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             HealthComponent.OnHealthZero+= () =>
             {
-                SaveManager.Instance.SaveGameData.defeatedEnemies = new List<string>();
-                SaveManager.Instance.SaveData();
+                SaveManager.Instance.SaveData( saveGameData =>
+                    saveGameData with
+                    {
+                        DefeatedEnemies = new List<string>()
+                    }
+                );
                 LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
             };
             reloadingText.color = new Vector4(0,0,0,0);

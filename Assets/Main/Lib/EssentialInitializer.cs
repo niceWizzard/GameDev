@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Main.Lib
 {
@@ -14,8 +12,7 @@ namespace Main.Lib
         {
             if (initialized) return;
             var instance = new GameObject("ScenePreloader").AddComponent<EssentialInitializer>();
-            SaveManager.Initialize();
-            SaveManager.Instance.LoadSaveGameData();
+            Save.SaveManager.Initialize();
             GameManager.Initialize();
             GameManager.LoadEssentials();
         }

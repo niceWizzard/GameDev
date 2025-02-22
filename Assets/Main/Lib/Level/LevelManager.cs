@@ -10,7 +10,6 @@ namespace Main.Lib.Level
     {
         private void Awake()
         {
-            SaveManager.Instance.LoadSaveGameData();
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);

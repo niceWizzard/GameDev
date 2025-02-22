@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using System.Linq;
 using CleverCrow.Fluid.UniqueIds;
+using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.UI;
-using UnityEngine.EventSystems;
 
 namespace Main
 {
@@ -11,13 +10,17 @@ namespace Main
     {
         public static bool HasBeenDefeated(UniqueId id)
         {
-            return SaveManager.Instance.SaveGameData.defeatedEnemies.Contains(id.Id);
+            return SaveManager.Instance.SaveGameData.DefeatedEnemies.Contains(id.Id);
         }
 
         public static void AddDefeated(UniqueId id)
         {
-            SaveManager.Instance.SaveGameData.defeatedEnemies.Add(id.Id);
-            SaveManager.Instance.SaveData();
+            SaveManager.Instance.SaveData(saveGameData =>
+                saveGameData with
+                {
+                    DefeatedEnemies = SaveManager.Instance.SaveGameData.DefeatedEnemies.Append(id.Id).ToList(),
+                }    
+            );
         }
         
         

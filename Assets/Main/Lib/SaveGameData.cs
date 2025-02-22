@@ -1,13 +1,20 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Main.Lib
 {
-    [Serializable]
-    public class SaveGameData
+    public class SaveStation
     {
-        public  List<string> defeatedEnemies = new List<string>();       
+        public string levelName = "";
+        public string stationId = "";
+    } 
+    public record SaveGameData(IReadOnlyList<string> DefeatedEnemies, SaveStation? LastSaveStation)
+    {
+        public IReadOnlyList<string> DefeatedEnemies { get; set; } = DefeatedEnemies;
+        public SaveStation? LastSaveStation { get; set; } = LastSaveStation;
+
+        public SaveGameData() : this(Array.Empty<string>(), new SaveStation()) { }
     }
 }
