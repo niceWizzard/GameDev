@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Main.Lib.Singleton;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -45,10 +46,31 @@ namespace Main.Lib.Save
         {
             return SaveData(func(SaveGameData));
         }
+        
+        public async Task<bool> SaveDataAsync(SaveGameData sgd)
+        {
+            var s = JsonConvert.SerializeObject(sgd);
+            var result = await _fileHandler.SaveFileAsync(GetSaveSlotPath(SaveSlot), s);
+            if (result)
+                SaveGameData = sgd;
+            return result;
+        }
+
+        public async Task<bool> SaveDataAsync(Func<SaveGameData, SaveGameData> func)
+        {
+            return await SaveDataAsync(func(SaveGameData));
+        }
+
 
         public SaveGameData ReadSaveGameData(int saveSlot)
         {
             var dataResult = _fileHandler.LoadJsonFile<SaveGameData>(GetSaveSlotPath(saveSlot));
+            return !dataResult.IsSuccess ? new SaveGameData() : dataResult.Value;
+        }
+        
+        public async Task<SaveGameData> ReadSaveGameDataAsync(int saveSlot)
+        {
+            var dataResult = await _fileHandler.LoadJsonFileAsync<SaveGameData>(GetSaveSlotPath(saveSlot));
             return !dataResult.IsSuccess ? new SaveGameData() : dataResult.Value;
         }
 
