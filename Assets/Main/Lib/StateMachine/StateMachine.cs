@@ -11,11 +11,11 @@ namespace Main.Lib.StateMachine
     {
         [SerializeField]
         private State<T, K>? currentState = null;
-        public State<T,K>? CurrentState { get { return currentState; } }
+        public State<T,K>? CurrentState => currentState;
 
         public Dictionary<K, State<T,K>> StatesMap { get; private set; } =  new();
     
-        public T? controller;
+        public T controller = null!;
         public List<State<T, K>> AllStates => StatesMap.Values.ToList();
 
         protected virtual void Start()
@@ -25,7 +25,7 @@ namespace Main.Lib.StateMachine
             AllStates.ForEach(state => state.Prepare());
         }
 
-        void Update()
+        private void Update()
         {
             currentState?.Do();
         }
