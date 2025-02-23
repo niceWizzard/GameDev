@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.79}
+  m_AnchoredPosition: {x: -0.12, y: -0.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7623184835415375490
@@ -213,10 +213,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 933347695
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1715281556, guid: 395193bff04f587479c149f10db17bfc, type: 3}
+  m_Sprite: {fileID: 7275183581181743102, guid: e936e0abdb02e1a47a14aff00814def5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -275,8 +275,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25627977}
-  m_Radius: 0.18457848
+  m_Offset: {x: -0.14226964, y: 0.40265417}
+  m_Radius: 0.4167031
 --- !u!114 &1413887508517642063
 MonoBehaviour:
   m_ObjectHideFlags: 0
