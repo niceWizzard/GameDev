@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076168c0f2593b64cbb6aeeca85d9ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: Bind
   spriteRenderer: {fileID: 7308707350341570846}
   text: {fileID: 541228972513579830}
 --- !u!58 &6270770714504467294

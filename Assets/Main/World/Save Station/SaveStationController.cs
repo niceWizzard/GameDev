@@ -13,6 +13,7 @@ namespace Main.World.Save_Station
     public class SaveStationController : MonoBehaviour, IInteractable
     {
         private static readonly int Size = Shader.PropertyToID("_size");
+        [SerializeField] private string interactText = "Interact";
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private TMP_Text text;
         private Material _interactableMaterial;
@@ -30,6 +31,7 @@ namespace Main.World.Save_Station
             textColor.a = 0;
             text.color = textColor;
             spriteRenderer.material = _interactableMaterial;
+            text.text = $"{interactText} (E)";
         }
 
         public void Interact()
