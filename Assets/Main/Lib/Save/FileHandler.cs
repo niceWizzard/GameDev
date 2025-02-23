@@ -1,7 +1,7 @@
 #nullable enable
 using System;
 using System.IO;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -81,17 +81,17 @@ namespace Main.Lib.Save
         {
             var a = LoadFile(path);
             var data = JsonConvert.DeserializeObject<T>(a.Value!);
+            // var data = JsonUtility.FromJson<T>(a.Value);
             return !a.IsSuccess ? FileResult<T>.Failure(a.ErrorMessage!) : data == null ? FileResult<T>.Failure($"The file {path} data could not be read as json."):FileResult<T>.Success(data);
         }
         
-        public async Task<FileResult<string>> LoadFileAsync(string p)
+        public async UniTask<FileResult<string>> LoadFileAsync(string p)
         {
             var path = GetPath(p);
             if (!File.Exists(path))
             {
                 return FileResult<string>.Failure("File does not exist");
             }
-
             try
             {
                 using var reader = new StreamReader(path);
@@ -104,15 +104,15 @@ namespace Main.Lib.Save
                 return FileResult<string>.Failure($"An error occurred while loading file. {e.Message}");
             }
         }
-
-        public async Task<bool> SaveFileAsync(string p, string data, bool overwrite = true)
+        
+        public async UniTask<bool> SaveFileAsync(string p, string data, bool overwrite = true)
         {
             try
             {
                 var path = GetPath(p);
                 if (File.Exists(path) && !overwrite)
                     return false;
-
+        
                 await using var writer = new StreamWriter(path, false);
                 await writer.WriteAsync(data);
                 return true;
@@ -124,14 +124,14 @@ namespace Main.Lib.Save
             }
         }
         
-        public async Task<FileResult<T>> LoadJsonFileAsync<T>(string path)
+        public async UniTask<FileResult<T>> LoadJsonFileAsync<T>(string path)
         {
             var result = await LoadFileAsync(path);
             if (!result.IsSuccess)
             {
                 return FileResult<T>.Failure(result.ErrorMessage!);
             }
-
+        
             try
             {
                 var data = JsonConvert.DeserializeObject<T>(result.Value!);
