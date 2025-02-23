@@ -65,7 +65,7 @@ namespace Main.Lib.Save
 
         public async UniTask<bool> SaveDataAsync(Func<SaveGameData, SaveGameData> func)
         {
-            return await SaveDataAsync(func(SaveGameData)).AttachExternalCancellation(destroyCancellationToken);
+            return await SaveDataAsync(func(SaveGameData));
         }
 
 
