@@ -9,34 +9,21 @@ using UnityEngine.SceneManagement;
 
 namespace Main.World.Save_Station
 {
-    [RequireComponent(typeof(UniqueId))]
-    public class SaveStationController : MonoBehaviour, IInteractable
+    [RequireComponent(typeof(UniqueId), typeof(Interactable))]
+    public class SaveStationController : MonoBehaviour
     {
-        private static readonly int Size = Shader.PropertyToID("_size");
-        [SerializeField] private string interactText = "Interact";
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private TMP_Text text;
-        private Material _interactableMaterial;
-        public bool IsUiShown { get; private set; }
-        public Transform Transform => transform;
-        public event Action OnInteract;
-        
         private UniqueId _uniqueId;
+        private Interactable _interactable;
 
         private void Start()
         {
             _uniqueId = GetComponent<UniqueId>();
-            _interactableMaterial = new Material(spriteRenderer.sharedMaterial);
-            var textColor = text.color;
-            textColor.a = 0;
-            text.color = textColor;
-            spriteRenderer.material = _interactableMaterial;
-            text.text = $"{interactText} (E)";
+           _interactable = GetComponent<Interactable>();
+           _interactable.OnInteract += Interact;
         }
 
-        public void Interact()
+        private void Interact()
         {
-            OnInteract?.Invoke();
             _ = SaveManager.Instance.SaveDataAsync(data => data with
             {
                 LastSaveStation = new SaveStation()
@@ -47,18 +34,6 @@ namespace Main.World.Save_Station
             });
         }
 
-        public void ShowUI()
-        {
-            IsUiShown = true;
-            _interactableMaterial.DOFloat(IInteractable.OutlineSize, Size, IInteractable.TransitionDuration);
-            text.DOFade(1, IInteractable.TransitionDuration).SetEase(Ease.OutBounce);
-        }
 
-        public void HideUI()
-        {
-            IsUiShown = false;
-            text.DOFade(0, IInteractable.TransitionDuration).SetEase(Ease.OutBounce);
-            _interactableMaterial.DOFloat(0f, Size, IInteractable.TransitionDuration);
-        }
     }
 }

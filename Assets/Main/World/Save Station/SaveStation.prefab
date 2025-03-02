@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4425673557041192130}
   - component: {fileID: 6270770714504467294}
   - component: {fileID: 1413887508517642063}
+  - component: {fileID: 8811134993383984791}
   m_Layer: 8
   m_Name: SaveStation
   m_TagString: Untagged
@@ -239,9 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076168c0f2593b64cbb6aeeca85d9ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Bind
-  spriteRenderer: {fileID: 7308707350341570846}
-  text: {fileID: 541228972513579830}
 --- !u!58 &6270770714504467294
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -291,6 +289,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 
+--- !u!114 &8811134993383984791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510360229002458294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894ed57fd818b3741a9eb756ed07dd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textShown: Interact
+  textUi: {fileID: 541228972513579830}
 --- !u!1 &6909642906991913516
 GameObject:
   m_ObjectHideFlags: 0

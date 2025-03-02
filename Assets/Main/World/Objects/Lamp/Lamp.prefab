@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5170720886933868411}
   - component: {fileID: 3890371823879880324}
   - component: {fileID: 7771305498973735549}
+  - component: {fileID: 7222369109535253973}
   m_Layer: 8
   m_Name: Lamp
   m_TagString: Untagged
@@ -102,10 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b537553ec8530024b9433f89478dd501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 5170720886933868411}
   activatedSprite: {fileID: 758236509, guid: 395193bff04f587479c149f10db17bfc, type: 3}
   inactiveSprite: {fileID: -1799876390, guid: 395193bff04f587479c149f10db17bfc, type: 3}
-  text: {fileID: 2256695234440082807}
 --- !u!58 &7771305498973735549
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,6 +141,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.03849417, y: -0.23524213}
   m_Radius: 0.2813542
+--- !u!114 &7222369109535253973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374306302524966326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894ed57fd818b3741a9eb756ed07dd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textShown: Interact
+  textUi: {fileID: 2256695234440082807}
 --- !u!1 &8661287812472289858
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +292,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.84}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 346.9604, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5206293863552646521
 CanvasRenderer:
@@ -336,10 +349,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
+  m_fontSize: 44.75
   m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -374,7 +387,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 1.9832621, y: 0, z: -1.1436445, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -1,5 +1,4 @@
 #nullable enable
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Main.Lib;
@@ -10,11 +9,11 @@ namespace Main.Player
     [RequireComponent(typeof(CircleCollider2D))]
     public class InteractableDetector : MonoBehaviour
     {
-        private readonly List<IInteractable> _interactables = new();
+        private readonly List<Interactable> _interactables = new();
         
-        private IInteractable? _currentInteractable;
+        private Interactable? _currentInteractable;
 
-        private IInteractable? CurrentInteractable
+        private Interactable? CurrentInteractable
         {
             get => _currentInteractable;
             set
@@ -29,7 +28,7 @@ namespace Main.Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<IInteractable>(out var interactable))
+            if (other.TryGetComponent<Interactable>(out var interactable))
             {
                 _interactables.Add(interactable);
             }
@@ -37,7 +36,7 @@ namespace Main.Player
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
+            if (!other.TryGetComponent<Interactable>(out var interactable)) return;
             interactable.HideUI();
             _interactables.Remove(interactable);
         }
@@ -46,12 +45,12 @@ namespace Main.Player
         {
             if (_interactables.Count == 0)
                 return;
-            CurrentInteractable = _interactables.OrderBy(v => (transform.position - v.Transform.position).sqrMagnitude)
+            CurrentInteractable = _interactables.OrderBy(v => (transform.position - v.transform.position).sqrMagnitude)
                 .First();
-            Vector2 toClosest = CurrentInteractable.Transform.position - transform.position;
+            Vector2 toClosest = CurrentInteractable.transform.position - transform.position;
             switch (toClosest.magnitude)
             {
-                case <= IInteractable.InteractableDistance:
+                case <= Interactable.InteractableDistance:
                     if(!CurrentInteractable.IsUiShown) 
                         CurrentInteractable.ShowUI();
                     if (Input.GetKeyDown(KeyCode.E))
@@ -59,7 +58,7 @@ namespace Main.Player
                         CurrentInteractable.Interact();
                     }
                     break;
-                case > IInteractable.InteractableDistance when CurrentInteractable.IsUiShown:
+                case > Interactable.InteractableDistance when CurrentInteractable.IsUiShown:
                     CurrentInteractable.HideUI();
                     return;
                 
