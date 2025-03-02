@@ -20,15 +20,11 @@ namespace Main.Lib.Level
             StartCoroutine(SetPlayerPosition(player));
         }
 
-        private static IEnumerator SetPlayerPosition(PlayerController player)
+        private  IEnumerator SetPlayerPosition(PlayerController player)
         {
             yield return new WaitForEndOfFrame();
-            var doorLoaded = LevelLoader.Instance.GetDoorToLoad();
-            if (doorLoaded == null) 
-                yield break;
-            var levelSwitcher = LevelSwitcher.FindLevelSwitch(doorLoaded);
-            player.transform.position = levelSwitcher.SafePosition;
-            MainCamera.Instance.MoveTo(levelSwitcher.SafePosition);
+            player.transform.position = safeSpawn.position;
+            MainCamera.Instance.MoveTo(safeSpawn.position);
         }
     }
 }
