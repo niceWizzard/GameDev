@@ -47,10 +47,7 @@ namespace Main.Lib
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _interactableMaterial = new Material(_spriteRenderer.sharedMaterial);
             _spriteRenderer.material = _interactableMaterial;
-        }
-
-        protected virtual void Start()
-        {
+            
             textUi.text = $"{textShown} (E)";
             var color = textUi.color;
             color.a = 0f;
