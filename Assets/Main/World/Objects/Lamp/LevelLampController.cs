@@ -1,6 +1,8 @@
+using System;
 using Main.Lib;
 using Main.Lib.Singleton;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Main.World.Objects.Lamp
 {
@@ -9,7 +11,7 @@ namespace Main.World.Objects.Lamp
     {
         [SerializeField] private Sprite activatedSprite;
         [SerializeField] private Sprite inactiveSprite;
-        [SerializeField] private string levelName; 
+        [SerializeField] private AssetReference levelReference; 
         private SpriteRenderer _spriteRenderer;
 
         private bool IsActive { get; set; }
@@ -18,17 +20,16 @@ namespace Main.World.Objects.Lamp
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             var i = GetComponent<Interactable>();
-            if (string.IsNullOrWhiteSpace(levelName))
-                levelName = "Level1";
+            if (levelReference == null || string.IsNullOrWhiteSpace(levelReference.AssetGUID))
+                throw new ArgumentNullException($"Level Ref is not set in {name}");
 
             i.OnInteract += Toggle;
-            i.SetText($"Go to {levelName}");
         }
 
 
         private void Toggle()
         {
-            LevelLoader.Instance.LoadLevel(levelName);
+            LevelLoader.Instance.LoadLevel(levelReference);
         }
 
 
