@@ -28,7 +28,7 @@ namespace Main.Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<Interactable>(out var interactable))
+            if (other.TryGetComponent<Interactable>(out var interactable) )
             {
                 _interactables.Add(interactable);
             }
@@ -45,8 +45,18 @@ namespace Main.Player
         {
             if (_interactables.Count == 0)
                 return;
-            CurrentInteractable = _interactables.OrderBy(v => (transform.position - v.transform.position).sqrMagnitude)
+            var filtered = _interactables.Where(v => v.IsInteractable).ToList();
+            if (!filtered.Any())
+                return;
+            CurrentInteractable = filtered.OrderBy(v => (transform.position - v.transform.position).sqrMagnitude)
                 .First();
+            if (!CurrentInteractable)
+                return;
+            if (!CurrentInteractable.IsInteractable )
+            {
+                if(CurrentInteractable.IsUiShown)
+                    CurrentInteractable.HideUI();
+            } 
             Vector2 toClosest = CurrentInteractable.transform.position - transform.position;
             switch (toClosest.magnitude)
             {

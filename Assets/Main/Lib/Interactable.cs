@@ -12,13 +12,31 @@ namespace Main.Lib
         public const float InteractableDistance = 1f;
         private const float OutlineSize = 0.75f;
         private const float TransitionDuration = 0.15f;
-
+            
+        [SerializeField] private bool isInteractable = true;
         [SerializeField] private string textShown = "Interact";
         [SerializeField] private TMP_Text textUi;
 
         public bool IsUiShown { get; private set; } = false;
+
+        public bool IsInteractable
+        {
+            get => isInteractable;
+            set
+            {
+                isInteractable = value;
+                if(!value)
+                    HideUI();
+            }
+        }
+
         public event Action OnInteract;
-        public void Interact() => OnInteract?.Invoke();
+
+        public void Interact()
+        {
+            if (isInteractable)
+                OnInteract?.Invoke();
+        }
         
         private  Material _interactableMaterial;
         private SpriteRenderer _spriteRenderer;
