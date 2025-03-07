@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CleverCrow.Fluid.UniqueIds;
 using Main.Lib.Level;
@@ -9,6 +10,9 @@ namespace Main
 {
     public class GameManager : Singleton<GameManager>
     {
+        public static LevelManager CurrentLevel => Instance.CurrentLevelManager; 
+        public static event Action<LevelManager> OnLevelLoaded; 
+        public static event Action OnLevelUnload; 
         private LevelManager _levelManager;
 
         public LevelManager CurrentLevelManager => _levelManager;
@@ -31,9 +35,14 @@ namespace Main
         public void RegisterLevelManager(LevelManager levelManager)
         {
             _levelManager = levelManager;
+            OnLevelLoaded?.Invoke(levelManager);
         }
         
-        public void UnregisterLevelManager() => _levelManager = null;
+        public void UnregisterLevelManager()
+        {
+            _levelManager = null;
+            OnLevelUnload?.Invoke();
+        }
         
         public static void LoadEssentials()
         {
