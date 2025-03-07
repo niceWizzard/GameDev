@@ -13,8 +13,14 @@ namespace Main.Lib.Level
     {
         [SerializeField] private Transform safeSpawn;
         
+        
         private List<int> _mobsInLevel = new(); 
         private List<int> _deadMobsInLevel = new();
+        
+        public List<int> MobsInLevel => _mobsInLevel;
+        public List<int> DeadMobsInLevel => _deadMobsInLevel;
+        
+        public int AliveMobs => _mobsInLevel.Count - DeadMobsInLevel.Count;
 
         private void Awake()
         {
