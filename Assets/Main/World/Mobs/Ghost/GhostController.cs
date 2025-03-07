@@ -1,3 +1,4 @@
+using System;
 using CleverCrow.Fluid.UniqueIds;
 using Main.Lib;
 using Main.Player;
@@ -38,10 +39,16 @@ namespace Main.World.Mobs.Ghost
         {
             base.Awake();
             _uniqueId = GetComponent<UniqueId>();
+            GameManager.Instance.CurrentLevelManager.RegisterMob(gameObject);
             if (GameManager.HasBeenDefeated(_uniqueId))
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
         }
 
         protected override void OnHealthZero()
