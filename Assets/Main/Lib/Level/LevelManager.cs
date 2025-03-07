@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
@@ -9,10 +10,22 @@ using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Level
 {
+    public enum LevelState
+    {
+        Playing,
+        Died,
+        Finished,
+    }
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private Transform safeSpawn;
+
+        [Header("Completion Requirements")] [SerializeField]
+        private bool wipeoutEnemies = false;
         
+        private List<Requirement> _requirements = new();
+        
+        public List<Requirement> Requirements => _requirements;
         
         private List<int> _mobsInLevel = new(); 
         private List<int> _deadMobsInLevel = new();
@@ -22,6 +35,8 @@ namespace Main.Lib.Level
         
         public int AliveMobs => _mobsInLevel.Count - DeadMobsInLevel.Count;
 
+        private LevelState _state = LevelState.Playing;
+
         private void Awake()
         {
             if(safeSpawn == null)
@@ -29,8 +44,11 @@ namespace Main.Lib.Level
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);
-            GameManager.Instance.RegisterLevelManager(this);
             StartCoroutine(SetPlayerPosition(player));
+            if(wipeoutEnemies)
+                _requirements.Add(new WipeoutEnemies());
+            GameManager.Instance.RegisterLevelManager(this);
+
         }
 
         private void OnDestroy()
@@ -47,10 +65,22 @@ namespace Main.Lib.Level
 
         private void Update()
         {
-            var aliveMobs  = _mobsInLevel.Count - _deadMobsInLevel.Count;
-            if (aliveMobs > 0)
-                return;
-            Debug.Log("Completed");
+            switch (_state)
+            {
+                case LevelState.Playing:
+                    if (!_requirements.All(v => v.CheckCompleted()))
+                        return;
+                    _state = LevelState.Finished;
+                    break;
+                case LevelState.Died:
+                    break;
+                case LevelState.Finished:
+                    Time.timeScale = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
         }
 
         public void RegisterMob(GameObject mob)
