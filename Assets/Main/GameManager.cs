@@ -17,21 +17,6 @@ namespace Main
 
         public LevelManager CurrentLevelManager => _levelManager;
 
-        public static bool HasBeenDefeated(UniqueId id)
-        {
-            return SaveManager.Instance.SaveGameData.DefeatedEnemies.Contains(id.Id);
-        }
-
-        public static void AddDefeated(UniqueId id)
-        {
-            _ = SaveManager.Instance.SaveDataAsync(saveGameData =>
-                saveGameData with
-                {
-                    DefeatedEnemies = SaveManager.Instance.SaveGameData.DefeatedEnemies.Append(id.Id).ToList(),
-                }    
-            );
-        }
-
         public void RegisterLevelManager(LevelManager levelManager)
         {
             _levelManager = levelManager;

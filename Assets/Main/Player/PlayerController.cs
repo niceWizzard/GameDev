@@ -43,7 +43,7 @@ namespace Main.Player
                 SaveManager.Instance.SaveData( saveGameData =>
                     saveGameData with
                     {
-                        DefeatedEnemies = new List<string>()
+                        CompletedLevels = new List<string>()
                     }
                 );
                 LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);

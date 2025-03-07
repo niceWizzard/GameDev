@@ -40,21 +40,11 @@ namespace Main.World.Mobs.Ghost
             base.Awake();
             _uniqueId = GetComponent<UniqueId>();
             GameManager.Instance.CurrentLevelManager.RegisterMob(gameObject);
-            if (GameManager.HasBeenDefeated(_uniqueId))
-            {
-                Destroy(gameObject);
-            }
         }
 
         private void OnDestroy()
         {
             GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
-        }
-
-        protected override void OnHealthZero()
-        {
-            base.OnHealthZero();
-            GameManager.AddDefeated(_uniqueId);
         }
 
         protected  void Start()

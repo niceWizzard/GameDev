@@ -1,3 +1,4 @@
+using Main.Lib.Level;
 using Main.Lib.Singleton;
 using Main.Player;
 using UnityEngine;
@@ -10,7 +11,21 @@ namespace Main.UI
         private PlayerController  _player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
-        
+        protected override void Awake()
+        {
+            base.Awake();
+            GameManager.OnLevelLoaded += GameManagerOnLevelLoaded;
+            GameManager.OnLevelUnload += GameManagerOnLevelUnload;
+        }
+
+        private void GameManagerOnLevelUnload()
+        {
+        }
+
+        private void GameManagerOnLevelLoaded(LevelManager level)
+        {
+        }
+
         public void SetPlayer(PlayerController player)
         {
             if(this._player || this._player != null)
