@@ -42,8 +42,9 @@ namespace Main.World.Mobs.Ghost
             GameManager.Instance.CurrentLevelManager.RegisterMob(gameObject);
         }
 
-        private void OnDestroy()
+        protected override void OnHealthZero()
         {
+            base.OnHealthZero();
             GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
         }
 
