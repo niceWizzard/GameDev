@@ -62,7 +62,7 @@ namespace Main.Lib.Level
             switch (_state)
             {
                 case LevelState.Playing:
-                    if (!_requirements.All(v => v.CheckCompleted()))
+                    if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
                         return;
                     _state = LevelState.Finished;
                     break;
