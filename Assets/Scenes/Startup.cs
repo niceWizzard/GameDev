@@ -13,7 +13,7 @@ namespace Scenes
 
         public void OnStartBtnClick()
         {
-            Addressables.LoadSceneAsync("Level1");
+            Addressables.LoadSceneAsync("HubLevel");
         }
     }
 }
