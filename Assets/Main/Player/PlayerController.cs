@@ -38,16 +38,6 @@ namespace Main.Player
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
-            HealthComponent.OnHealthZero+= () =>
-            {
-                SaveManager.Instance.SaveData( saveGameData =>
-                    saveGameData with
-                    {
-                        CompletedLevels = new List<string>()
-                    }
-                );
-                LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
-            };
             reloadingText.color = new Vector4(0,0,0,0);
         }
 

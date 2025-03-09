@@ -1,13 +1,34 @@
+#nullable enable
+using System;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Main.UI;
+using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Main.Lib.Singleton
 {
+    public enum MenuNames
+    {
+        PauseMenu,
+        CompletedMenu,
+        DeathMenu,
+    }
     public class MenuManager : PrefabSingleton<MenuManager>
     {
-        [SerializeField] private PauseMenu pauseMenu;
+        [SerializeField] private GameObject pauseMenu = null!;
+        [SerializeField] private GameObject deathMenu = null!;
+        [SerializeField] private GameObject completionMenu = null!;
 
+        private MenuNames? _currentMenu;
+        private const float AnimationDuration = 0.2f;
+        private TweenerCore<Vector3, Vector3, VectorOptions>? _currentTweener;
+        
+        
         protected override void Awake()
         {
             base.Awake();
@@ -16,17 +37,80 @@ namespace Main.Lib.Singleton
                 gameObject.SetActive(false);
                 gameObject.SetActive(true);
             };
+            pauseMenu.SetActive(false);
+            deathMenu.SetActive(false);
+            completionMenu.SetActive(false);
         }
 
-        private bool _paused = false;
+        public async UniTask CloseCurrentMenu()
+        {
+            if (_currentTweener != null && _currentTweener.IsActive())
+                return;
+            if (_currentMenu == null) 
+                return;
+            var obj = GetMenuObject(_currentMenu.Value);
+            _currentMenu = null;
+            _currentTweener = obj.transform.DOScale(Vector3.zero, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true);
+            await UniTask.WaitForSeconds(AnimationDuration);
+            obj.SetActive(false);
+        }
+
+        public void ShowMenu(MenuNames menu)
+        {
+            if (_currentTweener != null && _currentTweener.IsActive())
+                return;
+            Time.timeScale = 0;
+            _currentMenu = menu;
+            var obj = GetMenuObject(menu);
+            obj.SetActive(true);
+            obj.transform.localScale *= 0;
+            _currentTweener = obj.transform.DOScale(Vector3.one, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true);
+        }
 
         public void TogglePauseMenu()
         {
-            _paused = !_paused;
-            if(_paused)
-                pauseMenu.Show();
-            else
-                pauseMenu.Hide();
+            if (_currentMenu == MenuNames.PauseMenu)
+            {
+                CloseCurrentMenu();
+                return;
+            }
+            ShowMenu(MenuNames.PauseMenu);
         }
+
+        private GameObject GetMenuObject(MenuNames menuName)
+        {
+            return menuName switch
+            {
+                MenuNames.PauseMenu => pauseMenu,
+                MenuNames.CompletedMenu => completionMenu,
+                MenuNames.DeathMenu => deathMenu,
+                _ => throw new ArgumentOutOfRangeException(nameof(menuName), menuName, null)
+            };
+        }
+
+        public void ShowDeathMenu() => ShowMenu(MenuNames.DeathMenu);
+        public void ShowCompletionMenu() => ShowMenu(MenuNames.CompletedMenu);
+
+
+        public void RetryLevel()
+        {
+            LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
+            CloseCurrentMenu();
+        }
+
+        public void GoToMainMenu()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Startup");
+            CloseCurrentMenu();
+        }
+
+        public void GoToHub()
+        {
+            LevelLoader.Instance.LoadLevel("HubLevel");
+            CloseCurrentMenu();
+
+        }
+        
     }
 }

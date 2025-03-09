@@ -45,12 +45,18 @@ namespace Main.Lib.Level
             player.transform.position = safeSpawn.position;
             HUDController.Instance.SetPlayer(player);
             GameManager.Instance.RegisterLevelManager(this);
+            player.HealthComponent.OnHealthZero += PlayerOnDie;
+        }
 
+        private void PlayerOnDie()
+        {
+            _state = LevelState.Died;
+            MenuManager.Instance.ShowDeathMenu();
         }
 
         private void OnDestroy()
         {
-            GameManager.Instance.UnregisterLevelManager();            
+            GameManager.Instance.UnregisterLevelManager();
         }
 
 
@@ -63,12 +69,11 @@ namespace Main.Lib.Level
                         MenuManager.Instance.TogglePauseMenu();
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
+                    MenuManager.Instance.ShowCompletionMenu();
                     _state = LevelState.Finished;
                     break;
                 case LevelState.Died:
-                    break;
                 case LevelState.Finished:
-                    Time.timeScale = 0;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
