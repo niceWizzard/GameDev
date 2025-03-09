@@ -11,8 +11,8 @@ namespace Main
     public class GameManager : Singleton<GameManager>
     {
         public static LevelManager CurrentLevel => Instance.CurrentLevelManager; 
-        public static event Action<LevelManager> OnLevelLoaded; 
-        public static event Action OnLevelUnload; 
+        public static event Action<LevelManager> LevelLoaded; 
+        public static event Action LevelUnload; 
         private LevelManager _levelManager;
 
         public LevelManager CurrentLevelManager => _levelManager;
@@ -20,13 +20,13 @@ namespace Main
         public void RegisterLevelManager(LevelManager levelManager)
         {
             _levelManager = levelManager;
-            OnLevelLoaded?.Invoke(levelManager);
+            LevelLoaded?.Invoke(levelManager);
         }
         
         public void UnregisterLevelManager()
         {
             _levelManager = null;
-            OnLevelUnload?.Invoke();
+            LevelUnload?.Invoke();
         }
         
         public static void LoadEssentials()

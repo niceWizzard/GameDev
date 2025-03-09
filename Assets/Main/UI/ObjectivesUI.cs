@@ -17,12 +17,12 @@ namespace Main.UI
 
         void Awake()
         {
-            GameManager.OnLevelLoaded += GameManagerOnLevelLoaded;
+            GameManager.LevelLoaded += GameManagerLevelLoaded;
         }
 
         private void OnDestroy()
         {
-            GameManager.OnLevelLoaded -= GameManagerOnLevelLoaded;
+            GameManager.LevelLoaded -= GameManagerLevelLoaded;
         }
 
         private void Update()
@@ -33,7 +33,7 @@ namespace Main.UI
             });
         }
 
-        private void GameManagerOnLevelLoaded(LevelManager lvl)
+        private void GameManagerLevelLoaded(LevelManager lvl)
         {
             foreach (Transform child in objectiveTextContainer.transform)
             {
