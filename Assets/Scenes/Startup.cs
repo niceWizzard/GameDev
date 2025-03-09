@@ -1,6 +1,5 @@
+using Main.Lib.Singleton;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 
 namespace Scenes
 {
@@ -13,7 +12,8 @@ namespace Scenes
 
         public void OnStartBtnClick()
         {
-            Addressables.LoadSceneAsync("HubLevel");
+            LevelLoader.Instance.LoadLevel("HubLevel");
+            gameObject.SetActive(false);
         }
     }
 }

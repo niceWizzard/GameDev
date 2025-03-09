@@ -59,6 +59,8 @@ namespace Main.Lib.Level
             switch (_state)
             {
                 case LevelState.Playing:
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                        MenuManager.Instance.TogglePauseMenu();
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
                     _state = LevelState.Finished;
