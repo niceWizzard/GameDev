@@ -28,6 +28,8 @@ namespace Main.UI
             {
                 Destroy(child.gameObject);
             }
+            _textRequirements?.ForEach(v => Destroy(v.text));
+            _textRequirements?.Clear();
             headerText.gameObject.SetActive(false);
         }
 
