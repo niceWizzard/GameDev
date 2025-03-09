@@ -18,11 +18,22 @@ namespace Main.UI
         void Awake()
         {
             GameManager.LevelLoaded += GameManagerLevelLoaded;
+            GameManager.LevelUnload += GameManagerOnLevelUnload;
+        }
+
+        private void GameManagerOnLevelUnload()
+        {
+            foreach (Transform child in objectiveTextContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            headerText.gameObject.SetActive(false);
         }
 
         private void OnDestroy()
         {
             GameManager.LevelLoaded -= GameManagerLevelLoaded;
+            GameManager.LevelUnload -= GameManagerOnLevelUnload;
         }
 
         private void Update()
@@ -35,11 +46,7 @@ namespace Main.UI
 
         private void GameManagerLevelLoaded(LevelManager lvl)
         {
-            foreach (Transform child in objectiveTextContainer.transform)
-            {
-                Destroy(child.gameObject);
-            }
-
+            GameManagerOnLevelUnload();
             headerText.gameObject.SetActive(lvl.Requirements.Count > 0);
             _textRequirements = lvl.Requirements
                 .Select(req =>
