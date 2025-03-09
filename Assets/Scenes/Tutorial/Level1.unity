@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 431039300}
   - component: {fileID: 431039299}
+  - component: {fileID: 431039301}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -149,7 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeSpawn: {fileID: 1025627393}
-  wipeoutEnemies: 1
+  requirements:
+  - {fileID: 431039301}
 --- !u!4 &431039300
 Transform:
   m_ObjectHideFlags: 0
@@ -166,6 +168,18 @@ Transform:
   - {fileID: 1025627393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &431039301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431039298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa43aee95031154ead101fc0b463aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &445867853
 PrefabInstance:
   m_ObjectHideFlags: 0

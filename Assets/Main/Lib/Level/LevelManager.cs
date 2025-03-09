@@ -7,6 +7,7 @@ using Main.Player;
 using Main.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Main.Lib.Level
 {
@@ -21,11 +22,9 @@ namespace Main.Lib.Level
         [SerializeField] private Transform safeSpawn;
 
         [Header("Completion Requirements")] [SerializeField]
-        private bool wipeoutEnemies = false;
+        private List<Requirement> requirements = new();
         
-        private List<Requirement> _requirements = new();
-        
-        public List<Requirement> Requirements => _requirements;
+        public List<Requirement> Requirements => requirements;
         
         private List<int> _mobsInLevel = new(); 
         private List<int> _deadMobsInLevel = new();
@@ -42,11 +41,9 @@ namespace Main.Lib.Level
             if(safeSpawn == null)
                 Debug.LogError($"Safe spawn is null at {SceneManager.GetActiveScene().name}");
             var player = FindAnyObjectByType<PlayerController>();
-            player.transform.position = safeSpawn.position;
             MainCamera.Instance.Follow(player);
+            player.transform.position = safeSpawn.position;
             HUDController.Instance.SetPlayer(player);
-            if(wipeoutEnemies)
-                _requirements.Add(new WipeoutEnemies());
             GameManager.Instance.RegisterLevelManager(this);
 
         }
@@ -62,7 +59,7 @@ namespace Main.Lib.Level
             switch (_state)
             {
                 case LevelState.Playing:
-                    if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
+                    if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
                     _state = LevelState.Finished;
                     break;
