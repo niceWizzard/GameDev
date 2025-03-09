@@ -19,6 +19,7 @@ namespace Main.UI
         {
             GameManager.LevelLoaded += GameManagerLevelLoaded;
             GameManager.LevelUnload += GameManagerOnLevelUnload;
+            GameManagerOnLevelUnload();
         }
 
         private void GameManagerOnLevelUnload()
