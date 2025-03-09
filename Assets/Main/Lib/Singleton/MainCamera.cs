@@ -14,12 +14,9 @@ namespace Main.Lib.Singleton
         public Camera Camera => mainCamera;
         public void Follow(PlayerController playerController)
         {
-            cmCamera.Target.TrackingTarget = playerController.transform;            
+            cmCamera.Target.TrackingTarget = playerController.transform;   
+            cmCamera.ForceCameraPosition(playerController.transform.position, Quaternion.identity);
         }
 
-        public void MoveTo(Vector2 newPos)
-        {
-            cmCamera.ForceCameraPosition(newPos, Quaternion.identity);
-        }
     }
 }

@@ -42,9 +42,9 @@ namespace Main.Lib.Level
             if(safeSpawn == null)
                 Debug.LogError($"Safe spawn is null at {SceneManager.GetActiveScene().name}");
             var player = FindAnyObjectByType<PlayerController>();
+            player.transform.position = safeSpawn.position;
             MainCamera.Instance.Follow(player);
             HUDController.Instance.SetPlayer(player);
-            StartCoroutine(SetPlayerPosition(player));
             if(wipeoutEnemies)
                 _requirements.Add(new WipeoutEnemies());
             GameManager.Instance.RegisterLevelManager(this);
@@ -56,12 +56,6 @@ namespace Main.Lib.Level
             GameManager.Instance.UnregisterLevelManager();            
         }
 
-        private  IEnumerator SetPlayerPosition(PlayerController player)
-        {
-            yield return new WaitForEndOfFrame();
-            player.transform.position = safeSpawn.position;
-            MainCamera.Instance.MoveTo(safeSpawn.position);
-        }
 
         private void Update()
         {
