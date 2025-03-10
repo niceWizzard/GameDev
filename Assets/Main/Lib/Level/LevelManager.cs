@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
@@ -70,6 +71,7 @@ namespace Main.Lib.Level
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
                     MenuManager.Instance.ShowCompletionMenu();
+                    SaveAsCompleted();
                     _state = LevelState.Finished;
                     break;
                 case LevelState.Died:
@@ -79,6 +81,16 @@ namespace Main.Lib.Level
                     throw new ArgumentOutOfRangeException();
             }
             
+        }
+
+        private void SaveAsCompleted()
+        {
+            var sceneName = SceneManager.GetActiveScene().name;
+            var sceneId = LevelLoader.Instance.GetLevelGuid(sceneName);
+            _ = SaveManager.Instance.SaveDataAsync(v => v with
+            {
+                CompletedLevels = v.CompletedLevels.Append(sceneId).ToList() 
+            });
         }
 
         public void RegisterMob(GameObject mob)

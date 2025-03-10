@@ -46,17 +46,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 2547175517923456490}
-  levelDoorMap:
+  levelMappings:
   - levelName: Level1
-    doors:
-    - b857af60-cdc6-4dbc-873f-b894f72045bf
-    - 08ea22c0-1674-4730-9ae7-c506ed831cf5
+    scene:
+      m_AssetGUID: ee149d78c26242a4c8d0736f88103706
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - levelName: Level2
-    doors:
-    - f305d846-3ff7-4bdb-a732-346a00c2d49e
+    scene:
+      m_AssetGUID: 3fd4dfdde98f6874fad0373e1784dedf
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 1
   - levelName: Level3
-    doors:
-    - fd88c01e-e4a4-4c9b-9946-72bbca19e205
+    scene:
+      m_AssetGUID: d0fa7c321f3033a4192033760f71def0
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 1
 --- !u!1 &3857065684290015212
 GameObject:
   m_ObjectHideFlags: 0

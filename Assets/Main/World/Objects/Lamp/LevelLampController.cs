@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Main.Lib;
+using Main.Lib.Save;
 using Main.Lib.Singleton;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,9 +18,18 @@ namespace Main.World.Objects.Lamp
 
         private bool IsActive { get; set; }
 
-        private void Start()
+        private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            var levelId = levelReference.AssetGUID;
+            if (SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelId))
+            {
+                _spriteRenderer.sprite = activatedSprite;
+            }
+        }
+
+        private void Start()
+        {
             var i = GetComponent<Interactable>();
             if (levelReference == null || string.IsNullOrWhiteSpace(levelReference.AssetGUID))
                 throw new ArgumentNullException($"Level Ref is not set in {name}");
@@ -31,6 +42,8 @@ namespace Main.World.Objects.Lamp
         {
             LevelLoader.Instance.LoadLevel(levelReference);
         }
+        
+        
 
 
     }

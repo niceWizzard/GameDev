@@ -1,22 +1,26 @@
 #nullable enable
 using System;
 using System.Collections;
-using System.Linq;
-using CleverCrow.Fluid.UniqueIds;
+using System.Collections.Generic;
 using DG.Tweening;
-using Main.Lib.Level;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Main.Lib.Singleton
 {
+    [Serializable]
+    public class LevelMapping
+    {
+        public string levelName;
+        public AssetReference scene;
+    }
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
         [SerializeField] private Image blackScreen = null!;
+        [SerializeField] private List<LevelMapping> levelMappings = null!;
         public static event Action<string>? OnLevelChange;
         
 
@@ -27,6 +31,9 @@ namespace Main.Lib.Singleton
             color.a = 0;
             blackScreen.color = color;
         }
+
+        public string GetLevelGuid(string levelName) =>
+            levelMappings.Find(v => v.levelName == levelName).scene.AssetGUID;
 
         public void LoadLevel(AssetReference levelRef)
         {
