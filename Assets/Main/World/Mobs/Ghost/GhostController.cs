@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using CleverCrow.Fluid.UniqueIds;
 using Main.Lib;
 using Main.Player;
 using Main.Weapons;
 using Main.World.Mobs.Ghost.States;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Main.World.Mobs.Ghost
@@ -20,6 +22,8 @@ namespace Main.World.Mobs.Ghost
         
         [Header("Stats")]
         [SerializeField] private float movementSpeed = 4.5f;
+        [SerializeField] public LayerMask dangerMask;
+
         
         public float MovementSpeed => movementSpeed;
     
@@ -55,6 +59,36 @@ namespace Main.World.Mobs.Ghost
                 detectedPlayer = controller as PlayerController;
                 ghostStateMachine.ChangeState(GhostState.HasTarget);
             };
+        }
+        
+        public Vector2 ContextBasedSteer(Vector2 desiredVelocity)
+        {
+            const int RAY_COUNT = 8;
+            const float RAY_LENGTH = 1.5f;
+            var rays = Enumerable.Range(0,RAY_COUNT).Select(i =>
+            {
+                var angle = (i * 2 * Mathf.PI / RAY_COUNT) * math.TODEGREES;
+                Vector2 vec = Quaternion.Euler(0, 0, angle) * desiredVelocity;
+                return vec.normalized;
+            }).ToList();
+            var interests = Enumerable.Range(0, RAY_COUNT).Select(i =>
+            {
+                var dot = Vector2.Dot(desiredVelocity.normalized, rays[i]);
+                return dot;
+            }).ToList();
+            Collider2D.enabled = false;
+            for (var i = 0; i < rays.Count; i++)
+            {
+                var ray = rays[i];
+                var hit = Physics2D.Raycast(transform.position, ray, RAY_LENGTH, dangerMask);
+                if (hit )
+                {
+                    interests[i] -= 3f;
+                }
+            }
+            Collider2D.enabled = true;
+
+            return rays.Select((v, i) => v * interests[i]).Aggregate(Vector2.zero, (current, next) => current + next).normalized;
         }
     }
 }

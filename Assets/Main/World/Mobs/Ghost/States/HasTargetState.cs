@@ -21,7 +21,11 @@ namespace Main.World.Mobs.Ghost.States
                 ChangeState(GhostState.Patrolling);
                 return;
             }
-            controller.Rigidbody2D.linearVelocity = toTarget.normalized * controller.MovementSpeed;
+
+            var safeDir = controller.ContextBasedSteer(toTarget.normalized);
+            var velo = controller.Rigidbody2D.linearVelocity.normalized;
+            velo += safeDir.normalized * Time.fixedDeltaTime;
+            controller.Rigidbody2D.linearVelocity = velo.normalized * controller.MovementSpeed;
 
             if (!controller.CanAttack)
                 return;

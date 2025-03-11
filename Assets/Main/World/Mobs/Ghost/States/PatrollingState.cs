@@ -15,7 +15,6 @@ namespace Main.World.Mobs.Ghost.States
     }
     public class PatrollingState : State<GhostController, GhostState>
     {
-        [SerializeField] private LayerMask dangerMask;
         const float PATROL_DISTANCE = 3f;
         private PatrolState _state = PatrolState.Walking;
         private int direction = 1;
@@ -38,7 +37,7 @@ namespace Main.World.Mobs.Ghost.States
                 case PatrolState.Walking:
                     Vector2 toTarget = ((Vector3)_targetPoint - controller.transform.position);
                     var targetDir = toTarget.normalized;
-                    var vel = targetDir + ContextBasedSteer(targetDir) * 0.5f;
+                    var vel = targetDir + controller.ContextBasedSteer(targetDir) * 0.5f;
                     controller.Rigidbody2D.linearVelocity = vel.normalized * 2f;
 
                     if (toTarget.magnitude < 0.1f)
@@ -68,7 +67,7 @@ namespace Main.World.Mobs.Ghost.States
                 var distance = Random.Range(0.5f, radius);
                 Vector2 point = (Vector3)origin + Quaternion.Euler(0, 0, angle) * Vector2.right * distance;
                 controller.Collider2D.enabled = false;
-                var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, dangerMask);
+                var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, controller.dangerMask);
                 controller.Collider2D.enabled = true;
                 if (hit) continue;
                 return point;
@@ -77,35 +76,7 @@ namespace Main.World.Mobs.Ghost.States
             throw new Exception("While Loop took too long!");
         }
 
-        private Vector2 ContextBasedSteer(Vector2 desiredVelocity)
-        {
-            const int RAY_COUNT = 8;
-            const float RAY_LENGTH = 1.5f;
-            var rays = Enumerable.Range(0,RAY_COUNT).Select(i =>
-            {
-                var angle = (i * 2 * Mathf.PI / RAY_COUNT) * math.TODEGREES;
-                Vector2 vec = Quaternion.Euler(0, 0, angle) * desiredVelocity;
-                return vec.normalized;
-            }).ToList();
-            var interests = Enumerable.Range(0, RAY_COUNT).Select(i =>
-            {
-                var dot = Vector2.Dot(desiredVelocity.normalized, rays[i]);
-                return dot;
-            }).ToList();
-            controller.Collider2D.enabled = false;
-            for (var i = 0; i < rays.Count; i++)
-            {
-                var ray = rays[i];
-                var hit = Physics2D.Raycast(controller.transform.position, ray, RAY_LENGTH, dangerMask);
-                if (hit )
-                {
-                    interests[i] -= 3f;
-                }
-            }
-            controller.Collider2D.enabled = true;
-
-            return rays.Select((v, i) => v * interests[i]).Aggregate(Vector2.zero, (current, next) => current + next).normalized;
-        }
+        
 
 
     }
