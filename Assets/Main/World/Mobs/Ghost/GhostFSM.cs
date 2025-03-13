@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Main.Lib.FSM;
+using Main.World.Mobs.Ghost.States;
 using UnityEngine;
 
 namespace Main.World.Mobs.Ghost
@@ -12,23 +13,29 @@ namespace Main.World.Mobs.Ghost
         public bool ReachedPatrolPoint { get; set; }
         public bool CanPatrol { get; set; } = true;
         public Vector2 SpawnPoint { get; set; }
+        
+        public bool CanAttack {get;set; } = true;
 
         private void Awake()
         {
             var idle = typeof(IdleState);
             var patrol = typeof(PatrolState);
             var chase = typeof(ChaseState);
+            var attack = typeof(AttackState);
             var states = new List<Type>()
             {
                 idle,
                 patrol,
                 chase,
+                attack,
             };
 
             var transitions = new List<Transition>()
             {
                 Transition.Create(idle, patrol, () => CanPatrol),
                 Transition.Create(patrol, idle, () => ReachedPatrolPoint),
+                Transition.Create(chase, attack, () => CanAttack),
+                Transition.Create(attack, chase, () => Vector2.Distance(ghost.transform.position, ghost.detectedPlayer.transform.position) > 4),
                 Transition.MultiFrom(chase, () => ghost.detectedPlayer, patrol, idle),
                 Transition.Create(chase, idle, () =>
                 {
