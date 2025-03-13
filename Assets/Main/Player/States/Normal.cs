@@ -40,9 +40,9 @@ namespace Main.Player.States
             if (!controller) return ;
             controller.UpdateFacingDirection(input);
             RotateGun();
-            var vel = controller.rigidbody2d.linearVelocity;
-            vel = Vector2.Lerp(vel, input.normalized * controller.movementSpeed, controller.friction);
-            controller.rigidbody2d.linearVelocity = vel;
+            var vel = controller.Rigidbody2D.linearVelocity;
+            vel = Vector2.Lerp(vel, input.normalized * controller.MovementSpeed, controller.friction);
+            controller.Rigidbody2D.linearVelocity = vel;
         }
 
         private void RotateGun()

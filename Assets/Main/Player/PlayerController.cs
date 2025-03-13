@@ -1,14 +1,10 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
-using Main.Lib.Save;
-using Main.Lib.Singleton;
 using Main.Weapons.Gun;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Main.Player
 {
@@ -16,17 +12,12 @@ namespace Main.Player
     {
         [Header("Stats")]
         public float friction = 0.5f;
-        public float movementSpeed = 3f;
         public float dashDistance = 1f;
         [Header("Components")]
-        public Rigidbody2D rigidbody2d;
         [SerializeField]
         private GunController gun;
-        [SerializeField]
-        private CircleCollider2D circleCollider2D;
 
         [SerializeField] private TMP_Text reloadingText;
-        public CircleCollider2D CircleCollider2D => circleCollider2D;
 
         [SerializeField] private Transform gunAnchor;
         public GunController Gun => gun;

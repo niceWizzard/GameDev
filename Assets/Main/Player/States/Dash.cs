@@ -70,7 +70,7 @@ namespace Main.Player.States
             {
                 case DashStates.Invulnerable:
                     const float f = 10f;
-                    controller.rigidbody2d.linearVelocity = direction * f;
+                    controller.Rigidbody2D.linearVelocity = direction * f;
                     traveledDistance += f * Time.fixedDeltaTime;
                     if (traveledDistance < controller.dashDistance)
                         return ;
@@ -79,7 +79,7 @@ namespace Main.Player.States
                     break;
                 case DashStates.Recovery:
                     _recoveryTimer += Time.fixedDeltaTime;
-                    controller.rigidbody2d.linearVelocity *= 0;
+                    controller.Rigidbody2D.linearVelocity *= 0;
                     if (_recoveryTimer < 0.1f)
                         return;
                     ChangeState(PlayerState.Normal);
