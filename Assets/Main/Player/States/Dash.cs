@@ -1,92 +1,68 @@
 using System;
-using Main.Lib.StateMachine;
+using System.Collections;
+using System.Collections.Generic;
+using Main.Lib.FSM;
 using UnityEngine;
 
 namespace Main.Player.States
 {
-    internal enum DashStates
+    public class Dash : State<PlayerFsm>
     {
-        Invulnerable,
-        Recovery,
-    }
-
-    public class Dash : State<PlayerController, PlayerState>
-    {
-        [SerializeField]
-        private Color dashColor;
-        private Vector2 direction = Vector2.zero;
-        private float traveledDistance = 0;
+        private Vector2 _direction = Vector2.zero;
+        private float _traveledDistance = 0;
     
-        private DashStates _state = DashStates.Invulnerable;
+        
+        private PlayerController _controller;
 
-        private float _recoveryTimer = 0;
-    
-        public override void Enter()
+        private bool _isRecovering = false;
+
+        public override void OnSetup(GameObject agent, PlayerFsm executor)
         {
-            base.Enter();
-            if (!controller)
+            base.OnSetup(agent, executor);
+            _controller  = agent.GetComponent<PlayerController>();
+        }
+        
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            var dir = _controller.GetMovementInput();
+            _direction = dir.normalized;
+            Executor.DashFinished = false;
+            _traveledDistance = 0;
+        }
+
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (_isRecovering)
             {
-                Debug.LogError("Controller is not set!");
-                return;
+                _controller.Rigidbody2D.linearVelocity *= 0;
             }
-            var dir = controller.GetMovementInput();
-            if (dir.magnitude < 0.1f)
-                dir = new Vector2(-controller.FacingDirection, 0);
-            direction = dir.normalized;
-            ChangeInternalState(DashStates.Invulnerable);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            controller!.SpriteRenderer.color = Color.white;
-        }
-
-        private void ChangeInternalState(DashStates newState)
-        {
-            _state = newState;
-            switch (_state)
+            else
             {
-                case DashStates.Invulnerable:
-                    controller!.SpriteRenderer.color = dashColor;
-                    controller!.Hurtbox.Disable();
-                    break;
-                case DashStates.Recovery:
-                    controller!.Hurtbox.Enable();
-                    controller.SpriteRenderer.color = Color.white;
-                    _recoveryTimer = 0;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                const float f = 10f;
+                _controller.Rigidbody2D.linearVelocity = _direction * f;
+                _traveledDistance += f * Time.deltaTime;
             }
-        }
-
-        public override void FixedDo()
-        {
-            base.FixedDo();
-            if (!controller) 
+            if (_traveledDistance < _controller.dashDistance)
                 return ;
-            switch (_state)
-            {
-                case DashStates.Invulnerable:
-                    const float f = 10f;
-                    controller.Rigidbody2D.linearVelocity = direction * f;
-                    traveledDistance += f * Time.fixedDeltaTime;
-                    if (traveledDistance < controller.dashDistance)
-                        return ;
-                    traveledDistance = 0;
-                    ChangeInternalState(DashStates.Recovery);
-                    break;
-                case DashStates.Recovery:
-                    _recoveryTimer += Time.fixedDeltaTime;
-                    controller.Rigidbody2D.linearVelocity *= 0;
-                    if (_recoveryTimer < 0.1f)
-                        return;
-                    ChangeState(PlayerState.Normal);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            StartDashRecovery();
+        }
+
+        private void StartDashRecovery()
+        {
+            if (_isRecovering)
+                return;
+            _controller.StartCoroutine(_StartDashRecover());
+        }
+
+        private IEnumerator _StartDashRecover()
+        {
+            _isRecovering = true;
+            yield return new WaitForSecondsRealtime(0.2f);
+            Executor.DashFinished = true;
+            _isRecovering = false;
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Main.Player
         [SerializeField] private TMP_Text reloadingText;
 
         [SerializeField] private Transform gunAnchor;
+        
+        private Camera _camera;
         public GunController Gun => gun;
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;
@@ -30,6 +32,7 @@ namespace Main.Player
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
+            _camera = Camera.main;
         }
 
         private void GunOnReloadEnd()
@@ -53,6 +56,17 @@ namespace Main.Player
         public Vector2 GetMovementInput()
         {
             return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
+        
+        public void RotateGun()
+        {
+            if (!_camera)
+                return;
+            var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 toMouse = (mouse - transform.position).normalized;
+            var angle = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
+            GunAnchor.localEulerAngles = new Vector3(0, 0, angle);
+            Gun.FlipSprite(math.abs(angle) > 90);
         }
     }
 }
