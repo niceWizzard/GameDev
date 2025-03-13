@@ -16,7 +16,6 @@ namespace Main.World.Mobs.Ghost
         [SerializeField] private Rigidbody2D rigidbody2d;
         [SerializeField] private Collider2D collider2d;
         [SerializeField] private MobDetector mobDetector;
-        [SerializeField] private GhostStateMachine ghostStateMachine;
 
         [SerializeField] private ProjectileController projectilePrefab;
         
@@ -57,7 +56,6 @@ namespace Main.World.Mobs.Ghost
             mobDetector.OnMobEntered += controller =>
             {
                 detectedPlayer = controller as PlayerController;
-                ghostStateMachine.ChangeState(GhostState.HasTarget);
             };
         }
         
