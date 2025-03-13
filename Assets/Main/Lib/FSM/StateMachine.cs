@@ -1,11 +1,10 @@
-#nullable enable
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Main.Lib.FSM
 {
-    public abstract  class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
     {
         private Dictionary<Type, State<T>> _statesMap = new();
         private List<Transition> _transitions = null!;
@@ -18,7 +17,7 @@ namespace Main.Lib.FSM
             List<Transition> transitions, 
             Type initialStateType,
             T executor
-            )
+        )
         {
             _transitions = transitions;
 
@@ -47,8 +46,9 @@ namespace Main.Lib.FSM
             // Check for valid transition
             foreach (var transition in _transitions)
             {
-                if ((!transition.FromAny() && transition.From != CurrentState.GetType()) ||
-                    !transition.Condition()) continue;
+                if (!transition.CanTransitionFrom(CurrentState.GetType()) || !transition.Condition()) 
+                    continue;
+
                 SetState(transition.To);
                 return;
             }
@@ -67,7 +67,7 @@ namespace Main.Lib.FSM
 
             CurrentState?.OnExit();
             CurrentState = newState;
-            CurrentState.OnEnter();
+            CurrentState?.OnEnter();
         }
     }
 }
