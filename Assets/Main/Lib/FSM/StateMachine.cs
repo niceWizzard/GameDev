@@ -11,6 +11,14 @@ namespace Main.Lib.FSM
 
         public State<T>? CurrentState { get; private set; }
 
+        /// <summary>
+        /// Sets the required values for the StateMachine
+        /// </summary>
+        /// <param name="agent">The object which this StateMachine is attached to. ex. Player</param>
+        /// <param name="stateTypes">The list types of the States for this StateMachine</param>
+        /// <param name="transitions">The list of transitions</param>
+        /// <param name="initialStateType">The initial state to set</param>
+        /// <param name="executor">The StateMachine itself (this)</param>
         public void Setup(
             GameObject agent, 
             List<Type> stateTypes, 
@@ -56,7 +64,7 @@ namespace Main.Lib.FSM
             // Continue executing current state
             CurrentState.OnUpdate();
         }
-
+        
         public void SetState(Type newStateType)
         {
             if (!_statesMap.TryGetValue(newStateType, out var newState))

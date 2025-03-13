@@ -7,6 +7,10 @@ using UnityEngine.Serialization;
 
 namespace Main.Lib
 {
+    /// <summary>
+    /// This is the base class for all characters in the game.
+    /// If you want to create a moving character, you can extend this class to reduce boilerplate
+    /// </summary>
     [RequireComponent(typeof(HealthComponent), typeof(SpriteRenderer))]
     [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D), typeof(Stats))]
     public abstract class MobController : MonoBehaviour
@@ -18,17 +22,27 @@ namespace Main.Lib
         
         public Stats Stats { get; private set; }
         
+        /// <summary>
+        /// The hurtbox of this Mob.
+        /// Recommended to make another object with another collider as a hurtbox
+        /// </summary>
         [SerializeField]
         private Hurtbox hurtbox;
         
         public Hurtbox Hurtbox => hurtbox;
 
+        /// <summary>
+        /// Shorthand for <see cref="Transform"/>.position
+        /// </summary>
         public Vector2 Position
         {
             get => transform.position;
             set => transform.position = value;
         }
 
+        /// <summary>
+        /// Shorthand for <see cref="Rigidbody2d"/>.linearVelocity
+        /// </summary>
         public Vector2 Velocity
         {
             get => Rigidbody2d.linearVelocity;
@@ -73,11 +87,19 @@ namespace Main.Lib
             
         }
 
+        /// <summary>
+        /// Gets called whenever the <see cref="Hurtbox"/> reports damage
+        /// </summary>
+        /// <param name="damageInfo"></param>
         protected virtual void OnHurtboxHurt(DamageInfo damageInfo)
         {
             HealthComponent.ReduceHealth(damageInfo.damage);
         }
 
+        /// <summary>
+        /// Gets called when the mob's health gets to zero.
+        /// Calls Destroy by default.
+        /// </summary>
         protected virtual void OnHealthZero()
         {
             Destroy(gameObject);

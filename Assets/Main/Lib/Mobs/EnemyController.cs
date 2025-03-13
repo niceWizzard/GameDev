@@ -6,6 +6,10 @@ using UnityEngine.AI;
 
 namespace Main.Lib.Mobs
 {
+    /// <summary>
+    /// This is the base class for all Enemies in the Game.
+    /// All enemies must extend from this so they'll be registered to LevelManager
+    /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
     public  abstract class EnemyController : MobController
     {
@@ -62,7 +66,11 @@ namespace Main.Lib.Mobs
             NavMeshAgent.nextPosition = Position;
         }
         
-        
+        /// <summary>
+        /// Supposed to let mob's movement detect obstacles and move accordingly.
+        /// </summary>
+        /// <param name="desiredVelocity">The direction the mob wants to go.</param>
+        /// <returns>The steered velocity that is safe from obstacles</returns>
         public Vector2 ContextBasedSteer(Vector2 desiredVelocity)
         {
             const int RAY_COUNT = 8;
