@@ -2,18 +2,23 @@ using System;
 using Main.Lib.Health;
 using Main.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Main.Lib
 {
-    [RequireComponent(typeof(HealthComponent), typeof(Hurtbox), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(HealthComponent), typeof(SpriteRenderer))]
     [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D))]
     public abstract class MobController : MonoBehaviour
     {
         public HealthComponent HealthComponent { get; private set; }
-        public Hurtbox Hurtbox { get; private set; }
         public SpriteRenderer SpriteRenderer { get; private set; }
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
+        
+        [SerializeField]
+        private Hurtbox hurtbox;
+        
+        public Hurtbox Hurtbox => hurtbox;
 
         public Vector2 Position
         {
@@ -46,7 +51,6 @@ namespace Main.Lib
             Rigidbody2d = GetComponent<Rigidbody2D>();
             Collider2d = GetComponent<Collider2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
-            Hurtbox = GetComponent<Hurtbox>();
             HealthComponent = GetComponent<HealthComponent>();
         }
 

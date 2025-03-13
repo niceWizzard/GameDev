@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 namespace Main.Lib.Mobs
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public  abstract class EnemyController : MobController
     {
         [SerializeField] private MobDetector mobDetector;
