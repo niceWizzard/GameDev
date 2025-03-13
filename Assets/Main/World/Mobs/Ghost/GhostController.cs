@@ -4,7 +4,6 @@ using CleverCrow.Fluid.UniqueIds;
 using Main.Lib;
 using Main.Player;
 using Main.Weapons;
-using Main.World.Mobs.Ghost.States;
 using Unity.Mathematics;
 using UnityEngine;
 

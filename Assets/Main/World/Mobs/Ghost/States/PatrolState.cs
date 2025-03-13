@@ -42,8 +42,9 @@ namespace Main.World.Mobs.Ghost
             }
 
             var dir = toTarget.normalized;
-
-            _ghost.Rigidbody2D.linearVelocity = dir * _ghost.MovementSpeed;
+            
+            var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
+            _ghost.Rigidbody2D.linearVelocity = vel.normalized * _ghost.MovementSpeed;
 
         }
         

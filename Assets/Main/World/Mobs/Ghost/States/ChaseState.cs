@@ -14,18 +14,13 @@ namespace Main.World.Mobs.Ghost
             _ghost = agent.GetComponent<GhostController>();
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-            Debug.Log("EXIT!" + _ghost.detectedPlayer);
-        }
-
         public override void OnUpdate()
         {
             base.OnUpdate();
             Vector2 toPlayer = (_ghost.detectedPlayer.transform.position - _ghost.transform.position);
-            var dir = toPlayer.normalized;
-            _ghost.Rigidbody2D.linearVelocity = dir * _ghost.MovementSpeed;
+            var dir = toPlayer.normalized ;
+            var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
+            _ghost.Rigidbody2D.linearVelocity = vel.normalized * _ghost.MovementSpeed;
         }
     }
 }

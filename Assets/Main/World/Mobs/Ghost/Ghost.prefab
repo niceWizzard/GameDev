@@ -295,7 +295,7 @@ MonoBehaviour:
   movementSpeed: 2
   dangerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 385
   detectedPlayer: {fileID: 0}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
