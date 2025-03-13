@@ -33,7 +33,7 @@ namespace Main.World.Mobs.Ghost
         public override void OnUpdate()
         {
             base.OnUpdate();
-            var toTarget = (_targetPoint - (Vector2)_ghost.transform.position);
+            var toTarget = (_targetPoint - (Vector2)_ghost.Position);
             if (toTarget.magnitude < 0.1f)
             {
                 Executor.ReachedPatrolPoint = true;
@@ -44,7 +44,7 @@ namespace Main.World.Mobs.Ghost
             var dir = toTarget.normalized;
             
             var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
-            _ghost.Rigidbody2d.linearVelocity = vel.normalized * _ghost.MovementSpeed;
+            _ghost.Velocity = vel.normalized * _ghost.MovementSpeed;
 
         }
         

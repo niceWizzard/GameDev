@@ -37,12 +37,12 @@ namespace Main.Player.States
             base.OnUpdate();
             if (_isRecovering)
             {
-                _controller.Rigidbody2d.linearVelocity *= 0;
+                _controller.Velocity *= 0;
             }
             else
             {
                 const float f = 10f;
-                _controller.Rigidbody2d.linearVelocity = _direction * f;
+                _controller.Velocity = _direction * f;
                 _traveledDistance += f * Time.deltaTime;
             }
             if (_traveledDistance < _controller.dashDistance)

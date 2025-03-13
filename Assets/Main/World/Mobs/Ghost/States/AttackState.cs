@@ -18,7 +18,7 @@ namespace Main.World.Mobs.Ghost.States
         {
             base.OnEnter();
             _ghost.StartCoroutine(Shoot());
-            _ghost.Rigidbody2d.linearVelocity *= 0;
+            _ghost.Velocity *= 0;
         }
 
         private IEnumerator Shoot()
@@ -28,9 +28,9 @@ namespace Main.World.Mobs.Ghost.States
             {
                 if (!_ghost || !_ghost.detectedPlayer)
                     yield break;
-                Vector2 dir = (_ghost.detectedPlayer.transform.position - _ghost.transform.position).normalized;
-                var projectile = Object.Instantiate(_ghost.ProjectilePrefab, _ghost.transform.position + (Vector3) dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(_ghost.transform.position, dir.normalized, _ghost.gameObject, 20);
+                var dir = (_ghost.detectedPlayer.Position - _ghost.Position).normalized;
+                var projectile = Object.Instantiate(_ghost.ProjectilePrefab, _ghost.Position +  dir.normalized * 3, Quaternion.identity);
+                projectile.Setup(_ghost.Position, dir.normalized, _ghost.gameObject, 20);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();

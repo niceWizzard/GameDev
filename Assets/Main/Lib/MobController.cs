@@ -1,3 +1,4 @@
+using System;
 using Main.Lib.Health;
 using Main.UI;
 using UnityEngine;
@@ -13,7 +14,19 @@ namespace Main.Lib
         public SpriteRenderer SpriteRenderer { get; private set; }
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
-        
+
+        public Vector2 Position
+        {
+            get => transform.position;
+            set => transform.position = value;
+        }
+
+        public Vector2 Velocity
+        {
+            get => Rigidbody2d.linearVelocity;
+            set => Rigidbody2d.linearVelocity = value;
+        }
+
         [Header("Stats")]
         [SerializeField] protected float movementSpeed = 4.5f;
 

@@ -58,7 +58,7 @@ namespace Main.Lib.Mobs
         
         protected virtual void FixedUpdate()
         {
-            NavMeshAgent.nextPosition = transform.position;
+            NavMeshAgent.nextPosition = Position;
         }
         
         
@@ -81,7 +81,7 @@ namespace Main.Lib.Mobs
             for (var i = 0; i < rays.Count; i++)
             {
                 var ray = rays[i];
-                var hit = Physics2D.Raycast(transform.position, ray, RAY_LENGTH, dangerMask);
+                var hit = Physics2D.Raycast(Position, ray, RAY_LENGTH, dangerMask);
                 if (hit )
                 {
                     interests[i] -= 3f;

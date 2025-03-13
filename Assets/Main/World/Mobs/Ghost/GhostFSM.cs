@@ -35,12 +35,12 @@ namespace Main.World.Mobs.Ghost
                 Transition.Create(idle, patrol, () => CanPatrol),
                 Transition.Create(patrol, idle, () => ReachedPatrolPoint),
                 Transition.Create(chase, attack, () => CanAttack),
-                Transition.Create(attack, chase, () => Vector2.Distance(ghost.transform.position, ghost.detectedPlayer.transform.position) > 4),
+                Transition.Create(attack, chase, () => Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position) > 4),
                 Transition.MultiFrom(chase, () => ghost.detectedPlayer, patrol, idle),
                 Transition.Create(chase, idle, () =>
                 {
-                    if (Vector2.Distance(ghost.detectedPlayer.transform.position,
-                            ghost.transform.position) > 10f)
+                    if (Vector2.Distance(ghost.detectedPlayer.Position,
+                            ghost.Position) > 10f)
                     {
                         ghost.detectedPlayer = null;
                         return true;
@@ -59,7 +59,7 @@ namespace Main.World.Mobs.Ghost
 
         private void Start()
         {
-            SpawnPoint = ghost.transform.position;
+            SpawnPoint = ghost.Position;
         }
     }
 }

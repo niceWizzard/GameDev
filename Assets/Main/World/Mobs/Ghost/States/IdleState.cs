@@ -24,7 +24,7 @@ namespace Main.World.Mobs.Ghost
         public override void OnUpdate()
         {
             base.OnUpdate();
-            _ghost.Rigidbody2d.linearVelocity = Vector2.Lerp(_ghost.Rigidbody2d.linearVelocity, Vector2.zero, 0.5f);
+            _ghost.Velocity = Vector2.Lerp(_ghost.Velocity, Vector2.zero, 0.5f);
             _patrolCd -= Time.deltaTime;
             if (_patrolCd <= 0)
             {

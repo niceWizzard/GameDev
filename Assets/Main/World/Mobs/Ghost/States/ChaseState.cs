@@ -17,10 +17,10 @@ namespace Main.World.Mobs.Ghost
         public override void OnUpdate()
         {
             base.OnUpdate();
-            _ghost.NavMeshAgent.SetDestination(_ghost.detectedPlayer.transform.position);
+            _ghost.NavMeshAgent.SetDestination(_ghost.detectedPlayer.Position);
             var dir = ((Vector2)_ghost.NavMeshAgent.desiredVelocity).normalized;
             var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f * 0;
-            _ghost.Rigidbody2d.linearVelocity = vel.normalized * _ghost.MovementSpeed;
+            _ghost.Velocity = vel.normalized * _ghost.MovementSpeed;
         }
     }
 }

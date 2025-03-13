@@ -43,7 +43,7 @@ namespace Main.Lib.Level
                 Debug.LogError($"Safe spawn is null at {SceneManager.GetActiveScene().name}");
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
-            player.transform.position = safeSpawn.position;
+            player.Position = safeSpawn.position;
             HUDController.Instance.SetPlayer(player);
             GameManager.Instance.RegisterLevelManager(this);
             player.HealthComponent.OnHealthZero += PlayerOnDie;
