@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 4472328565976319353}
   - component: {fileID: 6992973875973127930}
   - component: {fileID: 5371952180967557097}
+  - component: {fileID: 5407956428903910269}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Untagged
@@ -290,7 +291,6 @@ MonoBehaviour:
   rigidbody2d: {fileID: 4472328565976319353}
   collider2d: {fileID: 6992973875973127930}
   mobDetector: {fileID: 567971441213821253}
-  ghostStateMachine: {fileID: 0}
   projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
   movementSpeed: 2
   dangerMask:
@@ -373,3 +373,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 
+--- !u!114 &5407956428903910269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453898687403174852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9347c8e2757f848ac8863bc10bb57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghost: {fileID: 8904548540393660312}
