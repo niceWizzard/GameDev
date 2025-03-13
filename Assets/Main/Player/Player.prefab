@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 5981204155692804977}
   - component: {fileID: 6706000480422274695}
   - component: {fileID: 9213815184446082909}
+  - component: {fileID: 4107116063827640058}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -488,7 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtbox: {fileID: 972943662124109601}
-  movementSpeed: 4
   friction: 0.5
   dashDistance: 2.2
   gun: {fileID: 9144056739718323003}
@@ -638,6 +638,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3967427713516798673}
+--- !u!114 &4107116063827640058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108688046645523271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f03d3734fcedf84baef6f8142c8e91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 4
+  health: 100
+  attackPower: 10
 --- !u!1001 &1937540383223166697
 PrefabInstance:
   m_ObjectHideFlags: 0

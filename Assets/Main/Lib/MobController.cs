@@ -1,5 +1,6 @@
 using System;
 using Main.Lib.Health;
+using Main.Lib.Stat;
 using Main.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -7,13 +8,15 @@ using UnityEngine.Serialization;
 namespace Main.Lib
 {
     [RequireComponent(typeof(HealthComponent), typeof(SpriteRenderer))]
-    [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D))]
+    [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D), typeof(Stats))]
     public abstract class MobController : MonoBehaviour
     {
         public HealthComponent HealthComponent { get; private set; }
         public SpriteRenderer SpriteRenderer { get; private set; }
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
+        
+        public Stats Stats { get; private set; }
         
         [SerializeField]
         private Hurtbox hurtbox;
@@ -32,10 +35,7 @@ namespace Main.Lib
             set => Rigidbody2d.linearVelocity = value;
         }
 
-        [Header("Stats")]
-        [SerializeField] protected float movementSpeed = 4.5f;
-
-        public float MovementSpeed => movementSpeed;
+        public float MovementSpeed => Stats.MovementSpeed;
     
     
         protected virtual void Awake()
@@ -44,6 +44,7 @@ namespace Main.Lib
             VerifyRequiredComponents();
             Hurtbox.OnHurt += OnHurtboxHurt;
             HealthComponent.OnHealthZero += OnHealthZero;
+            HealthComponent.SetHealth(Stats.Health);
         }
 
         protected virtual void GetRequiredComponents()
@@ -52,6 +53,7 @@ namespace Main.Lib
             Collider2d = GetComponent<Collider2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             HealthComponent = GetComponent<HealthComponent>();
+            Stats = GetComponent<Stats>();
         }
 
         protected virtual void VerifyRequiredComponents()
@@ -66,6 +68,8 @@ namespace Main.Lib
                 Debug.LogError($"No rigidbody2d attached to {name}");
             if(!Collider2d)
                 Debug.LogError($"No collider attached to {name}");
+            if(!Stats)
+                Debug.LogError($"No stats attached to {name}");
             
         }
 
