@@ -6,6 +6,8 @@ using Main.Player;
 using Main.Weapons;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Main.World.Mobs.Ghost
 {
@@ -15,6 +17,7 @@ namespace Main.World.Mobs.Ghost
         [SerializeField] private Rigidbody2D rigidbody2d;
         [SerializeField] private Collider2D collider2d;
         [SerializeField] private MobDetector mobDetector;
+        [SerializeField] private NavMeshAgent navMeshAgent; 
 
         [SerializeField] private ProjectileController projectilePrefab;
         
@@ -22,7 +25,7 @@ namespace Main.World.Mobs.Ghost
         [SerializeField] private float movementSpeed = 4.5f;
         [SerializeField] public LayerMask dangerMask;
 
-        
+        public NavMeshAgent NavMeshAgent => navMeshAgent;
         public float MovementSpeed => movementSpeed;
     
         public Rigidbody2D Rigidbody2D => rigidbody2d;
@@ -42,12 +45,20 @@ namespace Main.World.Mobs.Ghost
             base.Awake();
             _uniqueId = GetComponent<UniqueId>();
             GameManager.Instance.CurrentLevelManager.RegisterMob(gameObject);
+            NavMeshAgent.updatePosition = false;
+            NavMeshAgent.updateRotation = false;
+            NavMeshAgent.updateUpAxis = false;
         }
 
         protected override void OnHealthZero()
         {
             base.OnHealthZero();
             GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
+        }
+
+        private void FixedUpdate()
+        {
+            NavMeshAgent.nextPosition = transform.position;
         }
 
         protected  void Start()

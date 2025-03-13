@@ -17,9 +17,9 @@ namespace Main.World.Mobs.Ghost
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Vector2 toPlayer = (_ghost.detectedPlayer.transform.position - _ghost.transform.position);
-            var dir = toPlayer.normalized ;
-            var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
+            _ghost.NavMeshAgent.SetDestination(_ghost.detectedPlayer.transform.position);
+            var dir = ((Vector2)_ghost.NavMeshAgent.desiredVelocity).normalized;
+            var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f * 0;
             _ghost.Rigidbody2D.linearVelocity = vel.normalized * _ghost.MovementSpeed;
         }
     }
