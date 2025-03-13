@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 5371952180967557097}
   - component: {fileID: 5407956428903910269}
   - component: {fileID: 7203529106101848059}
+  - component: {fileID: 3399313587665328453}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Untagged
@@ -286,19 +287,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8005b3bb6678c9e46b8786ccdc7ff066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 6611883880406582598}
-  hurtbox: {fileID: 27498408140041973}
-  spriteRenderer: {fileID: 1871215968226044275}
-  rigidbody2d: {fileID: 4472328565976319353}
-  collider2d: {fileID: 6992973875973127930}
+  movementSpeed: 2
   mobDetector: {fileID: 567971441213821253}
   navMeshAgent: {fileID: 7203529106101848059}
-  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
-  movementSpeed: 2
   dangerMask:
     serializedVersion: 2
     m_Bits: 385
   detectedPlayer: {fileID: 0}
+  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
   serializedVersion: 5
@@ -410,3 +406,16 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3399313587665328453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453898687403174852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acd9ced42f03b34eb0460ec6b00c352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerHealth: {fileID: 6611883880406582598}

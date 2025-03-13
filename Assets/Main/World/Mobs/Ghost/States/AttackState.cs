@@ -18,7 +18,7 @@ namespace Main.World.Mobs.Ghost.States
         {
             base.OnEnter();
             _ghost.StartCoroutine(Shoot());
-            _ghost.Rigidbody2D.linearVelocity *= 0;
+            _ghost.Rigidbody2d.linearVelocity *= 0;
         }
 
         private IEnumerator Shoot()

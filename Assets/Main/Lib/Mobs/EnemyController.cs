@@ -8,15 +8,12 @@ namespace Main.Lib.Mobs
 {
     public  abstract class EnemyController : MobController
     {
-        
-        [SerializeField] protected MobDetector mobDetector;
-        [SerializeField] protected NavMeshAgent navMeshAgent; 
-
+        [SerializeField] private MobDetector mobDetector;
         [Header("Stats")]
         [SerializeField] public LayerMask dangerMask;
 
-        public NavMeshAgent NavMeshAgent => navMeshAgent;
-        
+        public NavMeshAgent NavMeshAgent { get; private set; }
+        public MobDetector MobDetector => mobDetector;
         [HideInInspector]
         public PlayerController detectedPlayer;
 
@@ -35,10 +32,25 @@ namespace Main.Lib.Mobs
             NavMeshAgent.updateUpAxis = false;
         }
 
-        
+        protected override void GetRequiredComponents()
+        {
+            base.GetRequiredComponents();
+            NavMeshAgent = GetComponent<NavMeshAgent>();
+        }
+
+        protected override void VerifyRequiredComponents()
+        {
+            base.VerifyRequiredComponents();
+            if(!MobDetector)
+                Debug.LogError($"Mob detector is missing on {name}. ");
+            if(!NavMeshAgent)
+                Debug.LogError($"NavMeshAgent is missing on {name}. ");
+        }
+
+
         protected  virtual void Start()
         {
-            mobDetector.OnMobEntered += controller =>
+            MobDetector.OnMobEntered += controller =>
             {
                 detectedPlayer = controller as PlayerController;
             };
@@ -65,7 +77,7 @@ namespace Main.Lib.Mobs
                 var dot = Vector2.Dot(desiredVelocity.normalized, rays[i]);
                 return dot;
             }).ToList();
-            Collider2D.enabled = false;
+            Collider2d.enabled = false;
             for (var i = 0; i < rays.Count; i++)
             {
                 var ray = rays[i];
@@ -75,7 +87,7 @@ namespace Main.Lib.Mobs
                     interests[i] -= 3f;
                 }
             }
-            Collider2D.enabled = true;
+            Collider2d.enabled = true;
 
             return rays.Select((v, i) => v * interests[i]).Aggregate(Vector2.zero, (current, next) => current + next).normalized;
         }

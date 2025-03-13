@@ -16,7 +16,7 @@ namespace Main.Player.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-            controller.Rigidbody2D.linearVelocity = Vector2.zero;
+            controller.Rigidbody2d.linearVelocity = Vector2.zero;
             controller.RotateGun();
             Executor.ProcessAttackInputs();
         }

@@ -20,9 +20,9 @@ namespace Main.Player.States
             var input = _controller.GetMovementInput();
             _controller.UpdateFacingDirection(input);
             _controller.RotateGun();
-            var vel = _controller.Rigidbody2D.linearVelocity;
+            var vel = _controller.Rigidbody2d.linearVelocity;
             vel = Vector2.Lerp(vel, input.normalized * _controller.MovementSpeed, _controller.friction);
-            _controller.Rigidbody2D.linearVelocity = vel;
+            _controller.Rigidbody2d.linearVelocity = vel;
         }
         
         

@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 5981204155692804977}
   - component: {fileID: 6706000480422274695}
   - component: {fileID: 9213815184446082909}
+  - component: {fileID: 3496073762787534474}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -487,11 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba91c6e0da682ae47b37f6ae289d3aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 6706000480422274695}
-  hurtbox: {fileID: 972943662124109601}
-  spriteRenderer: {fileID: 594475666362590995}
-  rigidbody2d: {fileID: 5981204155692804977}
-  collider2d: {fileID: 5185112708580247980}
   movementSpeed: 4
   friction: 0.5
   dashDistance: 2.2
@@ -642,6 +638,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3967427713516798673}
+--- !u!114 &3496073762787534474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9108688046645523271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acd9ced42f03b34eb0460ec6b00c352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerHealth: {fileID: 6706000480422274695}
 --- !u!1001 &1937540383223166697
 PrefabInstance:
   m_ObjectHideFlags: 0

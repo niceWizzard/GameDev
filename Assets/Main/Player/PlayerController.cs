@@ -50,7 +50,7 @@ namespace Main.Player
             if (math.abs(input.x) < 0.01f)
                 return;
             FacingDirection = math.sign(input.x);
-            spriteRenderer.flipX = FacingDirection < 0;
+            SpriteRenderer.flipX = FacingDirection < 0;
         }
 
         public Vector2 GetMovementInput()

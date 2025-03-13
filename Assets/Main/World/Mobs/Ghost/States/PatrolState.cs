@@ -44,7 +44,7 @@ namespace Main.World.Mobs.Ghost
             var dir = toTarget.normalized;
             
             var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
-            _ghost.Rigidbody2D.linearVelocity = vel.normalized * _ghost.MovementSpeed;
+            _ghost.Rigidbody2d.linearVelocity = vel.normalized * _ghost.MovementSpeed;
 
         }
         
@@ -58,9 +58,9 @@ namespace Main.World.Mobs.Ghost
                 var angle = Random.Range(0f, 360f);
                 var distance = Random.Range(0.5f, radius);
                 Vector2 point = (Vector3)origin + Quaternion.Euler(0, 0, angle) * Vector2.right * distance;
-                _ghost.Collider2D.enabled = false;
+                _ghost.Collider2d.enabled = false;
                 var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, _ghost.dangerMask);
-                _ghost.Collider2D.enabled = true;
+                _ghost.Collider2d.enabled = true;
                 if (hit) continue;
                 return point;
             }

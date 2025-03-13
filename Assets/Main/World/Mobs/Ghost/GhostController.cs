@@ -8,7 +8,6 @@ namespace Main.World.Mobs.Ghost
     [RequireComponent(typeof(Rigidbody2D))]
     public class GhostController : EnemyController
     {
-
         [SerializeField] private ProjectileController projectilePrefab;
 
 
