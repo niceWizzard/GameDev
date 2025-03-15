@@ -7,7 +7,7 @@ namespace Main.Lib.FSM
 {
     public abstract class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private Dictionary<Type, State<T>> _statesMap = new();
+        private readonly Dictionary<Type, State<T>> _statesMap = new();
         private List<Transition> _transitions = null!;
 
         public State<T>? CurrentState { get; private set; }
