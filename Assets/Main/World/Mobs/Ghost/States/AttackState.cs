@@ -20,7 +20,10 @@ namespace Main.World.Mobs.Ghost.States
             for (var i = 0; i < 3; i++)
             {
                 if (!Agent || !Agent.detectedPlayer)
+                {
+                    Executor.CanAttack = true;
                     yield break;
+                }
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
                 var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
                 projectile.Setup(Agent.Position, dir.normalized, Agent.gameObject, 20);
