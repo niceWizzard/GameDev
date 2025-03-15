@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Main.Lib.FSM;
 using Main.World.Mobs.Ghost.States;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Main.World.Mobs.Ghost
@@ -15,6 +16,7 @@ namespace Main.World.Mobs.Ghost
         public Vector2 SpawnPoint { get; set; }
         
         public bool CanAttack {get;set; } = true;
+        public float PlayerTooClose { get; set; } = 0;
 
         private void Awake()
         {
@@ -22,12 +24,14 @@ namespace Main.World.Mobs.Ghost
             var patrol = typeof(PatrolState);
             var chase = typeof(ChaseState);
             var attack = typeof(AttackState);
+            var flee = typeof(FleeState);
             var states = new List<Type>()
             {
                 idle,
                 patrol,
                 chase,
                 attack,
+                flee,
             };
 
             var transitions = new List<Transition>()
@@ -50,6 +54,23 @@ namespace Main.World.Mobs.Ghost
                     }
                     return false;
                 }),
+                Transition.MultiFrom(flee, () =>
+                {
+                    if (!ghost.detectedPlayer)
+                        return false;
+                    var distance = Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position);
+                    switch (distance)
+                    {
+                        case < 2f:
+                            PlayerTooClose = 4;
+                            break;
+                        case < 3:
+                            PlayerTooClose += Time.deltaTime;
+                            break;
+                    } 
+                    return PlayerTooClose >= 1;
+                }, idle, patrol, chase),
+                Transition.Create(flee, idle, () => !ghost.detectedPlayer || PlayerTooClose == 0),
             };
             Setup(
                 ghost,
@@ -60,9 +81,18 @@ namespace Main.World.Mobs.Ghost
             );
         }
 
+
+        protected override void Update()
+        {
+            base.Update();
+        }
+
         private void Start()
         {
             SpawnPoint = ghost.Position;
         }
+
+        
+
     }
 }
