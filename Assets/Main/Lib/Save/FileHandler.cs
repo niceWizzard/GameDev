@@ -37,6 +37,8 @@ namespace Main.Lib.Save
         }
 
         public string GetPath(string path) => Path.Join(_saveRootPath, path);
+        public bool HasFile(string p) => File.Exists(GetPath(p));
+
         
         public FileResult<string> LoadFile(string p)
         {
@@ -76,6 +78,7 @@ namespace Main.Lib.Save
                 return false;
             }
         }
+        
 
         public FileResult<T> LoadJsonFile<T>(string path)
         {

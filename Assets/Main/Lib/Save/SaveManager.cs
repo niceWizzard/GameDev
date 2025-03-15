@@ -50,7 +50,15 @@ namespace Main.Lib.Save
         
         public SaveGameData ReadSaveGameData(int saveSlot)
         {
-            var dataResult = _fileHandler.LoadJsonFile<SaveGameData>(GetSaveSlotPath(saveSlot));
+            var path = GetSaveSlotPath(saveSlot);
+            if (!_fileHandler.HasFile(path))
+            {
+                #if UNITY_EDITOR
+                Debug.LogWarning("No save game data found.");
+                #endif
+                return new SaveGameData();
+            }
+            var dataResult = _fileHandler.LoadJsonFile<SaveGameData>(path);
             return !dataResult.IsSuccess ? new SaveGameData() : dataResult.Value;
         }
 
