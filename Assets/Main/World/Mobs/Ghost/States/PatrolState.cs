@@ -22,6 +22,7 @@ namespace Main.World.Mobs.Ghost.States
             base.OnEnter();
             Executor.ReachedPatrolPoint = false;
             _targetPoint = GetRandomPoint(Executor.SpawnPoint);
+            Agent.NavMeshAgent.SetDestination(_targetPoint);
         }
 
         public override void OnUpdate()
@@ -35,7 +36,7 @@ namespace Main.World.Mobs.Ghost.States
                 return;
             }
 
-            var dir = toTarget.normalized;
+            var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
             
             var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f;
             Agent.Velocity = vel.normalized * Agent.MovementSpeed;
@@ -58,7 +59,7 @@ namespace Main.World.Mobs.Ghost.States
                 if (hit) continue;
                 return point;
             }
-
+            
             throw new Exception("While Loop took too long!");
         }
     }
