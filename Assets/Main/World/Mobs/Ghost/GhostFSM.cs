@@ -49,7 +49,7 @@ namespace Main.World.Mobs.Ghost
                 }),
             };
             Setup(
-                ghost.gameObject,
+                ghost,
                 states,
                 transitions,    
                 idle,

@@ -7,7 +7,7 @@ namespace Main.Player.States
     public class MoveState : State<PlayerFsm>
     {
         private PlayerController _controller;
-        public override void OnSetup(GameObject agent, PlayerFsm executor)
+        public override void OnSetup(Component agent, PlayerFsm executor)
         {
             base.OnSetup(agent, executor);
             _controller  = agent.GetComponent<PlayerController>();

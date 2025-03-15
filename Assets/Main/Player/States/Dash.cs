@@ -16,7 +16,7 @@ namespace Main.Player.States
 
         private bool _isRecovering = false;
 
-        public override void OnSetup(GameObject agent, PlayerFsm executor)
+        public override void OnSetup(Component agent, PlayerFsm executor)
         {
             base.OnSetup(agent, executor);
             _controller  = agent.GetComponent<PlayerController>();

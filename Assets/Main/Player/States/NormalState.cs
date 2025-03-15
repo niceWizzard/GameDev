@@ -7,7 +7,7 @@ namespace Main.Player.States
     {
         private PlayerController controller;
 
-        public override void OnSetup(GameObject agent, PlayerFsm executor)
+        public override void OnSetup(Component agent, PlayerFsm executor)
         {
             base.OnSetup(agent, executor);
             controller  = agent.GetComponent<PlayerController>();

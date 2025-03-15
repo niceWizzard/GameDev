@@ -33,7 +33,7 @@ namespace Main.Player
                 Transition.Create(dashState, moveState, () => DashFinished),
             };
             
-            Setup(player.gameObject, states, transitions, idleState, this);
+            Setup(player, states, transitions, idleState, this);
         }
 
         public void ProcessAttackInputs()

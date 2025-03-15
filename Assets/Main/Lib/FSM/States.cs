@@ -11,7 +11,7 @@ namespace Main.Lib.FSM
     {
         protected T Executor { get; private set; } = null!;
 
-        public void Setup(GameObject agent, T executor)
+        public void Setup(Component agent, T executor)
         {
             Executor = executor;
             OnSetup(agent, executor);
@@ -22,7 +22,7 @@ namespace Main.Lib.FSM
         /// </summary>
         /// <param name="agent">The object which the FSM is attached to.</param>
         /// <param name="executor">The StateMachine</param>
-        public virtual void OnSetup(GameObject agent, T executor) { }
+        public virtual void OnSetup(Component agent, T executor) { }
         /// <summary>
         /// The Update Loop
         /// </summary>

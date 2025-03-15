@@ -9,7 +9,7 @@ namespace Main.World.Mobs.Ghost
         private float _patrolCd = 2;
         
 
-        public override void OnSetup(GameObject agent, GhostFsm executor)
+        public override void OnSetup(Component agent, GhostFsm executor)
         {
             base.OnSetup(agent, executor);
             _ghost = agent.GetComponent<GhostController>();

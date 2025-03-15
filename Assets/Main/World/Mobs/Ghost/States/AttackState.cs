@@ -8,7 +8,7 @@ namespace Main.World.Mobs.Ghost.States
     {
         private GhostController _ghost;
 
-        public override void OnSetup(GameObject agent, GhostFsm executor)
+        public override void OnSetup(Component agent, GhostFsm executor)
         {
             base.OnSetup(agent, executor);
             _ghost = agent.GetComponent<GhostController>();

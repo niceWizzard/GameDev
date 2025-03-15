@@ -21,7 +21,7 @@ namespace Main.Lib.FSM
         /// <param name="initialStateType">The initial state to set</param>
         /// <param name="executor">The StateMachine itself (this)</param>
         public void Setup(
-            GameObject agent, 
+            Component agent, 
             List<Type> stateTypes, 
             List<Transition> transitions, 
             Type initialStateType,
