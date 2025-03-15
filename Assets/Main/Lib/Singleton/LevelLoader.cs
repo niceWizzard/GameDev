@@ -32,8 +32,13 @@ namespace Main.Lib.Singleton
             blackScreen.color = color;
         }
 
-        public string GetLevelGuid(string levelName) =>
-            levelMappings.Find(v => v.levelName == levelName).scene.AssetGUID;
+        public string GetLevelGuid(string levelName)
+        {
+            var a = levelMappings.Find(v => v.levelName == levelName);
+            if(a == null)
+                throw new NullReferenceException($"Level mapping not found. Consider adding {levelName} to LevelLoader level map");
+            return a.scene.AssetGUID;
+        }
 
         public void LoadLevel(AssetReference levelRef)
         {
