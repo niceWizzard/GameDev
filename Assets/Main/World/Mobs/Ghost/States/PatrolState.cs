@@ -1,10 +1,9 @@
 using System;
 using Main.Lib.FSM;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Main.World.Mobs.Ghost
+namespace Main.World.Mobs.Ghost.States
 {
     public class PatrolState : State<GhostFsm>
     {

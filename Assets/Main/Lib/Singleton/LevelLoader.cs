@@ -14,8 +14,8 @@ namespace Main.Lib.Singleton
     [Serializable]
     public class LevelMapping
     {
-        public string levelName;
-        public AssetReference scene;
+        public string levelName = null!;
+        public AssetReference scene = null!;
     }
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {

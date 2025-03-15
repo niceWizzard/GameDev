@@ -71,7 +71,7 @@ namespace Main.Lib.Singleton
         {
             if (_currentMenu == MenuNames.PauseMenu)
             {
-                CloseCurrentMenu();
+                _ = CloseCurrentMenu();
                 return;
             }
             ShowMenu(MenuNames.PauseMenu);
@@ -95,20 +95,20 @@ namespace Main.Lib.Singleton
         public void RetryLevel()
         {
             LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
-            CloseCurrentMenu();
+            _ = CloseCurrentMenu();
         }
 
         public void GoToMainMenu()
         {
             Time.timeScale = 1;
             SceneManager.LoadScene("Startup");
-            CloseCurrentMenu();
+            _ = CloseCurrentMenu();
         }
 
         public void GoToHub()
         {
             LevelLoader.Instance.LoadLevel("HubLevel");
-            CloseCurrentMenu();
+            _ = CloseCurrentMenu();
 
         }
         
