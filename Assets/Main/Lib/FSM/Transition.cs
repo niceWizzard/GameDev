@@ -18,7 +18,7 @@ namespace Main.Lib.FSM
 
         public bool CanTransitionFrom(Type stateType)
         {
-            return FromStates.Contains(stateType) || FromStates.Contains(States.AnyState);
+            return FromStates.Contains(stateType) || (FromStates.Contains(States.AnyState) && To != stateType);
         }
 
         public static Transition Create(Type fromState, Type to, Func<bool> condition)
