@@ -1,7 +1,7 @@
 using Main.Lib.FSM;
 using UnityEngine;
 
-namespace Main.World.Mobs.Ghost
+namespace Main.World.Mobs.Ghost.States
 {
     public class IdleState : State<GhostFsm, GhostController>
     {
