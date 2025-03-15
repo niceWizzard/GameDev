@@ -16,6 +16,7 @@ namespace Main.Lib.Health
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
+            _collider.isTrigger = true;
         }
 
         public void Disable()
