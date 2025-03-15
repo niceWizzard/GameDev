@@ -7,14 +7,16 @@ namespace Main.Lib.FSM
     /// This is a base state for the Finite State Machine (FSM) 
     /// </summary>
     /// <typeparam name="T">the script which inherits from <see cref="StateMachine"/></typeparam>
-    public abstract class State<T> where T : MonoBehaviour
+    public abstract class State<T, K> where T : MonoBehaviour where K : MonoBehaviour
     {
         protected T Executor { get; private set; } = null!;
+        protected K Agent{ get; private set; } = null!;
 
-        public void Setup(Component agent, T executor)
+        public void Setup(K agent, T executor)
         {
             Executor = executor;
-            OnSetup(agent, executor);
+            Agent = agent;
+            OnSetup();
         }
 
         /// <summary>
@@ -22,7 +24,7 @@ namespace Main.Lib.FSM
         /// </summary>
         /// <param name="agent">The object which the FSM is attached to.</param>
         /// <param name="executor">The StateMachine</param>
-        public virtual void OnSetup(Component agent, T executor) { }
+        public virtual void OnSetup() { }
         /// <summary>
         /// The Update Loop
         /// </summary>

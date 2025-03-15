@@ -3,17 +3,11 @@ using UnityEngine;
 
 namespace Main.World.Mobs.Ghost
 {
-    public class IdleState : State<GhostFsm>
+    public class IdleState : State<GhostFsm, GhostController>
     {
-        private GhostController _ghost;
         private float _patrolCd = 2;
         
 
-        public override void OnSetup(Component agent, GhostFsm executor)
-        {
-            base.OnSetup(agent, executor);
-            _ghost = agent.GetComponent<GhostController>();
-        }
 
         public override void OnEnter()
         {
@@ -24,7 +18,7 @@ namespace Main.World.Mobs.Ghost
         public override void OnUpdate()
         {
             base.OnUpdate();
-            _ghost.Velocity = Vector2.Lerp(_ghost.Velocity, Vector2.zero, 0.5f);
+            Agent.Velocity = Vector2.Lerp(Agent.Velocity, Vector2.zero, 0.5f);
             _patrolCd -= Time.deltaTime;
             if (_patrolCd <= 0)
             {

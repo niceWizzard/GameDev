@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Main.Player
 {
-    public class PlayerFsm : StateMachine<PlayerFsm>
+    public class PlayerFsm : StateMachine<PlayerFsm, PlayerController>
     {
         [SerializeField] private PlayerController player;
         public bool DashFinished { get; set; } = true;

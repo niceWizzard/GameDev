@@ -4,21 +4,14 @@ using UnityEngine;
 
 namespace Main.World.Mobs.Ghost.States
 {
-    public class AttackState : State<GhostFsm>
+    public class AttackState : State<GhostFsm, GhostController>
     {
-        private GhostController _ghost;
-
-        public override void OnSetup(Component agent, GhostFsm executor)
-        {
-            base.OnSetup(agent, executor);
-            _ghost = agent.GetComponent<GhostController>();
-        }
-
+        
         public override void OnEnter()
         {
             base.OnEnter();
-            _ghost.StartCoroutine(Shoot());
-            _ghost.Velocity *= 0;
+            Agent.StartCoroutine(Shoot());
+            Agent.Velocity *= 0;
         }
 
         private IEnumerator Shoot()
@@ -26,11 +19,11 @@ namespace Main.World.Mobs.Ghost.States
             Executor.CanAttack = false;
             for (var i = 0; i < 3; i++)
             {
-                if (!_ghost || !_ghost.detectedPlayer)
+                if (!Agent || !Agent.detectedPlayer)
                     yield break;
-                var dir = (_ghost.detectedPlayer.Position - _ghost.Position).normalized;
-                var projectile = Object.Instantiate(_ghost.ProjectilePrefab, _ghost.Position +  dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(_ghost.Position, dir.normalized, _ghost.gameObject, 20);
+                var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
+                var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
+                projectile.Setup(Agent.Position, dir.normalized, Agent.gameObject, 20);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();

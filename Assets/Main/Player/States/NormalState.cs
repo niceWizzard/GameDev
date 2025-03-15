@@ -3,20 +3,12 @@ using UnityEngine;
 
 namespace Main.Player.States
 {
-    public class NormalState : State<PlayerFsm>
+    public class NormalState : State<PlayerFsm, PlayerController>
     {
-        private PlayerController controller;
-
-        public override void OnSetup(Component agent, PlayerFsm executor)
-        {
-            base.OnSetup(agent, executor);
-            controller  = agent.GetComponent<PlayerController>();
-        }
-
-        public override void OnUpdate()
+    public override void OnUpdate()
         {
             base.OnUpdate();
-            if (!controller)
+            if (!Agent)
                 return ;
         
             

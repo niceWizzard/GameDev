@@ -6,26 +6,21 @@ using UnityEngine;
 
 namespace Main.Player.States
 {
-    public class Dash : State<PlayerFsm>
+    public class Dash : State<PlayerFsm, PlayerController>
     {
         private Vector2 _direction = Vector2.zero;
         private float _traveledDistance = 0;
     
         
-        private PlayerController _controller;
 
         private bool _isRecovering = false;
 
-        public override void OnSetup(Component agent, PlayerFsm executor)
-        {
-            base.OnSetup(agent, executor);
-            _controller  = agent.GetComponent<PlayerController>();
-        }
+
         
         public override void OnEnter()
         {
             base.OnEnter();
-            var dir = _controller.GetMovementInput();
+            var dir = Agent.GetMovementInput();
             _direction = dir.normalized;
             Executor.DashFinished = false;
             _traveledDistance = 0;
@@ -37,15 +32,15 @@ namespace Main.Player.States
             base.OnUpdate();
             if (_isRecovering)
             {
-                _controller.Velocity *= 0;
+                Agent.Velocity *= 0;
             }
             else
             {
                 const float f = 10f;
-                _controller.Velocity = _direction * f;
+                Agent.Velocity = _direction * f;
                 _traveledDistance += f * Time.deltaTime;
             }
-            if (_traveledDistance < _controller.dashDistance)
+            if (_traveledDistance < Agent.dashDistance)
                 return ;
             StartDashRecovery();
         }
@@ -54,7 +49,7 @@ namespace Main.Player.States
         {
             if (_isRecovering)
                 return;
-            _controller.StartCoroutine(_StartDashRecover());
+            Agent.StartCoroutine(_StartDashRecover());
         }
 
         private IEnumerator _StartDashRecover()

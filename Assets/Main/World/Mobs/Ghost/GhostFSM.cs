@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Main.World.Mobs.Ghost
 {
-    public class GhostFsm : StateMachine<GhostFsm>
+    public class GhostFsm : StateMachine<GhostFsm, GhostController>
     {
         [SerializeField] private GhostController ghost;
 

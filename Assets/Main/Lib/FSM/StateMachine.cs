@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Main.Lib.FSM
 {
-    public abstract class StateMachine<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class StateMachine<T, K> : MonoBehaviour where T : MonoBehaviour where K : MonoBehaviour
     {
-        private readonly Dictionary<Type, State<T>> _statesMap = new();
+        private readonly Dictionary<Type, State<T, K>> _statesMap = new();
         private List<Transition> _transitions = null!;
 
-        public State<T>? CurrentState { get; private set; }
+        public State<T, K>? CurrentState { get; private set; }
 
         /// <summary>
         /// Sets the required values for the StateMachine
@@ -21,7 +21,7 @@ namespace Main.Lib.FSM
         /// <param name="initialStateType">The initial state to set</param>
         /// <param name="executor">The StateMachine itself (this)</param>
         public void Setup(
-            Component agent, 
+            K agent, 
             List<Type> stateTypes, 
             List<Transition> transitions, 
             Type initialStateType,
@@ -33,7 +33,7 @@ namespace Main.Lib.FSM
             // Instantiate and setup states
             foreach (var stateType in stateTypes)
             {
-                if (Activator.CreateInstance(stateType) is State<T> stateInstance)
+                if (Activator.CreateInstance(stateType) is State<T, K> stateInstance)
                 {
                     stateInstance.Setup(agent, executor);
                     _statesMap[stateType] = stateInstance;

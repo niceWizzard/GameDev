@@ -5,9 +5,9 @@ using Random = UnityEngine.Random;
 
 namespace Main.World.Mobs.Ghost.States
 {
-    public class PatrolState : State<GhostFsm>
+    public class PatrolState : State<GhostFsm, GhostController>
     {
-        private GhostController _ghost;
+        
 
         private Vector2 _targetPos;
         
@@ -15,12 +15,7 @@ namespace Main.World.Mobs.Ghost.States
         
         private Vector2 _targetPoint;
         
-        public override void OnSetup(Component agent, GhostFsm executor)
-        {
-            base.OnSetup(agent, executor);
-            _ghost = agent.GetComponent<GhostController>();
-            
-        }
+
 
         public override void OnEnter()
         {
@@ -32,7 +27,7 @@ namespace Main.World.Mobs.Ghost.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-            var toTarget = (_targetPoint - (Vector2)_ghost.Position);
+            var toTarget = (_targetPoint - (Vector2)Agent.Position);
             if (toTarget.magnitude < 0.1f)
             {
                 Executor.ReachedPatrolPoint = true;
@@ -42,8 +37,8 @@ namespace Main.World.Mobs.Ghost.States
 
             var dir = toTarget.normalized;
             
-            var vel = dir + _ghost.ContextBasedSteer(dir) * 0.5f;
-            _ghost.Velocity = vel.normalized * _ghost.MovementSpeed;
+            var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f;
+            Agent.Velocity = vel.normalized * Agent.MovementSpeed;
 
         }
         
@@ -57,9 +52,9 @@ namespace Main.World.Mobs.Ghost.States
                 var angle = Random.Range(0f, 360f);
                 var distance = Random.Range(0.5f, radius);
                 Vector2 point = (Vector3)origin + Quaternion.Euler(0, 0, angle) * Vector2.right * distance;
-                _ghost.Collider2d.enabled = false;
-                var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, _ghost.dangerMask);
-                _ghost.Collider2d.enabled = true;
+                Agent.Collider2d.enabled = false;
+                var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, Agent.dangerMask);
+                Agent.Collider2d.enabled = true;
                 if (hit) continue;
                 return point;
             }
