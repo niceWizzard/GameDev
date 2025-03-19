@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 972943662124109601}
   m_Layer: 11
   m_Name: Hurtbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -664,7 +664,7 @@ Animator:
   m_GameObject: {fileID: 9108688046645523271}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebc1e7d48d1f9f94abfb26f2ecbb6e41, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
@@ -25,7 +26,8 @@ namespace Main.Player
         public GunController Gun => gun;
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;
-
+        
+        public bool InHurtAnimation { get; private set; }
 
         private void Start()
         {
@@ -33,6 +35,34 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
+        }
+
+        protected override void OnHurtboxHurt(DamageInfo damageInfo)
+        {
+            base.OnHurtboxHurt(damageInfo);
+            _ = StartHurtAnimation();
+        }
+
+        private async UniTask StartHurtAnimation()
+        {
+            if (InHurtAnimation)
+                return;
+            InHurtAnimation = true;
+            SpriteRenderer.enabled = true;
+            Hurtbox.Disable();
+            for (var i = 0; i < 5; i++)
+            {
+                SpriteRenderer.enabled = !SpriteRenderer.enabled;
+                await UniTask.WaitForSeconds(0.2f);
+            }
+            for (var i = 0; i < 3; i++)
+            {
+                await UniTask.WaitForSeconds(0.3f);
+                SpriteRenderer.enabled = !SpriteRenderer.enabled;
+            }
+            Hurtbox.Enable();
+            SpriteRenderer.enabled = true;
+            InHurtAnimation = false;
         }
 
         private void GunOnReloadEnd()
