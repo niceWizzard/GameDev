@@ -13,12 +13,15 @@ namespace Main.Lib
     /// </summary>
     [RequireComponent(typeof(HealthComponent), typeof(SpriteRenderer))]
     [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D), typeof(Stats))]
+    [RequireComponent( typeof(Animator))]
     public abstract class MobController : MonoBehaviour
     {
         public HealthComponent HealthComponent { get; private set; }
         public SpriteRenderer SpriteRenderer { get; private set; }
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
+        
+        public Animator Animator { get; private set; }
         
         public Stats Stats { get; private set; }
         
@@ -68,6 +71,7 @@ namespace Main.Lib
             SpriteRenderer = GetComponent<SpriteRenderer>();
             HealthComponent = GetComponent<HealthComponent>();
             Stats = GetComponent<Stats>();
+            Animator = GetComponent<Animator>();
         }
 
         protected virtual void VerifyRequiredComponents()
@@ -84,6 +88,8 @@ namespace Main.Lib
                 Debug.LogError($"No collider attached to {name}");
             if(!Stats)
                 Debug.LogError($"No stats attached to {name}");
+            if(!Animator)
+                Debug.LogError($"No animator attached to {name}");
             
         }
 
