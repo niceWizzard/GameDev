@@ -36,14 +36,12 @@ namespace Main.World.Objects.Traps
         {
             if (!other.CompareTag("Player") || _isActivated)
                 return;
-            Debug.Log("PLAYER ENTER");
             _isActivated = true;
             _animator.SetBool(IsActivated, true);
         }
 
         public void ActivationAnimationFinished()
         {
-            Debug.Log("Animation end");
             _animator.SetBool(IsActivated, false);
         }
 
