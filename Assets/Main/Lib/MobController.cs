@@ -2,6 +2,7 @@ using System;
 using Main.Lib.Health;
 using Main.Lib.Stat;
 using Main.UI;
+using Main.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,7 +15,7 @@ namespace Main.Lib
     [RequireComponent(typeof(HealthComponent), typeof(SpriteRenderer))]
     [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D), typeof(Stats))]
     [RequireComponent( typeof(Animator))]
-    public abstract class MobController : MonoBehaviour
+    public abstract class MobController : MonoBehaviour, IProjectileSender
     {
         public HealthComponent HealthComponent { get; private set; }
         public SpriteRenderer SpriteRenderer { get; private set; }
@@ -109,7 +110,10 @@ namespace Main.Lib
         protected virtual void OnHealthZero()
         {
             Destroy(gameObject);
+            SenderDispose?.Invoke();
         }
-    
+
+        public GameObject GameObject => gameObject;
+        public event Action SenderDispose;
     }
 }

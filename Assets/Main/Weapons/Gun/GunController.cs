@@ -32,7 +32,7 @@ namespace Main.Weapons.Gun
         
         
 
-        public GameObject Owner => owner;
+        public IProjectileSender Owner { get; private set; }
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
 
         private int _currentAmmo;
@@ -57,6 +57,7 @@ namespace Main.Weapons.Gun
             _camera = MainCamera.Instance?.Camera;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             CurrentAmmo = ammoCapacity;
+            Owner = owner.GetComponent<IProjectileSender>();
         }
 
 
@@ -72,7 +73,7 @@ namespace Main.Weapons.Gun
             var projectile = Instantiate(normalAttackPrefab, transform.position, Quaternion.identity);
             _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
+            Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,normalAttackDamage, accuracy);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
             
@@ -84,7 +85,7 @@ namespace Main.Weapons.Gun
                 return;
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mouseDir = (mouse - Owner.transform.position).normalized;
+            Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,specialAttackDamage, accuracy);
             CurrentAmmo -= 5;
             StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());

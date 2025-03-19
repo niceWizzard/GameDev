@@ -15,7 +15,7 @@ namespace Main.Weapons.Bullet
             _driftDirection = (Random.Range(0, 1)) > 0 ? -1 : 1;
         }
     
-        public void Setup(Vector2 pos,Vector2 dir, GameObject sender,  float damage, int accuracy)
+        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, int accuracy)
         {
             base.Setup(pos, dir, sender, damage);
             _accuracy = accuracy;
