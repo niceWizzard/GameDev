@@ -21,7 +21,6 @@ namespace Main.Lib.Level
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private Transform safeSpawn;
-        [SerializeField] private float globalLightLevel = .4f;
 
         [Header("Completion Requirements")] [SerializeField]
         private List<Requirement> requirements = new();
@@ -48,11 +47,6 @@ namespace Main.Lib.Level
             HUDController.Instance.SetPlayer(player);
             GameManager.Instance.RegisterLevelManager(this);
             player.HealthComponent.OnHealthZero += PlayerOnDie;
-        }
-
-        private void Start()
-        {
-            MainCamera.Instance.GlobalLight.intensity = globalLightLevel;
         }
 
         private void PlayerOnDie()
