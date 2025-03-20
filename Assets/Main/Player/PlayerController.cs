@@ -48,21 +48,27 @@ namespace Main.Player
             if (InHurtAnimation)
                 return;
             InHurtAnimation = true;
-            SpriteRenderer.enabled = true;
+            SetVisibility(true);
             Hurtbox.Disable();
             for (var i = 0; i < 5; i++)
             {
-                SpriteRenderer.enabled = !SpriteRenderer.enabled;
+                SetVisibility(!SpriteRenderer.enabled);
                 await UniTask.WaitForSeconds(0.2f);
             }
             for (var i = 0; i < 3; i++)
             {
                 await UniTask.WaitForSeconds(0.3f);
-                SpriteRenderer.enabled = !SpriteRenderer.enabled;
+                SetVisibility(!SpriteRenderer.enabled);
             }
             Hurtbox.Enable();
-            SpriteRenderer.enabled = true;
+            SetVisibility(true);
             InHurtAnimation = false;
+        }
+
+        public void SetVisibility(bool visible)
+        {
+            SpriteRenderer.enabled = visible;
+            Gun.SpriteRenderer.enabled = visible;
         }
 
         private void GunOnReloadEnd()
