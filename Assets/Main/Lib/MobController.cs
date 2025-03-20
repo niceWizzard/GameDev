@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Main.Lib.Health;
 using Main.Lib.Stat;
 using Main.UI;
@@ -101,6 +103,14 @@ namespace Main.Lib
         protected virtual void OnHurtboxHurt(DamageInfo damageInfo)
         {
             HealthComponent.ReduceHealth(damageInfo.damage);
+            _ = HurtAnimation();
+        }
+
+        protected virtual async UniTask HurtAnimation()
+        {
+            var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic);
+            await a.AsyncWaitForCompletion();
+            SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic);
         }
 
         /// <summary>
