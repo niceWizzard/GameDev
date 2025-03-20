@@ -4,6 +4,7 @@ using Main.Lib;
 using Main.Lib.Health;
 using Main.Weapons.Gun;
 using TMPro;
+using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace Main.Player
         [SerializeField] private Transform gunAnchor;
         
         private Camera _camera;
+        private CinemachineImpulseSource _impulseSource;
         public GunController Gun => gun;
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;
@@ -37,6 +39,19 @@ namespace Main.Player
             _camera = Camera.main;
         }
 
+        protected override void GetRequiredComponents()
+        {
+            base.GetRequiredComponents();
+            _impulseSource = GetComponent<CinemachineImpulseSource>();
+        }
+
+        protected override void VerifyRequiredComponents()
+        {
+            base.VerifyRequiredComponents();
+            if(!_impulseSource)
+                Debug.LogError($"Impulse Source is not set at {name}");
+        }
+
         protected override void OnHurtboxHurt(DamageInfo damageInfo)
         {
             base.OnHurtboxHurt(damageInfo);
@@ -47,6 +62,7 @@ namespace Main.Player
         {
             if (InHurtAnimation)
                 return;
+            _impulseSource.GenerateImpulseWithForce(4);
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();
