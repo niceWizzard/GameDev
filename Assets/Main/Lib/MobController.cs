@@ -56,6 +56,8 @@ namespace Main.Lib
         }
 
         public float MovementSpeed => Stats.MovementSpeed;
+
+        private bool _inHurtAnimation = false;
     
     
         protected virtual void Awake()
@@ -108,9 +110,13 @@ namespace Main.Lib
 
         protected virtual async UniTask HurtAnimation()
         {
+            if (_inHurtAnimation)
+                return;
+            _inHurtAnimation = true;
             var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic);
             await a.AsyncWaitForCompletion();
             SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic);
+            _inHurtAnimation = false;
         }
 
         /// <summary>
