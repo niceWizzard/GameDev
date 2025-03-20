@@ -19,6 +19,10 @@ namespace Main.World.Objects.Traps
         {
             _animator = GetComponent<Animator>();
             hitbox.HurtboxHit += OnHurtboxHit;
+        }
+
+        private void Start()
+        {
             hitbox.Disable();
         }
 
