@@ -3,6 +3,7 @@ using Main.Player;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Rendering.Universal;
 
 namespace Main.Lib.Singleton
 {
@@ -10,8 +11,9 @@ namespace Main.Lib.Singleton
     {
         [SerializeField] private CinemachineCamera cmCamera;
         [SerializeField] private Camera mainCamera;
-
+        [SerializeField] private Light2D globalLight;
         public Camera Camera => mainCamera;
+        public Light2D GlobalLight => globalLight;
         public void Follow(PlayerController playerController)
         {
             cmCamera.Target.TrackingTarget = playerController.transform;   

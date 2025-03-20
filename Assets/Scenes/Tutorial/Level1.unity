@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeSpawn: {fileID: 1025627393}
+  globalLightLevel: 0.2
   requirements:
   - {fileID: 431039301}
 --- !u!4 &431039300
