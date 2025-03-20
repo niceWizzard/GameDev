@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Main.Lib.Singleton;
 using Main.Weapons.Bullet;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Main.Weapons.Gun
@@ -30,7 +31,6 @@ namespace Main.Weapons.Gun
         public event Action OnReloadEnd;
         public event Action<int> OnAmmoUsed;
         
-        
 
         public IProjectileSender Owner { get; private set; }
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
@@ -51,6 +51,7 @@ namespace Main.Weapons.Gun
 
         private bool _canShoot = true;
         private bool _isReloading = false;
+        private CinemachineImpulseSource _impulseSource;
         private float AttackCd => 1f / attackPerSecond;
         private void Awake()
         {
@@ -58,6 +59,12 @@ namespace Main.Weapons.Gun
             _spriteRenderer = GetComponent<SpriteRenderer>();
             CurrentAmmo = ammoCapacity;
             Owner = owner.GetComponent<IProjectileSender>();
+            _impulseSource = GetComponent<CinemachineImpulseSource>();
+        }
+
+        private void AddCameraRecoil(Vector2 direction)
+        {
+            _impulseSource.GenerateImpulse(direction.normalized * .2f);
         }
 
 
@@ -75,8 +82,8 @@ namespace Main.Weapons.Gun
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,normalAttackDamage, accuracy);
+            AddCameraRecoil(-mouseDir);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
-            
         }
 
         public void SpecialAttack()
@@ -88,6 +95,7 @@ namespace Main.Weapons.Gun
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
             projectile.Setup(NozzleTransform.position,mouseDir, Owner ,specialAttackDamage, accuracy);
             CurrentAmmo -= 5;
+            AddCameraRecoil(-mouseDir);
             StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
 
