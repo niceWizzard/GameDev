@@ -1,11 +1,17 @@
 using Main.Lib.FSM;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Main.Player.States
 {
     public class MoveState : State<PlayerFsm, PlayerController>
     {
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Agent.Animator.Play("MoveGun");
+        }
 
         public override void OnUpdate()
         {
