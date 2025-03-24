@@ -20,6 +20,9 @@ namespace Main.Player
         [SerializeField]
         private GunController gun;
 
+        [SerializeField] private Transform leftHandPosition;
+        [SerializeField] private Transform rightHandPosition;
+
         [SerializeField] private TMP_Text reloadingText;
 
         [SerializeField] private Transform gunAnchor;
@@ -101,11 +104,9 @@ namespace Main.Player
             reloadingText.DOColor(Color.white, 0.3f).SetLink(gameObject);
         }
 
-        public void UpdateFacingDirection(Vector2 input)
+        public void UpdateFacingDirection(int direction)
         {
-            if (math.abs(input.x) < 0.01f)
-                return;
-            FacingDirection = math.sign(input.x);
+            FacingDirection = direction;
             SpriteRenderer.flipX = FacingDirection < 0;
         }
 
@@ -121,6 +122,9 @@ namespace Main.Player
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 toMouse = (mouse - transform.position).normalized;
             var angle = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
+            var facing = Math.Abs(angle) >90 ? -1 : 1;
+            UpdateFacingDirection(facing);
+            GunAnchor.position = facing == 1 ? rightHandPosition.position : leftHandPosition.position;
             GunAnchor.localEulerAngles = new Vector3(0, 0, angle);
             Gun.FlipSprite(math.abs(angle) > 90);
         }

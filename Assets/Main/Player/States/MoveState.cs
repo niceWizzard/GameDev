@@ -12,7 +12,6 @@ namespace Main.Player.States
             base.OnUpdate();
             Executor.ProcessAttackInputs();
             var input = Agent.GetMovementInput();
-            Agent.UpdateFacingDirection(input);
             Agent.RotateGun();
             var vel = Agent.Velocity;
             vel = Vector2.Lerp(vel, input.normalized * Agent.MovementSpeed, Agent.friction);

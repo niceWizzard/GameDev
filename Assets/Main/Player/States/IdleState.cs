@@ -5,7 +5,12 @@ namespace Main.Player.States
 {
     public class IdleState : State<PlayerFsm, PlayerController>
     {
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Agent.Animator.Play("IdleGun");
 
+        }
 
         public override void OnUpdate()
         {
