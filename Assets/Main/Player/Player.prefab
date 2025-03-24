@@ -813,8 +813,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.15}
-  m_Size: {x: 0.4, y: 0.67}
+  m_Offset: {x: 0, y: -0.21942687}
+  m_Size: {x: 0.25314143, y: 0.54686594}
   m_Direction: 0
 --- !u!1001 &1937540383223166697
 PrefabInstance:
@@ -896,6 +896,10 @@ PrefabInstance:
       propertyPath: owner
       value: 
       objectReference: {fileID: 9108688046645523271}
+    - target: {fileID: 7207362074447506898, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
+      propertyPath: ammoCapacity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8015167064124695382, guid: fd563a2c51898284dac0e9ea4683f9cc, type: 3}
       propertyPath: m_Layer
       value: 6
