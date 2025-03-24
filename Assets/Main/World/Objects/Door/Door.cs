@@ -38,10 +38,10 @@ namespace Main.World.Objects.Door
 
         private void PedestalControllerOnActivated()
         {
-            leftDoor.transform.DOMoveX(transform.position.x - 1, 0.8f);
-            rightDoor.transform.DOMoveX(transform.position.x + 1, 0.8f);
-            leftDoor.DOFade(0, 0.2f);
-            rightDoor.DOFade(0, 0.2f);
+            leftDoor.transform.DOMoveX(transform.position.x - 1, 0.8f).SetLink(gameObject);
+            rightDoor.transform.DOMoveX(transform.position.x + 1, 0.8f).SetLink(gameObject);
+            leftDoor.DOFade(0, 0.2f).SetLink(gameObject);
+            rightDoor.DOFade(0, 0.2f).SetLink(gameObject);
             _collider.enabled = false;
         }
     }

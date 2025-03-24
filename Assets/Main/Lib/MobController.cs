@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib.Health;
@@ -54,7 +55,7 @@ namespace Main.Lib
             get => Rigidbody2d.linearVelocity;
             set => Rigidbody2d.linearVelocity = value;
         }
-
+        
         public float MovementSpeed => Stats.MovementSpeed;
 
         private bool _inHurtAnimation = false;
@@ -112,11 +113,15 @@ namespace Main.Lib
         {
             if (_inHurtAnimation)
                 return;
+            if (this == null || !gameObject.activeInHierarchy)
+                return;
             _inHurtAnimation = true;
-            var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic);
+            var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
             await a.AsyncWaitForCompletion();
-            SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic);
+            if (!this || !gameObject.activeInHierarchy)
+                return;
             _inHurtAnimation = false;
+            SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
         }
 
         /// <summary>
@@ -131,5 +136,6 @@ namespace Main.Lib
 
         public GameObject GameObject => gameObject;
         public event Action SenderDispose;
+
     }
 }

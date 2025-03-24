@@ -13,7 +13,7 @@ namespace Main.World.Mobs.Ghost.States
             base.OnEnter();
             Agent.Collider2d.enabled = false;
             Agent.Hurtbox.Disable();
-            Agent.SpriteRenderer.DOFade(0, .5f);
+            Agent.SpriteRenderer.DOFade(0, .5f).SetLink(Agent.gameObject);
         }
 
         public override void OnExit()
@@ -21,7 +21,7 @@ namespace Main.World.Mobs.Ghost.States
             base.OnExit();
             Agent.Collider2d.enabled = true;
             Agent.Hurtbox.Enable();
-            Agent.SpriteRenderer.DOFade(1, 1f);
+            Agent.SpriteRenderer.DOFade(1, 1f).SetLink(Agent.gameObject);
             Executor.PlayerTooClose = 0;
             timer = 2;
 
