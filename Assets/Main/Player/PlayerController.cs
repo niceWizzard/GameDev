@@ -78,7 +78,7 @@ namespace Main.Player
             }
             catch (OperationCanceledException e)
             {
-                // Do nothing
+                return;
             }
             Hurtbox.Enable();
             SetVisibility(true);
