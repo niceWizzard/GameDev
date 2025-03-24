@@ -68,14 +68,14 @@ namespace Main.Player
             Hurtbox.Disable();
             try
             {
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     SetVisibility(!SpriteRenderer.enabled);
-                    await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
+                    await UniTask.WaitForSeconds(0.1f, cancellationToken: destroyCancellationToken);
                 }
                 for (var i = 0; i < 3; i++)
                 {
-                    await UniTask.WaitForSeconds(0.3f, cancellationToken: destroyCancellationToken);
+                    await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
                     SetVisibility(!SpriteRenderer.enabled);
                 }
             }
