@@ -16,6 +16,7 @@ namespace Main.World.Mobs.Ghost
         public Vector2 SpawnPoint { get; set; }
         
         public bool CanAttack {get;set; } = true;
+        public bool FinishedAttack { get; set; } = true;
         public float PlayerTooClose { get; set; } = 0;
 
         private void Awake()
@@ -38,8 +39,8 @@ namespace Main.World.Mobs.Ghost
             {
                 Transition.Create(idle, patrol, () => CanPatrol),
                 Transition.Create(patrol, idle, () => ReachedPatrolPoint),
-                Transition.Create(chase, attack, () => CanAttack),
-                Transition.Create(attack, chase, () => !ghost.detectedPlayer || Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position) > 4),
+                Transition.Create(chase, attack, () => CanAttack && Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position) < 6),
+                Transition.Create(attack, chase, () => !ghost.detectedPlayer || FinishedAttack || Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position) >= 6),
                 Transition.MultiFrom(chase, () => ghost.detectedPlayer, patrol, idle),
                 Transition.Create(chase, idle, () =>
                 {
@@ -69,7 +70,7 @@ namespace Main.World.Mobs.Ghost
                             break;
                     } 
                     return PlayerTooClose >= 1;
-                }, idle, patrol, chase),
+                }, idle, patrol, chase, attack),
                 Transition.Create(flee, idle, () => !ghost.detectedPlayer || PlayerTooClose == 0),
             };
             Setup(
@@ -81,11 +82,6 @@ namespace Main.World.Mobs.Ghost
             );
         }
 
-
-        protected override void Update()
-        {
-            base.Update();
-        }
 
         private void Start()
         {

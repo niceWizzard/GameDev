@@ -12,6 +12,7 @@ namespace Main.World.Mobs.Ghost.States
             base.OnEnter();
             Agent.StartCoroutine(Shoot());
             Agent.Velocity *= 0;
+            Executor.FinishedAttack = false;
         }
 
         private IEnumerator Shoot()
@@ -32,10 +33,17 @@ namespace Main.World.Mobs.Ghost.States
             yield return StartAttackCdTimer();
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            Executor.FinishedAttack = true;
+        }
+
         private IEnumerator StartAttackCdTimer()
         {
             yield return new WaitForSeconds(2.5f);
             Executor.CanAttack = true;
+            Executor.FinishedAttack = true;
         }
     }
 }
