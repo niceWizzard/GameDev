@@ -406,7 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   health: 100
-  attackPower: 10
+  attackPower: 25
 --- !u!95 &8644720082276515970
 Animator:
   serializedVersion: 7
