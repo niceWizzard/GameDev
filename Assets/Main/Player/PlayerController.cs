@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
@@ -52,29 +53,32 @@ namespace Main.Player
                 Debug.LogError($"Impulse Source is not set at {name}");
         }
 
-        protected override void OnHurtboxHurt(DamageInfo damageInfo)
-        {
-            base.OnHurtboxHurt(damageInfo);
-            _ = StartHurtAnimation();
-        }
 
-        private async UniTask StartHurtAnimation()
+        protected override async UniTask HurtAnimation()
         {
             if (InHurtAnimation)
                 return;
+            _ = base.HurtAnimation();
             _impulseSource.GenerateImpulseWithForce(4);
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();
-            for (var i = 0; i < 5; i++)
+            try
             {
-                SetVisibility(!SpriteRenderer.enabled);
-                await UniTask.WaitForSeconds(0.2f);
+                for (var i = 0; i < 5; i++)
+                {
+                    SetVisibility(!SpriteRenderer.enabled);
+                    await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
+                }
+                for (var i = 0; i < 3; i++)
+                {
+                    await UniTask.WaitForSeconds(0.3f, cancellationToken: destroyCancellationToken);
+                    SetVisibility(!SpriteRenderer.enabled);
+                }
             }
-            for (var i = 0; i < 3; i++)
+            catch (OperationCanceledException e)
             {
-                await UniTask.WaitForSeconds(0.3f);
-                SetVisibility(!SpriteRenderer.enabled);
+                // Do nothing
             }
             Hurtbox.Enable();
             SetVisibility(true);
@@ -89,12 +93,12 @@ namespace Main.Player
 
         private void GunOnReloadEnd()
         {
-            reloadingText.DOColor(new Vector4(0,0,0,0), 0.2f);
+            reloadingText.DOColor(new Vector4(0,0,0,0), 0.2f).SetLink(gameObject);
         }
 
         private void GunOnReloadStart()
         {
-            reloadingText.DOColor(Color.white, 0.3f);
+            reloadingText.DOColor(Color.white, 0.3f).SetLink(gameObject);
         }
 
         public void UpdateFacingDirection(Vector2 input)
