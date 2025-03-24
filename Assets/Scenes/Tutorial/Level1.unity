@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 431039300}
   - component: {fileID: 431039299}
   - component: {fileID: 431039301}
+  - component: {fileID: 431039302}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -152,6 +153,7 @@ MonoBehaviour:
   safeSpawn: {fileID: 1025627393}
   requirements:
   - {fileID: 431039301}
+  - {fileID: 431039302}
 --- !u!4 &431039300
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +180,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fa43aee95031154ead101fc0b463aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &431039302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431039298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b84911d1a5d44346bd7c80e4e087bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &445867853
@@ -245,6 +259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1451142555302364640, guid: 2905f086a8c31684a94f48e396ed1fb6, type: 3}
+      propertyPath: requiredInLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3586228117618110569, guid: 2905f086a8c31684a94f48e396ed1fb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.4870996

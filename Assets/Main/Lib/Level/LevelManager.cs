@@ -6,6 +6,7 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
+using Main.World.Objects.Pedestal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -32,7 +33,9 @@ namespace Main.Lib.Level
         
         public List<int> MobsInLevel => _mobsInLevel;
         public List<int> DeadMobsInLevel => _deadMobsInLevel;
-        
+
+        public List<PedestalController> TotalPedestals { get; private set; } = new();
+        public List<PedestalController> ActivatedPedestals => TotalPedestals.Where(v => v.IsActive).ToList();
         public int AliveMobs => _mobsInLevel.Count - DeadMobsInLevel.Count;
 
         private LevelState _state = LevelState.Playing;
@@ -93,14 +96,24 @@ namespace Main.Lib.Level
             });
         }
 
-        public void RegisterMob(GameObject mob)
-        {
-            _mobsInLevel.Add(mob.GetInstanceID());
-        }
-
         public void RegisterAsDead(GameObject mob)
         {
             _deadMobsInLevel.Add(mob.GetInstanceID());
+        }
+
+        public void Register(MonoBehaviour script)
+        {
+            switch (script)
+            {
+                case PedestalController controller: 
+                    TotalPedestals.Add(controller);
+                    break;
+                case MobController:
+                    _mobsInLevel.Add(script.GetInstanceID());
+                    break;
+                default:
+                    throw new ArgumentException($"Type {script.GetType()} is not supported");
+            }
         }
     }
 }

@@ -8,8 +8,18 @@ namespace Main.World.Objects.Pedestal
     {
         [SerializeField] private Sprite activeSprite;
         [SerializeField] private bool oneShot = true;
+        [SerializeField] private bool requiredInLevel = false;
         private bool _hasActivated = false;
+        
+        public bool IsActive { get; private set; }
         public event Action Activated;
+
+        private void Start()
+        {
+            if(requiredInLevel)
+                GameManager.CurrentLevel.Register(this);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.gameObject.CompareTag("PlayerBullet")) return;
@@ -22,6 +32,7 @@ namespace Main.World.Objects.Pedestal
         {
             GetComponent<SpriteRenderer>().sprite = activeSprite;
             _hasActivated = true;
+            IsActive = true;
             Activated?.Invoke();
         }
     }

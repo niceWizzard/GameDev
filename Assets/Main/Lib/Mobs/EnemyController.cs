@@ -31,7 +31,7 @@ namespace Main.Lib.Mobs
         protected override void Awake()
         {
             base.Awake();
-            GameManager.Instance.CurrentLevelManager.RegisterMob(gameObject);
+            GameManager.Instance.CurrentLevelManager.Register(this);
             NavMeshAgent.updatePosition = false;
             NavMeshAgent.updateRotation = false;
             NavMeshAgent.updateUpAxis = false;
