@@ -442,5 +442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403dfaad80b559541a4d2375782eed9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefabs:
-  - {fileID: 6046061068821804954, guid: bb0826bd0e2d63b48b10bf29c978aa68, type: 3}
+  _randomizedItems:
+  - chance: 10
+    item: {fileID: 6046061068821804954, guid: bb0826bd0e2d63b48b10bf29c978aa68, type: 3}

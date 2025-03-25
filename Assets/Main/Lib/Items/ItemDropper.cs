@@ -1,15 +1,23 @@
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics.Geometry;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Main.Lib.Items
 {
+    [Serializable]
+    public class WithRandom
+    {
+        public float chance;
+        public Item item;
+    }
     public class ItemDropper : MonoBehaviour
     {
         private readonly List<Item> _childrenItems = new();
 
         [SerializeField]
-        private List<Item> _itemPrefabs = new();
+        private List<WithRandom> _randomizedItems = new();
         private void Awake()
         {
             for (var i = 0; i < transform.childCount; i++)
@@ -25,15 +33,26 @@ namespace Main.Lib.Items
         {
             foreach (var childrenItem in _childrenItems)
             {
-                
                 childrenItem.Enable(transform.position);
             }
 
-            foreach (var item in _itemPrefabs)
+            var random = GetRandomItem(_randomizedItems);
+            if (!random) return;
+            var a = Instantiate(random);
+            a.Enable(transform.position);
+        }
+
+        private static Item GetRandomItem(List<WithRandom> items)
+        {
+            var roll = Random.Range(0,100f); 
+            float cumulativeProbability = 0;
+            foreach (var kvp in items)
             {
-                var itemInstance = Instantiate(item, transform.position, Quaternion.identity);
-                itemInstance.Enable(transform.position);
+                cumulativeProbability += kvp.chance; 
+                if (roll <= cumulativeProbability)
+                    return kvp.item;
             }
+            return null;
         }
     }
 }
