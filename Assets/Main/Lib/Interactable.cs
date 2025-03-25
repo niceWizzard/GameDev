@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace Main.Lib
         public const float InteractableDistance = 1f;
         private const float OutlineSize = 0.75f;
         private const float TransitionDuration = 0.15f;
-            
+        
+        [SerializeField] private List<SpriteRenderer> spriteRenderers;
         [SerializeField] private bool isInteractable = true;
         [SerializeField] private string textShown = "Interact";
         [SerializeField] private TMP_Text textUi;
@@ -39,14 +41,20 @@ namespace Main.Lib
         }
         
         private  Material _interactableMaterial;
-        private SpriteRenderer _spriteRenderer;
 
 
         protected virtual void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _interactableMaterial = new Material(_spriteRenderer.sharedMaterial);
-            _spriteRenderer.material = _interactableMaterial;
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            if(spriteRenderer)
+                spriteRenderers.Add(spriteRenderer);
+            
+            _interactableMaterial = new Material(spriteRenderers[0].sharedMaterial);
+            foreach (var spriteRenderer1 in spriteRenderers)
+            {
+                spriteRenderer1.material = _interactableMaterial;
+            }
+            
             
             textUi.text = $"{textShown} (E)";
             var color = textUi.color;
