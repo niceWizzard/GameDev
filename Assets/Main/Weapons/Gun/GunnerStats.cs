@@ -23,8 +23,41 @@ namespace Main.Weapons.Gun
 
         public void SetFromSave(IReadOnlyList<string> upgrades)
         {
+            // Clear
+            foreach (var upgrade in this.Upgrades)
+            {
+                switch (upgrade)
+                {
+                    case StatUpgrade.Accuracy:
+                        accuracy -= 1;
+                        break;
+                    case StatUpgrade.ReloadTime:
+                        reloadTime /= 0.9f;
+                        break;
+                    case StatUpgrade.AmmoCapacity:
+                        ammoCapacity -= 5;
+                        break;
+                    case StatUpgrade.AttackPerSecond:
+                        attackPerSecond -= 1;
+                        break;
+                    case StatUpgrade.Health:
+                        health -= 25;
+                        break;
+                    case StatUpgrade.Speed:
+                        movementSpeed -= .5f;
+                        break;
+                    case StatUpgrade.AttackPower:
+                        attackPower /= 1.25f;
+                        break;
+                    default:
+                        Debug.LogError($"Unknown stat upgrade: {upgrade}");
+                        break;
+                }
+            }
+            this.Upgrades.Clear();
             foreach (var upgrade in upgrades)
             {
+                this.Upgrades.Add(upgrade);
                 switch (upgrade)
                 {
                     case StatUpgrade.Accuracy:
