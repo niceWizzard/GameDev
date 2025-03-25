@@ -1,3 +1,4 @@
+using Main.Lib.Save;
 using Main.Lib.Stat;
 using UnityEngine;
 
@@ -17,5 +18,17 @@ namespace Main.Weapons.Gun
         public int Accuracy => accuracy;
         public float SpecialAttackDamage => AttackPower * specialAttackMultiplier;
         public float ReloadTime => reloadTime;
+
+        public void SetFromSave(PlayerStats playerStats)
+        {
+            ammoCapacity = playerStats.AmmoCapacity;
+            attackPerSecond = playerStats.AttackPerSecond;
+            accuracy = playerStats.Accuracy;
+            reloadTime = playerStats.ReloadTime;
+            
+            movementSpeed = playerStats.MovementSpeed;
+            health = playerStats.Health;
+            attackPower = playerStats.AttackPower;
+        }
     }
 }

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
+using Main.Lib.Save;
 using Main.Weapons.Gun;
 using TMPro;
 using Unity.Cinemachine;
@@ -19,6 +20,7 @@ namespace Main.Player
         [Header("Components")]
         [SerializeField]
         private GunController gun;
+        [SerializeField] private GunnerStats gunnerStats;
 
         [SerializeField] private Transform leftHandPosition;
         [SerializeField] private Transform rightHandPosition;
@@ -41,7 +43,9 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
+            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.PlayerStats);
         }
+
 
         protected override void GetRequiredComponents()
         {

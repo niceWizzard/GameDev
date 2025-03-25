@@ -643,6 +643,7 @@ MonoBehaviour:
   friction: 0.5
   dashDistance: 2.2
   gun: {fileID: 9144056739718323003}
+  gunnerStats: {fileID: 4800492626315091500}
   leftHandPosition: {fileID: 8275038826913358571}
   rightHandPosition: {fileID: 8666649397452611523}
   reloadingText: {fileID: 1413874648847575286}
