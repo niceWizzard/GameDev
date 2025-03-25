@@ -25,17 +25,14 @@ namespace Main.Lib.Items
         {
             foreach (var childrenItem in _childrenItems)
             {
-                var angle = Random.Range(-Mathf.PI, Mathf.PI);
-                var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
-                childrenItem.Enable(dir, transform.position);
+                
+                childrenItem.Enable(transform.position);
             }
 
             foreach (var item in _itemPrefabs)
             {
-                var angle = Random.Range(-Mathf.PI, Mathf.PI);
-                var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
-                var itemInstance = Instantiate(item, transform.position, Quaternion.Euler(dir));
-                itemInstance.Enable(dir, transform.position);
+                var itemInstance = Instantiate(item, transform.position, Quaternion.identity);
+                itemInstance.Enable(transform.position);
             }
         }
     }

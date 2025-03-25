@@ -1,4 +1,5 @@
 using System;
+using Main.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,44 +7,83 @@ namespace Main.Lib.Items
 {
     public class Item : MonoBehaviour
     {
-        private float _travelDistance;
+        private enum ItemState
+        {
+            Disabled,
+            Dropped,
+            PickedUp,
+            Stationary,
+        }
 
-        private bool _isEnabled = false;
-        private Vector3 _direction;
+        private Vector2 _velocity;
+        private ItemState _state = ItemState.Dropped;
 
-        private bool _reachedEnd = false;
+        private readonly float _friction = 0.95f; // Friction to slow down movement
+        private readonly float _minSpeed = 0.01f; // Stop movement when very slow
+
+        private void ChangeState(ItemState newState)
+        {
+            _state = newState;
+
+            // On Enter
+            switch (_state)
+            {
+                case ItemState.Disabled:
+                    gameObject.SetActive(false);
+                    break;
+                case ItemState.Dropped:
+                    gameObject.SetActive(true);
+                    break;
+            }
+        }
 
         private void Awake()
         {
-            _travelDistance = Random.Range(1, 3);
+            _velocity = Vector2.zero; // Default state
         }
 
         public void Disable()
         {
-            _isEnabled = false;
-            gameObject.SetActive(false);
+            ChangeState(ItemState.Disabled);
         }
 
-        public void Enable(Vector3 dir, Vector2 position)
+        public void Enable(Vector2 position)
         {
-            gameObject.SetActive(true);
-            _direction = dir;
-            transform.parent = null;
+            var angle = Random.Range(-Mathf.PI, Mathf.PI);
+            var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
             transform.position = position;
-            _isEnabled = true;
+            _velocity = dir.normalized * Random.Range(10f, 30f); 
+            ChangeState(ItemState.Dropped);
         }
 
         private void Update()
         {
-            if (!_isEnabled || _reachedEnd)
+            if (_state != ItemState.Dropped) return;
+
+            // Apply friction
+            _velocity *= _friction;
+
+            // Move item
+            transform.position += (Vector3)_velocity * Time.deltaTime;
+
+            // Stop when very slow
+            if (_velocity.sqrMagnitude >= _minSpeed * _minSpeed)
                 return;
-            var vel = _direction * (Time.deltaTime * 5.5f);
-            transform.position += vel;
-            _travelDistance -= vel.magnitude;
-            if (_travelDistance < 0)
-            {
-                _reachedEnd = true;
-            }
+            _velocity = Vector2.zero;
+            ChangeState(ItemState.Stationary);
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Player")) return;
+            if (!other.TryGetComponent<PlayerController>(out var player))
+                return;
+            OnPickedUp(player);
+        }
+
+        protected virtual void OnPickedUp(PlayerController player)
+        {
+            Destroy(gameObject);
         }
     }
 }

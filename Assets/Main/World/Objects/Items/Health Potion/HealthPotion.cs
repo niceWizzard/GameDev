@@ -7,13 +7,10 @@ namespace Main.World.Objects.Items.Health_Potion
     public class HealthPotion : Item
     {
         [SerializeField] private float healAmount = 25;
-        private void OnTriggerEnter2D(Collider2D other)
+        protected override void OnPickedUp(PlayerController player)
         {
-            if (!other.CompareTag("Player")) return;
-            if (!other.TryGetComponent<PlayerController>(out var player))
-                return;
+            base.OnPickedUp(player);
             player.HealthComponent.Heal(healAmount);
-            Destroy(gameObject);
         }
     }
 }
