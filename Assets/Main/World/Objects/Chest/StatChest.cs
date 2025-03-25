@@ -5,6 +5,7 @@ using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Save.Stats;
+using Main.Player;
 using UnityEngine;
 
 namespace Main.World.Objects.Chest
@@ -68,6 +69,7 @@ namespace Main.World.Objects.Chest
             {
                 StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
             });
+            FindAnyObjectByType<PlayerController>().LoadStats();
             Time.timeScale = 1;
             uiPopup.SetActive(false);
         }
