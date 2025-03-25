@@ -25,7 +25,7 @@ namespace Main.Lib.Items
         private SpriteRenderer _spriteRenderer;
         
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _velocity = Vector2.zero; // Default state

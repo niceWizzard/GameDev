@@ -6,6 +6,7 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
+using Main.World.Objects.Door;
 using Main.World.Objects.Pedestal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,6 +37,7 @@ namespace Main.Lib.Level
 
         public List<PedestalController> TotalPedestals { get; private set; } = new();
         public List<PedestalController> ActivatedPedestals => TotalPedestals.Where(v => v.IsActive).ToList();
+        public List<string> CollectedKeys { get; private set; } = new();
         public int AliveMobs => _mobsInLevel.Count - DeadMobsInLevel.Count;
 
         private LevelState _state = LevelState.Playing;
@@ -110,6 +112,9 @@ namespace Main.Lib.Level
                     break;
                 case MobController:
                     _mobsInLevel.Add(script.GetInstanceID());
+                    break;
+                case KeyItem key:
+                    CollectedKeys.Add(key.UniqueId.Id);
                     break;
                 default:
                     throw new ArgumentException($"Type {script.GetType()} is not supported");
