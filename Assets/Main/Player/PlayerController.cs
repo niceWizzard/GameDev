@@ -9,7 +9,6 @@ using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Main.Player
 {
