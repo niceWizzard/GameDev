@@ -11,7 +11,6 @@ namespace Main.Lib.Items
         {
             Disabled,
             Dropped,
-            PickedUp,
             Stationary,
         }
 
