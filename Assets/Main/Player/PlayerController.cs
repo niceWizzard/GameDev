@@ -44,9 +44,13 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
-            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            LoadStats();
         }
 
+        public void LoadStats()
+        {
+            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+        }
 
         protected override void GetRequiredComponents()
         {
