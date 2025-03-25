@@ -1,10 +1,12 @@
 using System;
+using Cysharp.Threading.Tasks.Triggers;
 using Main.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Main.Lib.Items
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class Item : MonoBehaviour
     {
         private enum ItemState
@@ -19,31 +21,20 @@ namespace Main.Lib.Items
 
         private readonly float _friction = 0.95f; // Friction to slow down movement
         private readonly float _minSpeed = 0.01f; // Stop movement when very slow
-
-        private void ChangeState(ItemState newState)
-        {
-            _state = newState;
-
-            // On Enter
-            switch (_state)
-            {
-                case ItemState.Disabled:
-                    gameObject.SetActive(false);
-                    break;
-                case ItemState.Dropped:
-                    gameObject.SetActive(true);
-                    break;
-            }
-        }
+        
+        private SpriteRenderer _spriteRenderer;
+        
 
         private void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             _velocity = Vector2.zero; // Default state
         }
 
         public void Disable()
         {
-            ChangeState(ItemState.Disabled);
+            _spriteRenderer.enabled = false;
+            _state = ItemState.Disabled;
         }
 
         public void Enable(Vector2 position)
@@ -51,12 +42,13 @@ namespace Main.Lib.Items
             var angle = Random.Range(-Mathf.PI, Mathf.PI);
             var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
             transform.position = position;
-            _velocity = dir.normalized * Random.Range(10f, 30f); 
-            ChangeState(ItemState.Dropped);
+            _velocity = dir.normalized * Random.Range(10f, 20f); 
+            _spriteRenderer.enabled = true;
+            _state= ItemState.Dropped;
         }
 
         private void Update()
-        {
+        {            
             if (_state != ItemState.Dropped) return;
 
             // Apply friction
@@ -69,7 +61,7 @@ namespace Main.Lib.Items
             if (_velocity.sqrMagnitude >= _minSpeed * _minSpeed)
                 return;
             _velocity = Vector2.zero;
-            ChangeState(ItemState.Stationary);
+            _state = ItemState.Stationary;
         }
         
         private void OnTriggerEnter2D(Collider2D other)

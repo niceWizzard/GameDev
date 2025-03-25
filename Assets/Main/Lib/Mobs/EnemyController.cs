@@ -27,9 +27,9 @@ namespace Main.Lib.Mobs
 
         protected override void OnHealthZero()
         {
+            MobItemDropper.DropItems();
             base.OnHealthZero();
             GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
-            MobItemDropper.DropItems();
         }
         
         protected override void Awake()

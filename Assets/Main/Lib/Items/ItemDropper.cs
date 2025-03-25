@@ -14,7 +14,7 @@ namespace Main.Lib.Items
     }
     public class ItemDropper : MonoBehaviour
     {
-        private readonly List<Item> _childrenItems = new();
+        private  List<Item> _childrenItems = new();
 
         [SerializeField]
         private List<WithRandom> _randomizedItems = new();
@@ -33,6 +33,7 @@ namespace Main.Lib.Items
         {
             foreach (var childrenItem in _childrenItems)
             {
+                childrenItem.transform.parent = null;
                 childrenItem.Enable(transform.position);
             }
 
