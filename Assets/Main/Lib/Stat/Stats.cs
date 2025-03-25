@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,11 @@ namespace Main.Lib.Stat
         public float Health => health;
         public float AttackPower => attackPower;
         
-        private readonly List<StatUpgrade> _upgrades = new List<StatUpgrade>();
+        protected List<string> Upgrades = new();
 
-        public void AddUpgrade(StatUpgrade upgrade)
+        public void AddUpgrade(string upgrade)
         {
-            _upgrades.Add(upgrade);
-            upgrade.Setup(this);
+            Upgrades.Add(upgrade);
         }
                 
         
