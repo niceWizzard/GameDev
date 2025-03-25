@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
@@ -43,7 +44,7 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
-            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.PlayerStats);
+            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
         }
 
 
