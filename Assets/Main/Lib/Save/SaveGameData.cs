@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Main.Lib.Save
 {
-    public record SaveGameData(HashSet<string> CompletedLevels)
+    public record SaveGameData(HashSet<string> CompletedLevels, IReadOnlyList<string> StatUpgrades)
     {
         public HashSet<string> CompletedLevels { get; set; } = CompletedLevels;
         
-        public PlayerStats PlayerStats { get; set; } = new PlayerStats();
-        public SaveGameData() : this(new HashSet<string>()) { }
+        public IReadOnlyList<string> StatUpgrades { get; set; } = StatUpgrades;
+        public SaveGameData() : this(new HashSet<string>(),Array.Empty<string>()) { }
     }
 }

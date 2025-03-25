@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using CleverCrow.Fluid.UniqueIds;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Save;
+using Main.Lib.Save.Stats;
 using UnityEngine;
 
 namespace Main.World.Objects.Chest
@@ -51,81 +53,21 @@ namespace Main.World.Objects.Chest
         public void StatButtonClick(string buttonName)
         {
             var save = SaveManager.Instance;
-            switch (buttonName.ToLower())
+            var upgrade = buttonName.ToLower() switch
             {
-                case "ap":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            AttackPower = v.PlayerStats.AttackPower + 10
-                        }
-                    });
-                    break;
-        
-                case "health":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            Health = v.PlayerStats.Health + 20
-                        }
-                    });
-                    break;
-        
-                case "movement":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            MovementSpeed = v.PlayerStats.MovementSpeed + 0.5f
-                        }
-                    });
-                    break;
-        
-                case "ammo":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            AmmoCapacity = v.PlayerStats.AmmoCapacity + 5
-                        }
-                    });
-                    break;
-        
-                case "dps":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            AttackPerSecond = v.PlayerStats.AttackPerSecond + 1
-                        }
-                    });
-                    break;
-        
-                case "reload":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            ReloadTime = v.PlayerStats.ReloadTime * 0.9f // 10% faster reload
-                        }
-                    });
-                    break;
-        
-                case "accuracy":
-                    save.SaveData(v => v with
-                    {
-                        PlayerStats = v.PlayerStats with
-                        {
-                            Accuracy = v.PlayerStats.Accuracy + 5
-                        }
-                    });
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(buttonName), buttonName, null);
-            }
-
+                "ap"       => StatUpgrade.AttackPower,
+                "health"   => StatUpgrade.Health,
+                "movement" => StatUpgrade.Speed,
+                "ammo"     => StatUpgrade.AmmoCapacity,
+                "dps"      => StatUpgrade.AttackPerSecond,
+                "reload"   => StatUpgrade.ReloadTime,
+                "accuracy" => StatUpgrade.Accuracy,
+                _ => throw new ArgumentOutOfRangeException(nameof(buttonName), buttonName, null)
+            };
+            save.SaveData(v => v with
+            {
+                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
+            });
             Time.timeScale = 1;
             uiPopup.SetActive(false);
         }

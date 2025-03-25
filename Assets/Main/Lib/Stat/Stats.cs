@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Main.Lib.Stat
@@ -10,5 +11,15 @@ namespace Main.Lib.Stat
         public float MovementSpeed  => movementSpeed;
         public float Health => health;
         public float AttackPower => attackPower;
+        
+        private readonly List<StatUpgrade> _upgrades = new List<StatUpgrade>();
+
+        public void AddUpgrade(StatUpgrade upgrade)
+        {
+            _upgrades.Add(upgrade);
+            upgrade.Setup(this);
+        }
+                
+        
     }
 }
