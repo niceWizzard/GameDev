@@ -1,4 +1,5 @@
 using System.Linq;
+using Main.Lib.Items;
 using Main.Player;
 using Unity.Mathematics;
 using UnityEngine;
@@ -21,11 +22,14 @@ namespace Main.Lib.Mobs
         public MobDetector MobDetector => mobDetector;
         [HideInInspector]
         public PlayerController detectedPlayer;
+        
+        public ItemDropper MobItemDropper { get; set; }
 
         protected override void OnHealthZero()
         {
             base.OnHealthZero();
             GameManager.Instance.CurrentLevelManager.RegisterAsDead(gameObject);
+            MobItemDropper.DropItems();
         }
         
         protected override void Awake()
@@ -41,7 +45,9 @@ namespace Main.Lib.Mobs
         {
             base.GetRequiredComponents();
             NavMeshAgent = GetComponent<NavMeshAgent>();
+            MobItemDropper = GetComponent<ItemDropper>();
         }
+
 
         protected override void VerifyRequiredComponents()
         {
@@ -50,6 +56,8 @@ namespace Main.Lib.Mobs
                 Debug.LogError($"Mob detector is missing on {name}. ");
             if(!NavMeshAgent)
                 Debug.LogError($"NavMeshAgent is missing on {name}. ");
+            if(!MobItemDropper)
+                Debug.LogError($"MobItemDropper is missing on {name}. ");
         }
 
 
@@ -65,6 +73,7 @@ namespace Main.Lib.Mobs
         {
             NavMeshAgent.nextPosition = Position;
         }
+        
         
         /// <summary>
         /// Supposed to let mob's movement detect obstacles and move accordingly.
