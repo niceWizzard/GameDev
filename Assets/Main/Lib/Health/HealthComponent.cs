@@ -12,6 +12,11 @@ namespace Main.Lib.Health
     
         public float Health => health;
 
+        public void Heal(float amount)
+        {
+            SetHealth(health + amount);
+        }
+
         public void ReduceHealth(float amount)
         {
             SetHealth(health - amount);
