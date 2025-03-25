@@ -21,7 +21,7 @@ namespace Main.Player
         [Header("Components")]
         [SerializeField]
         private GunController gun;
-        [SerializeField] private RangedStats rangedStats;
+        [SerializeField] private GunnerStats gunnerStats;
 
         [SerializeField] private Transform leftHandPosition;
         [SerializeField] private Transform rightHandPosition;
@@ -44,13 +44,9 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
-            LoadStats();
+            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
         }
 
-        public void LoadStats()
-        {
-            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
-        }
 
         protected override void GetRequiredComponents()
         {
