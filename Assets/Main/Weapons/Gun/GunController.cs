@@ -9,13 +9,8 @@ namespace Main.Weapons.Gun
 {
     public class GunController : MonoBehaviour
     {
-        [Header("Stats")] 
-        [SerializeField, Range(3, 15)] private int attackPerSecond = 4;
-        [SerializeField] private int ammoCapacity = 7;
-        [SerializeField, Range(4, 10)] private int accuracy = 4;
-        [SerializeField] private int normalAttackDamage = 50;
-        [SerializeField] private int specialAttackDamage = 125;
-        [Header("Components")]
+        [Header("Components")] [SerializeField]
+        private GunnerStats ownerStats;
         [SerializeField] private Transform leftNozzleTransform;
         [SerializeField] private Transform rightNozzleTransform;
         [SerializeField] private GameObject owner;
@@ -36,7 +31,7 @@ namespace Main.Weapons.Gun
         private Transform NozzleTransform => _spriteRenderer.flipY ? rightNozzleTransform : leftNozzleTransform;
 
         private int _currentAmmo;
-        public int AmmoCapacity => ammoCapacity;
+        public int AmmoCapacity => ownerStats.AmmoCapacity;
 
         public int CurrentAmmo
         {
@@ -52,12 +47,12 @@ namespace Main.Weapons.Gun
         private bool _canShoot = true;
         private bool _isReloading = false;
         private CinemachineImpulseSource _impulseSource;
-        private float AttackCd => 1f / attackPerSecond;
+        private float AttackCd => 1f / ownerStats.AttackPerSecond;
         private void Awake()
         {
             _camera = MainCamera.Instance?.Camera;
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            CurrentAmmo = ammoCapacity;
+            CurrentAmmo = ownerStats.AmmoCapacity;
             Owner = owner.GetComponent<IProjectileSender>();
             _impulseSource = GetComponent<CinemachineImpulseSource>();
         }
@@ -81,7 +76,7 @@ namespace Main.Weapons.Gun
             _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,normalAttackDamage, accuracy);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.AttackPower, ownerStats.Accuracy);
             AddCameraRecoil(-mouseDir);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
@@ -93,7 +88,7 @@ namespace Main.Weapons.Gun
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner ,specialAttackDamage, accuracy);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.SpecialAttackDamage, ownerStats.Accuracy);
             CurrentAmmo -= 5;
             AddCameraRecoil(-mouseDir);
             StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
@@ -104,10 +99,10 @@ namespace Main.Weapons.Gun
             _isReloading = true;
             CurrentAmmo = 0;
             OnReloadStart?.Invoke();
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(ownerStats.ReloadTime);
             OnReloadEnd?.Invoke();
             _isReloading = false;
-            CurrentAmmo = ammoCapacity;
+            CurrentAmmo = ownerStats.AmmoCapacity;
             _canShoot = true;
         }
 
