@@ -6,12 +6,13 @@ namespace Main.World.Objects.Items.Health_Potion
 {
     public class HealthPotion : Item
     {
+        [SerializeField] private float healAmount = 25;
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
             if (!other.TryGetComponent<PlayerController>(out var player))
                 return;
-            Debug.Log("HEALTH POTIION!");
+            player.HealthComponent.Heal(healAmount);
             Destroy(gameObject);
         }
     }
