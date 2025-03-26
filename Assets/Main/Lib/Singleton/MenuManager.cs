@@ -20,6 +20,7 @@ namespace Main.Lib.Singleton
     }
     public class MenuManager : PrefabSingleton<MenuManager>
     {
+        [SerializeField] private GameObject mainCanvas = null!;
         [SerializeField] private GameObject pauseMenu = null!;
         [SerializeField] private GameObject deathMenu = null!;
         [SerializeField] private GameObject completionMenu = null!;
@@ -40,6 +41,7 @@ namespace Main.Lib.Singleton
             pauseMenu.SetActive(false);
             deathMenu.SetActive(false);
             completionMenu.SetActive(false);
+            mainCanvas.SetActive(false);
         }
 
         public async UniTask CloseCurrentMenu()
@@ -54,6 +56,7 @@ namespace Main.Lib.Singleton
             _currentTweener = obj.transform.DOScale(Vector3.zero, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             await UniTask.WaitForSeconds(AnimationDuration);
             obj.SetActive(false);
+            mainCanvas.SetActive(false);
         }
 
         public void ShowMenu(MenuNames menu)
@@ -63,6 +66,7 @@ namespace Main.Lib.Singleton
             Time.timeScale = 0;
             _currentMenu = menu;
             var obj = GetMenuObject(menu);
+            mainCanvas.SetActive(true);
             obj.SetActive(true);
             obj.transform.localScale *= 0;
             _currentTweener = obj.transform.DOScale(Vector3.one, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
