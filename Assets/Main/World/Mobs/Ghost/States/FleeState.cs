@@ -27,7 +27,7 @@ namespace Main.World.Mobs.Ghost.States
             if (!Agent.detectedPlayer) return;
             var toPlayer = Agent.Position - Agent.detectedPlayer.Position;
             Vector2 randomDir = (Quaternion.Euler(0, 0, Random.Range(-180, 180)) * -toPlayer);
-            Agent.Position += randomDir.normalized * Random.Range(4, 7);
+            Agent.Position = Agent.detectedPlayer.Position + randomDir.normalized * Random.Range(5f, 7f);
         }
 
         public override void OnUpdate()
