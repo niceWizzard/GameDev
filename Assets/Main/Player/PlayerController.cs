@@ -21,7 +21,7 @@ namespace Main.Player
         [Header("Components")]
         [SerializeField]
         private GunController gun;
-        [SerializeField] private GunnerStats gunnerStats;
+        [SerializeField] private RangedStats rangedStats;
 
         [SerializeField] private Transform leftHandPosition;
         [SerializeField] private Transform rightHandPosition;
@@ -38,6 +38,8 @@ namespace Main.Player
         
         public bool InHurtAnimation { get; private set; }
 
+        public static event Action<RangedStats> StatChange; 
+
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
@@ -49,7 +51,8 @@ namespace Main.Player
 
         public void LoadStats()
         {
-            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            StatChange?.Invoke(rangedStats);
         }
 
         protected override void GetRequiredComponents()

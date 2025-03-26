@@ -1,4 +1,5 @@
 using Main.Player;
+using Main.Weapons.Gun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +15,14 @@ namespace Main.UI
             if (!p)
                 return;
             _player = p;
-            healthBar.maxValue = _player.HealthComponent.Health;
+            _player.HealthComponent.OnHealthChange += health => healthBar.value = health;
+            PlayerController.StatChange += PlayerControllerOnStatChange;
+        }
+
+        private void PlayerControllerOnStatChange(RangedStats obj)
+        {
+            healthBar.maxValue = obj.Health;
             healthBar.value = _player.HealthComponent.Health;
-            _player.HealthComponent.OnHealthChange += health => healthBar.value = health; 
         }
     }
 }
