@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Main.Lib
 {
+    [RequireComponent(typeof(Collider2D))]
     public class Interactable: MonoBehaviour
     {
         private static readonly int Size = Shader.PropertyToID("_size");
