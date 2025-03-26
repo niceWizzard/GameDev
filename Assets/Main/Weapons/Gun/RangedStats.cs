@@ -10,7 +10,7 @@ namespace Main.Weapons.Gun
     {
         [Header("Ranged")] [SerializeField] private float specialAttackMultiplier = 1.5f;
         [SerializeField] private int ammoCapacity = 7;
-        [SerializeField, Range(3, 15)] private int attackPerSecond = 4;
+        [SerializeField, Range(3, 15)] private float attackPerSecond = 4f;
         [SerializeField, Range(4, 10)] private int accuracy = 4;
         [SerializeField, Range(0.5f, 5f)] private float reloadTime = 2f;
         [SerializeField, Range(5, 25)] private float projectileSpeed = 5f; 
@@ -18,7 +18,7 @@ namespace Main.Weapons.Gun
 
         public float SpecialAttackMultiplier => specialAttackMultiplier;
         public int AmmoCapacity => ammoCapacity;
-        public int AttackPerSecond => attackPerSecond;
+        public float AttackPerSecond => attackPerSecond;
         public int Accuracy => accuracy;
         public float SpecialAttackDamage => AttackPower * specialAttackMultiplier;
         public float ReloadTime => reloadTime;
@@ -42,7 +42,7 @@ namespace Main.Weapons.Gun
                         ammoCapacity -= 5;
                         break;
                     case StatUpgrade.AttackPerSecond:
-                        attackPerSecond -= 1;
+                        attackPerSecond -= .33f;
                         break;
                     case StatUpgrade.Health:
                         health -= 25;
@@ -74,7 +74,7 @@ namespace Main.Weapons.Gun
                         ammoCapacity += 5;
                         break;
                     case StatUpgrade.AttackPerSecond:
-                        attackPerSecond += 1;
+                        attackPerSecond += .33f;
                         break;
                     case StatUpgrade.Health:
                         health += 25;
