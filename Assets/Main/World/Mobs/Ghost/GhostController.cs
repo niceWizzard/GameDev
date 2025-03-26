@@ -4,6 +4,7 @@ using Main.Lib.Stat;
 using Main.Weapons;
 using Main.Weapons.Gun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Main.World.Mobs.Ghost
 {
@@ -11,12 +12,12 @@ namespace Main.World.Mobs.Ghost
     {
         [SerializeField] private ProjectileController projectilePrefab;
             
-        [SerializeField] private GunnerStats gunnerStats;
+        [SerializeField] private RangedStats rangedStats;
         
         public ProjectileController ProjectilePrefab => projectilePrefab;
-        public GunnerStats GunnerStats => gunnerStats;
+        public RangedStats RangedStats => rangedStats;
 
-        public new Stats Stats => GunnerStats;
+        public new Stats Stats => RangedStats;
 
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Main.Weapons.Gun
 {
-    public class GunnerStats : Stats
+    public class RangedStats : Stats
     {
-        [Header("Gunner")] [SerializeField] private float specialAttackMultiplier = 1.5f;
+        [Header("Ranged")] [SerializeField] private float specialAttackMultiplier = 1.5f;
         [SerializeField] private int ammoCapacity = 7;
         [SerializeField, Range(3, 15)] private int attackPerSecond = 4;
         [SerializeField, Range(4, 10)] private int accuracy = 4;

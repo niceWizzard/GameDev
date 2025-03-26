@@ -10,7 +10,7 @@ namespace Main.Weapons.Gun
     public class GunController : MonoBehaviour
     {
         [Header("Components")] [SerializeField]
-        private GunnerStats ownerStats;
+        private RangedStats ownerStats;
         [SerializeField] private Transform leftNozzleTransform;
         [SerializeField] private Transform rightNozzleTransform;
         [SerializeField] private GameObject owner;

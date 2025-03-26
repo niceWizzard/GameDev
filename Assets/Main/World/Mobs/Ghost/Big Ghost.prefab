@@ -295,7 +295,7 @@ MonoBehaviour:
     m_Bits: 385
   detectedPlayer: {fileID: 0}
   projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
-  gunnerStats: {fileID: 6800745101930151584}
+  rangedStats: {fileID: 6800745101930151584}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
   serializedVersion: 5

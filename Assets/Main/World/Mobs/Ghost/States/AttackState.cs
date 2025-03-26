@@ -28,7 +28,7 @@ namespace Main.World.Mobs.Ghost.States
         private IEnumerator Shoot()
         {
             Executor.CanAttack = false;
-            for (var i = 0; i < Agent.GunnerStats.AmmoCapacity; i++)
+            for (var i = 0; i < Agent.RangedStats.AmmoCapacity; i++)
             {
                 if (!Agent || !Agent.detectedPlayer)
                 {
@@ -37,7 +37,7 @@ namespace Main.World.Mobs.Ghost.States
                 }
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
                 var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.GunnerStats.AttackPower);
+                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.RangedStats.AttackPower);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();
@@ -51,7 +51,7 @@ namespace Main.World.Mobs.Ghost.States
 
         private IEnumerator StartAttackCdTimer()
         {
-            yield return new WaitForSeconds(Agent.GunnerStats.ReloadTime);
+            yield return new WaitForSeconds(Agent.RangedStats.ReloadTime);
             Executor.CanAttack = true;
             Executor.FinishedAttack = true;
         }

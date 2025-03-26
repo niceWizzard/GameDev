@@ -9,6 +9,7 @@ using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Main.Player
 {
@@ -20,7 +21,7 @@ namespace Main.Player
         [Header("Components")]
         [SerializeField]
         private GunController gun;
-        [SerializeField] private GunnerStats gunnerStats;
+        [SerializeField] private RangedStats rangedStats;
 
         [SerializeField] private Transform leftHandPosition;
         [SerializeField] private Transform rightHandPosition;
@@ -43,7 +44,7 @@ namespace Main.Player
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
-            gunnerStats.SetFromSave(SaveManager.Instance.SaveGameData.PlayerStats);
+            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.PlayerStats);
         }
 
 
