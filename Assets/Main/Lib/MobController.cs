@@ -60,7 +60,6 @@ namespace Main.Lib
 
         private bool _inHurtAnimation = false;
     
-    
         protected virtual void Awake()
         {
             GetRequiredComponents();
@@ -116,12 +115,16 @@ namespace Main.Lib
             if (this == null || !gameObject.activeInHierarchy)
                 return;
             _inHurtAnimation = true;
+            var origColor = SpriteRenderer.color;
             var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
             await a.AsyncWaitForCompletion();
             if (!this || !gameObject.activeInHierarchy)
                 return;
+            a = SpriteRenderer.DOColor(origColor, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
+            await a.AsyncWaitForCompletion();
+            if (!this || !gameObject.activeInHierarchy)
+                return;
             _inHurtAnimation = false;
-            SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
         }
 
         /// <summary>
