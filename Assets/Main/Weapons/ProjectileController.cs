@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using Main.Lib.Health;
+using Main.Weapons.Gun;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -34,16 +35,16 @@ namespace Main.Weapons
             TraveledDistance += v.magnitude;
         }
 
-        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, float speed, bool disposeOnDeath)
+        public virtual void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  RangedStats stats)
         {
-            Damage = damage;
+            Damage = stats.AttackPower;
             Direction = dir;
             ProjectileSender = sender;
-            Speed = speed;
+            Speed = stats.ProjectileSpeed;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
-            if(disposeOnDeath)
+            if(stats.DisposeProjectilesOnDeath)
                 sender.SenderDispose += SenderOnSenderDispose;
         }
 
