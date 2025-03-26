@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1919324429396944793}
   - component: {fileID: 7140104547671619389}
   - component: {fileID: 7521121402981750285}
+  - component: {fileID: 5698297731853072232}
   m_Layer: 8
   m_Name: StatueCompletion
   m_TagString: Untagged
@@ -175,6 +176,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.9978654, y: 2.25}
   m_EdgeRadius: 0
+--- !u!114 &5698297731853072232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81527164362432786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1796f3dc38e334ca54f2b0a067111d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 
 --- !u!1 &227488022638380072
 GameObject:
   m_ObjectHideFlags: 0

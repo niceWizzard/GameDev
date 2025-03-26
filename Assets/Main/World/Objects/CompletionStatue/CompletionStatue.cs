@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CleverCrow.Fluid.UniqueIds;
 using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Save.Stats;
 using Main.Lib.Singleton;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Main.World.Objects.CompletionStatue
 {
@@ -18,7 +20,7 @@ namespace Main.World.Objects.CompletionStatue
         Ammo,
         Accuracy
     }
-    [RequireComponent(typeof(SpriteRenderer), typeof(Interactable))]
+    [RequireComponent(typeof(SpriteRenderer), typeof(Interactable), typeof(UniqueId))]
     public class CompletionStatue : MonoBehaviour
     {
         [SerializeField] private StatType leftRewardType = StatType.Health;
@@ -30,6 +32,15 @@ namespace Main.World.Objects.CompletionStatue
     
         private Interactable _statueInteractable;
         private bool _isEnabled;
+        private UniqueId _uniqueId;
+        private bool _inSaveFile;
+
+        private void Awake()
+        {
+            _uniqueId = GetComponent<UniqueId>();
+            if(!_uniqueId)
+                Debug.LogError($"No unique id found at {name} in {SceneManager.GetActiveScene().name}");
+        }
 
         private void Start()
         {
@@ -37,25 +48,35 @@ namespace Main.World.Objects.CompletionStatue
             _statueInteractable.OnInteract += StatueInteractableOnInteract;
             leftRewardInteractable.OnInteract += LeftRewardInteractableOnInteract;
             rightRewardInteractable.OnInteract += RightRewardInteractableOnInteract;
+            _inSaveFile = SaveManager.Instance.SaveGameData.BrokenStatues.Contains(_uniqueId.Id);
             
             _statueInteractable.IsInteractable = false;
             leftRewardInteractable.IsInteractable= false;
             rightRewardInteractable.IsInteractable = false;
-            
+
+            if (_inSaveFile) return;
             leftRewardInteractable.SetText(
                 GetStatText(leftRewardType)
             );
             rightRewardInteractable.SetText(
                 GetStatText(rightRewardType)
             );
-            
+
         }
 
         public void Setup()
         {
             _isEnabled = true;
-            leftRewardInteractable.IsInteractable = true;
-            rightRewardInteractable.IsInteractable = true;
+            if (_inSaveFile)
+            {
+                _statueInteractable.IsInteractable = true;
+                _statueInteractable.SetText("Return");
+            }
+            else
+            {
+                leftRewardInteractable.IsInteractable = true;
+                rightRewardInteractable.IsInteractable = true;
+            }
         }
 
         private void OnDestroy()
@@ -111,6 +132,10 @@ namespace Main.World.Objects.CompletionStatue
         
         private void StatueInteractableOnInteract()
         {
+            SaveManager.Instance.SaveData(v => v with
+            {
+                BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet()
+            });
             LevelLoader.Instance.LoadLevel("HubLevel");
         }
 
