@@ -15,13 +15,13 @@ namespace Main.UI
         public virtual void Show()
         {
             gameObject.SetActive(true);
-            transform.DOScale(Vector3.one, AnimDuration).SetUpdate(true);
+            transform.DOScale(Vector3.one, AnimDuration).SetUpdate(true).SetLink(gameObject);
         }
 
         public virtual void Hide()
         {
             gameObject.SetActive(false);
-            transform.DOScale(Vector3.zero, AnimDuration).SetUpdate(true);
+            transform.DOScale(Vector3.zero, AnimDuration).SetUpdate(true).SetLink(gameObject);
         }
     }
 }

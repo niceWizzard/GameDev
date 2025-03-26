@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Main.Lib.Singleton
 {
@@ -9,7 +6,6 @@ namespace Main.Lib.Singleton
     {
         public static void InitializePrefab(string prefabPath)
         {
-            // var op = Addressables.LoadAssetAsync<GameObject>(prefabKey);
             var op = Resources.Load<GameObject>(prefabPath);
             if (op == null)
             {

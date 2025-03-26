@@ -27,9 +27,9 @@ namespace Main.Player.States
         }
 
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             if (_isRecovering)
             {
                 Agent.Velocity *= 0;
@@ -38,7 +38,7 @@ namespace Main.Player.States
             {
                 const float f = 10f;
                 Agent.Velocity = _direction * f;
-                _traveledDistance += f * Time.deltaTime;
+                _traveledDistance += f * Time.fixedDeltaTime;
             }
             if (_traveledDistance < Agent.dashDistance)
                 return ;

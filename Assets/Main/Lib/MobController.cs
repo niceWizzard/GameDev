@@ -60,14 +60,13 @@ namespace Main.Lib
 
         private bool _inHurtAnimation = false;
     
-    
         protected virtual void Awake()
         {
             GetRequiredComponents();
             VerifyRequiredComponents();
             Hurtbox.OnHurt += OnHurtboxHurt;
             HealthComponent.OnHealthZero += OnHealthZero;
-            HealthComponent.SetHealth(Stats.Health);
+            HealthComponent.SetMaxHealth(Stats.Health);
         }
 
         protected virtual void GetRequiredComponents()
@@ -105,8 +104,8 @@ namespace Main.Lib
         /// <param name="damageInfo"></param>
         protected virtual void OnHurtboxHurt(DamageInfo damageInfo)
         {
-            HealthComponent.ReduceHealth(damageInfo.damage);
             _ = HurtAnimation();
+            HealthComponent.ReduceHealth(damageInfo.damage);
         }
 
         protected virtual async UniTask HurtAnimation()
@@ -116,12 +115,16 @@ namespace Main.Lib
             if (this == null || !gameObject.activeInHierarchy)
                 return;
             _inHurtAnimation = true;
+            var origColor = SpriteRenderer.color;
             var a = SpriteRenderer.DOColor(Color.red, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
             await a.AsyncWaitForCompletion();
             if (!this || !gameObject.activeInHierarchy)
                 return;
+            a = SpriteRenderer.DOColor(origColor, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
+            await a.AsyncWaitForCompletion();
+            if (!this || !gameObject.activeInHierarchy)
+                return;
             _inHurtAnimation = false;
-            SpriteRenderer.DOColor(Color.white, 0.1f).SetEase(Ease.InCubic).SetLink(gameObject);
         }
 
         /// <summary>
@@ -130,8 +133,8 @@ namespace Main.Lib
         /// </summary>
         protected virtual void OnHealthZero()
         {
-            Destroy(gameObject);
             SenderDispose?.Invoke();
+            Destroy(gameObject);
         }
 
         public GameObject GameObject => gameObject;

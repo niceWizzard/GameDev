@@ -1,12 +1,15 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
+using Main.Lib.Save;
 using Main.Weapons.Gun;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
+using UnityEditor.Analytics;
 using UnityEngine;
 
 namespace Main.Player
@@ -19,6 +22,10 @@ namespace Main.Player
         [Header("Components")]
         [SerializeField]
         private GunController gun;
+        [SerializeField] private RangedStats rangedStats;
+
+        [SerializeField] private Transform leftHandPosition;
+        [SerializeField] private Transform rightHandPosition;
 
         [SerializeField] private TMP_Text reloadingText;
 
@@ -32,12 +39,23 @@ namespace Main.Player
         
         public bool InHurtAnimation { get; private set; }
 
+        public static event Action<RangedStats> StatChange; 
+
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
+            LoadStats();
+            HealthComponent.SetMaxHealth(rangedStats.Health);
+        }
+
+        public void LoadStats()
+        {
+            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            Gun.UpdateAmmoCapacity(rangedStats.AmmoCapacity);
+            StatChange?.Invoke(rangedStats);
         }
 
         protected override void GetRequiredComponents()
@@ -65,14 +83,14 @@ namespace Main.Player
             Hurtbox.Disable();
             try
             {
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     SetVisibility(!SpriteRenderer.enabled);
-                    await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
+                    await UniTask.WaitForSeconds(0.1f, cancellationToken: destroyCancellationToken);
                 }
                 for (var i = 0; i < 3; i++)
                 {
-                    await UniTask.WaitForSeconds(0.3f, cancellationToken: destroyCancellationToken);
+                    await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
                     SetVisibility(!SpriteRenderer.enabled);
                 }
             }
@@ -101,11 +119,9 @@ namespace Main.Player
             reloadingText.DOColor(Color.white, 0.3f).SetLink(gameObject);
         }
 
-        public void UpdateFacingDirection(Vector2 input)
+        public void UpdateFacingDirection(int direction)
         {
-            if (math.abs(input.x) < 0.01f)
-                return;
-            FacingDirection = math.sign(input.x);
+            FacingDirection = direction;
             SpriteRenderer.flipX = FacingDirection < 0;
         }
 
@@ -121,6 +137,9 @@ namespace Main.Player
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 toMouse = (mouse - transform.position).normalized;
             var angle = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
+            var facing = Math.Abs(angle) >90 ? -1 : 1;
+            UpdateFacingDirection(facing);
+            GunAnchor.position = facing == 1 ? rightHandPosition.position : leftHandPosition.position;
             GunAnchor.localEulerAngles = new Vector3(0, 0, angle);
             Gun.FlipSprite(math.abs(angle) > 90);
         }

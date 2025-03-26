@@ -1,73 +1,57 @@
 #nullable enable
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Main.World.Objects.CompletionStatue;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Main.Lib.Singleton
 {
-    [Serializable]
-    public class LevelMapping
-    {
-        public string levelName = null!;
-        public AssetReference scene = null!;
-    }
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
         [SerializeField] private Image blackScreen = null!;
-        [SerializeField] private List<LevelMapping> levelMappings = null!;
-        public static event Action<string>? OnLevelChange;
         
-
+        private List<string> _sceneNames = new();
+        
         protected override void Awake()
         {
             base.Awake();
             var color = blackScreen.color;
             color.a = 0;
             blackScreen.color = color;
+            
+            var sceneCount = SceneManager.sceneCountInBuildSettings;
+            for (var i = 0; i < sceneCount; i++)
+            {
+                var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+                var sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+                _sceneNames.Add(sceneName);
+            }
         }
 
-        public string GetLevelGuid(string levelName)
-        {
-            var a = levelMappings.Find(v => v.levelName == levelName);
-            if(a == null)
-                throw new NullReferenceException($"Level mapping not found. Consider adding {levelName} to LevelLoader level map");
-            return a.scene.AssetGUID;
-        }
 
-        public void LoadLevel(AssetReference levelRef)
-        {
-            StartCoroutine(LoadLevelCoroutine(levelRef));
-        }
         public void LoadLevel(string levelName)
         {
+            if (!_sceneNames.Contains(levelName))
+            {
+                Debug.LogError($"Scene <{levelName}> not found");
+                return;
+            };
             StartCoroutine(LoadLevelCoroutine(levelName));
         }
         
-        private static IEnumerator LoadLevelCoroutine(string levelName)
+        private IEnumerator LoadLevelCoroutine(string levelName)
         {
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             yield return new WaitForSecondsRealtime(0.25f);
-            yield return Addressables.LoadSceneAsync(levelName).Yield();
+            yield return SceneManager.LoadSceneAsync(levelName).Yield();
             yield return new WaitForSecondsRealtime(0.01f);
-            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             Time.timeScale = 1;
         }
 
-
-        private static IEnumerator LoadLevelCoroutine(AssetReference levelRef)
-        {
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
-            yield return new WaitForSecondsRealtime(0.25f);
-            yield return levelRef.LoadSceneAsync().Yield();
-            yield return new WaitForSecondsRealtime(0.01f);
-            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
-            Time.timeScale = 1;
-        }
     }
 }

@@ -6,19 +6,30 @@ namespace Main.World.Mobs.Ghost.States
 {
     public class AttackState : State<GhostFsm, GhostController>
     {
-        
+        private int _biasRotation;
+
         public override void OnEnter()
         {
             base.OnEnter();
             Agent.StartCoroutine(Shoot());
-            Agent.Velocity *= 0;
             Executor.FinishedAttack = false;
+            _biasRotation = Random.Range(-90, 90);
         }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            Agent.NavMeshAgent.SetDestination(Agent.detectedPlayer.Position);
+            var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
+            var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f * 0;
+            Agent.Velocity = (Quaternion.Euler(0,0, _biasRotation) * vel).normalized * Agent.MovementSpeed;
+        }
+        
 
         private IEnumerator Shoot()
         {
             Executor.CanAttack = false;
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < Agent.RangedStats.AmmoCapacity; i++)
             {
                 if (!Agent || !Agent.detectedPlayer)
                 {
@@ -27,7 +38,7 @@ namespace Main.World.Mobs.Ghost.States
                 }
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
                 var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.Stats.AttackPower);
+                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.RangedStats);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();
@@ -41,7 +52,7 @@ namespace Main.World.Mobs.Ghost.States
 
         private IEnumerator StartAttackCdTimer()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(Agent.RangedStats.ReloadTime);
             Executor.CanAttack = true;
             Executor.FinishedAttack = true;
         }

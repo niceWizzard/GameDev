@@ -65,7 +65,12 @@ namespace Main.Lib.FSM
             // Continue executing current state
             CurrentState.OnUpdate();
         }
-        
+
+        protected virtual void FixedUpdate()
+        {
+            CurrentState?.OnFixedUpdate();
+        }
+
         public void SetState(Type newStateType)
         {
             if (!_statesMap.TryGetValue(newStateType, out var newState))

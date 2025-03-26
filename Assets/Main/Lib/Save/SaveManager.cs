@@ -35,8 +35,7 @@ namespace Main.Lib.Save
 
         public bool SaveData(SaveGameData sgd)
         {
-            // var s = JsonConvert.SerializeObject(sgd);
-            var s = JsonUtility.ToJson(sgd);
+            var s = JsonConvert.SerializeObject(sgd);
             var result = _fileHandler.SaveFile(GetSaveSlotPath(SaveSlot), s);
             if (result)
                 SaveGameData = sgd;

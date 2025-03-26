@@ -6,10 +6,11 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
+using Main.World.Objects.CompletionStatue;
+using Main.World.Objects.Door;
 using Main.World.Objects.Pedestal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Main.Lib.Level
 {
@@ -22,8 +23,9 @@ namespace Main.Lib.Level
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private Transform safeSpawn;
-
-        [Header("Completion Requirements")] [SerializeField]
+        [Header("Completion Requirements")] 
+        [SerializeField] private CompletionStatue completionStatue;
+        [SerializeField]
         private List<Requirement> requirements = new();
         
         public List<Requirement> Requirements => requirements;
@@ -36,6 +38,7 @@ namespace Main.Lib.Level
 
         public List<PedestalController> TotalPedestals { get; private set; } = new();
         public List<PedestalController> ActivatedPedestals => TotalPedestals.Where(v => v.IsActive).ToList();
+        public List<string> CollectedKeys { get; private set; } = new();
         public int AliveMobs => _mobsInLevel.Count - DeadMobsInLevel.Count;
 
         private LevelState _state = LevelState.Playing;
@@ -43,7 +46,9 @@ namespace Main.Lib.Level
         private void Awake()
         {
             if(safeSpawn == null)
-                Debug.LogError($"Safe spawn is null at {SceneManager.GetActiveScene().name}");
+                Debug.LogError($"Safe spawn is null at {name}");
+            if( requirements.Count > 0 && !completionStatue)
+                Debug.LogError($"Completion statue is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
             player.Position = safeSpawn.position;
@@ -73,7 +78,7 @@ namespace Main.Lib.Level
                         MenuManager.Instance.TogglePauseMenu();
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
-                    MenuManager.Instance.ShowCompletionMenu();
+                    SpawnCompletionMenu();
                     SaveAsCompleted();
                     _state = LevelState.Finished;
                     break;
@@ -86,13 +91,17 @@ namespace Main.Lib.Level
             
         }
 
+        private void SpawnCompletionMenu()
+        {
+            completionStatue.Setup();
+        }
+
         private void SaveAsCompleted()
         {
             var sceneName = SceneManager.GetActiveScene().name;
-            var sceneId = LevelLoader.Instance.GetLevelGuid(sceneName);
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
-                CompletedLevels = v.CompletedLevels.Append(sceneId).ToList() 
+                CompletedLevels = v.CompletedLevels.Append(sceneName).ToHashSet()
             });
         }
 
@@ -110,6 +119,9 @@ namespace Main.Lib.Level
                     break;
                 case MobController:
                     _mobsInLevel.Add(script.GetInstanceID());
+                    break;
+                case KeyItem key:
+                    CollectedKeys.Add(key.UniqueId.Id);
                     break;
                 default:
                     throw new ArgumentException($"Type {script.GetType()} is not supported");
