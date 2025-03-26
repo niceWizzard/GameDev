@@ -23,13 +23,9 @@ namespace Main.Lib.Level
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private Transform safeSpawn;
-        [SerializeField] private Transform completionStatueLocation;
-        [Header("Completion Reward Choices")]
+        [Header("Completion Requirements")] 
+        [SerializeField] private CompletionStatue completionStatue;
         [SerializeField]
-        private StatType leftReward = StatType.Health;
-        [SerializeField]
-        private StatType rightReward = StatType.Speed;
-        [Header("Completion Requirements")] [SerializeField]
         private List<Requirement> requirements = new();
         
         public List<Requirement> Requirements => requirements;
@@ -51,8 +47,8 @@ namespace Main.Lib.Level
         {
             if(safeSpawn == null)
                 Debug.LogError($"Safe spawn is null at {name}");
-            if(!completionStatueLocation)
-                Debug.LogWarning($"Completion statue location is null at {name}");
+            if( requirements.Count > 0 && !completionStatue)
+                Debug.LogError($"Completion statue is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
             player.Position = safeSpawn.position;
@@ -97,8 +93,7 @@ namespace Main.Lib.Level
 
         private void SpawnCompletionMenu()
         {
-            var statue = Instantiate(LevelLoader.Instance.CompletionStatuePrefab, (Vector2) completionStatueLocation.position, Quaternion.identity);
-            statue.Setup(leftReward, rightReward);
+            completionStatue.Setup();
         }
 
         private void SaveAsCompleted()

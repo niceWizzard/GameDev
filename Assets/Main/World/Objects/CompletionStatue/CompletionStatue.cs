@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Save.Stats;
@@ -31,6 +29,7 @@ namespace Main.World.Objects.CompletionStatue
         [SerializeField] private List<SpriteRenderer> _spriteRenderers;
     
         private Interactable _statueInteractable;
+        private bool _isEnabled;
 
         private void Start()
         {
@@ -49,37 +48,16 @@ namespace Main.World.Objects.CompletionStatue
             rightRewardInteractable.SetText(
                 GetStatText(rightRewardType)
             );
-            StartCoroutine(Animate());
             
         }
 
-        public void Setup(StatType left, StatType right)
+        public void Setup()
         {
-            leftRewardType = left;
-            rightRewardType = right;
-        }
-
-
-        private IEnumerator Animate()
-        {
-            var sequence = DOTween.Sequence(gameObject);
-        
-            foreach (var v in _spriteRenderers)
-            {
-                var color = v.color;
-                color.a = 0;
-                v.color = color;
-                sequence.Join(v.DOFade(1, 1f)); // ✅ Runs animations in parallel
-            }
-        
-        
-            yield return sequence.WaitForCompletion(); // ✅ Waits for all animations
-        
-        
+            _isEnabled = true;
             leftRewardInteractable.IsInteractable = true;
             rightRewardInteractable.IsInteractable = true;
         }
-        
+
         private void OnDestroy()
         {
             leftRewardInteractable.OnInteract -= LeftRewardInteractableOnInteract;

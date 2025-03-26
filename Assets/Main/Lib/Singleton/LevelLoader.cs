@@ -12,8 +12,6 @@ namespace Main.Lib.Singleton
 {
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
-        [SerializeField] private CompletionStatue completionStatuePrefab = null!;
-        public CompletionStatue CompletionStatuePrefab => completionStatuePrefab;
         [SerializeField] private Image blackScreen = null!;
         
         private List<string> _sceneNames = new();

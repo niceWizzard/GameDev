@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3812855186092147439}
   - component: {fileID: 1919324429396944793}
   - component: {fileID: 7140104547671619389}
-  - component: {fileID: 8119722763251964295}
+  - component: {fileID: 7521121402981750285}
   m_Layer: 8
   m_Name: StatueCompletion
   m_TagString: Untagged
@@ -129,8 +129,8 @@ MonoBehaviour:
   isInteractable: 1
   textShown: Break
   textUi: {fileID: 3025350410658905788}
---- !u!70 &8119722763251964295
-CapsuleCollider2D:
+--- !u!61 &7521121402981750285
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -163,9 +163,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.125, y: 0.8988402}
-  m_Size: {x: 0.8103633, y: 2.0476804}
-  m_Direction: 0
+  m_Offset: {x: -0.15242302, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.6, y: 0.055555556}
+    oldSize: {x: 1.25, y: 2.25}
+    newSize: {x: 1.25, y: 2.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.9978654, y: 2.25}
+  m_EdgeRadius: 0
 --- !u!1 &227488022638380072
 GameObject:
   m_ObjectHideFlags: 0
