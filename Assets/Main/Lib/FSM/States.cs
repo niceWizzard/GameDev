@@ -29,6 +29,12 @@ namespace Main.Lib.FSM
         /// The Update Loop
         /// </summary>
         public virtual void OnUpdate() { }
+        
+        /// <summary>
+        /// The FixedUpdate Loop
+        /// </summary>
+        public virtual void OnFixedUpdate() { }
+        
         /// <summary>
         /// Called when the State enters
         /// </summary>
