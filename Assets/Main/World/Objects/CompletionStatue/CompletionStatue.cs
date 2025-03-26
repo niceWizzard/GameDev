@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Main.Lib;
+using Main.Lib.Save;
 using Main.Lib.Save.Stats;
 using Main.Lib.Singleton;
 using UnityEngine;
@@ -106,11 +108,10 @@ namespace Main.World.Objects.CompletionStatue
                 StatType.Accuracy => StatUpgrade.Accuracy,
                 _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
             };
-            Debug.Log($"Upgrading {statType}");
-            // SaveManager.Instance.SaveData(v => v with
-            // {
-            //     StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
-            // });
+            _ = SaveManager.Instance.SaveDataAsync(v => v with
+            {
+                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
+            });
         }
 
         private static string GetStatText(StatType statType) => statType switch
