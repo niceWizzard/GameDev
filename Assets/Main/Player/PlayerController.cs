@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib;
@@ -9,7 +10,6 @@ using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Main.Player
 {
@@ -38,15 +38,22 @@ namespace Main.Player
         
         public bool InHurtAnimation { get; private set; }
 
+        public static event Action<RangedStats> StatChange; 
+
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
-            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.PlayerStats);
+            LoadStats();
         }
 
+        public void LoadStats()
+        {
+            rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            StatChange?.Invoke(rangedStats);
+        }
 
         protected override void GetRequiredComponents()
         {

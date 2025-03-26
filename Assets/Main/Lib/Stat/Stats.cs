@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Main.Lib.Stat
@@ -10,5 +12,14 @@ namespace Main.Lib.Stat
         public float MovementSpeed  => movementSpeed;
         public float Health => health;
         public float AttackPower => attackPower;
+        
+        protected List<string> Upgrades = new();
+
+        public void AddUpgrade(string upgrade)
+        {
+            Upgrades.Add(upgrade);
+        }
+                
+        
     }
 }
