@@ -38,6 +38,8 @@ namespace Main.Player
         
         public bool InHurtAnimation { get; private set; }
 
+        public static event Action<RangedStats> StatChange; 
+
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
@@ -50,6 +52,7 @@ namespace Main.Player
         public void LoadStats()
         {
             rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            StatChange?.Invoke(rangedStats);
         }
 
         protected override void GetRequiredComponents()
