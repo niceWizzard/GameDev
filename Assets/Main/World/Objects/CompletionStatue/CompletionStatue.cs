@@ -1,7 +1,8 @@
 using System;
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using Main.Lib;
-using Main.Lib.Save;
 using Main.Lib.Save.Stats;
 using Main.Lib.Singleton;
 using UnityEngine;
@@ -25,7 +26,8 @@ namespace Main.World.Objects.CompletionStatue
 
         [SerializeField] private Interactable leftRewardInteractable;
         [SerializeField] private Interactable rightRewardInteractable;
-
+        [SerializeField] private List<SpriteRenderer> _spriteRenderers;
+    
         private Interactable _statueInteractable;
 
         private void Start()
@@ -36,6 +38,8 @@ namespace Main.World.Objects.CompletionStatue
             rightRewardInteractable.OnInteract += RightRewardInteractableOnInteract;
             
             _statueInteractable.IsInteractable = false;
+            leftRewardInteractable.IsInteractable= false;
+            rightRewardInteractable.IsInteractable = false;
             
             leftRewardInteractable.SetText(
                 GetStatText(leftRewardType)
@@ -43,8 +47,31 @@ namespace Main.World.Objects.CompletionStatue
             rightRewardInteractable.SetText(
                 GetStatText(rightRewardType)
             );
+            StartCoroutine(Animate());
+            
         }
 
+
+        private IEnumerator Animate()
+        {
+            var sequence = DOTween.Sequence(gameObject);
+        
+            foreach (var v in _spriteRenderers)
+            {
+                var color = v.color;
+                color.a = 0;
+                v.color = color;
+                sequence.Join(v.DOFade(1, 1f)); // ✅ Runs animations in parallel
+            }
+        
+        
+            yield return sequence.WaitForCompletion(); // ✅ Waits for all animations
+        
+        
+            leftRewardInteractable.IsInteractable = true;
+            rightRewardInteractable.IsInteractable = true;
+        }
+        
         private void OnDestroy()
         {
             leftRewardInteractable.OnInteract -= LeftRewardInteractableOnInteract;

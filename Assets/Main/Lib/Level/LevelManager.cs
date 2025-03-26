@@ -22,6 +22,7 @@ namespace Main.Lib.Level
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private Transform safeSpawn;
+        [SerializeField] private Transform completionStatueLocation;
 
         [Header("Completion Requirements")] [SerializeField]
         private List<Requirement> requirements = new();
@@ -44,7 +45,9 @@ namespace Main.Lib.Level
         private void Awake()
         {
             if(safeSpawn == null)
-                Debug.LogError($"Safe spawn is null at {SceneManager.GetActiveScene().name}");
+                Debug.LogError($"Safe spawn is null at {name}");
+            if(!completionStatueLocation)
+                Debug.LogWarning($"Completion statue location is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
             MainCamera.Instance.Follow(player);
             player.Position = safeSpawn.position;
@@ -74,7 +77,7 @@ namespace Main.Lib.Level
                         MenuManager.Instance.TogglePauseMenu();
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
-                    MenuManager.Instance.ShowCompletionMenu();
+                    SpawnCompletionMenu();
                     SaveAsCompleted();
                     _state = LevelState.Finished;
                     break;
@@ -84,6 +87,12 @@ namespace Main.Lib.Level
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+        }
+
+        private void SpawnCompletionMenu()
+        {
+            var statue = Instantiate(LevelLoader.Instance.CompletionStatuePrefab, (Vector2) completionStatueLocation.position, Quaternion.identity);
             
         }
 

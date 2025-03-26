@@ -1,8 +1,8 @@
 #nullable enable
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Main.World.Objects.CompletionStatue;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +12,8 @@ namespace Main.Lib.Singleton
 {
     public class LevelLoader : PrefabSingleton<LevelLoader>
     {
+        [SerializeField] private CompletionStatue completionStatuePrefab = null!;
+        public CompletionStatue CompletionStatuePrefab => completionStatuePrefab;
         [SerializeField] private Image blackScreen = null!;
         
         private List<string> _sceneNames = new();
