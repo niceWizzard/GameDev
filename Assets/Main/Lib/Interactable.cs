@@ -10,7 +10,7 @@ namespace Main.Lib
     public class Interactable: MonoBehaviour
     {
         private static readonly int Size = Shader.PropertyToID("_size");
-        public const float InteractableDistance = 1f;
+        public const float InteractableDistance = 1.5f;
         private const float OutlineSize = 0.75f;
         private const float TransitionDuration = 0.15f;
         
