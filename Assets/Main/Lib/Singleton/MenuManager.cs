@@ -48,6 +48,7 @@ namespace Main.Lib.Singleton
                 return;
             if (_currentMenu == null) 
                 return;
+            Time.timeScale = 1;
             var obj = GetMenuObject(_currentMenu.Value);
             _currentMenu = null;
             _currentTweener = obj.transform.DOScale(Vector3.zero, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
@@ -92,7 +93,7 @@ namespace Main.Lib.Singleton
         public void ShowCompletionMenu() => ShowMenu(MenuNames.CompletedMenu);
 
 
-        public void RetryLevel()
+        public void RetryLevel()    
         {
             LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
             _ = CloseCurrentMenu();
