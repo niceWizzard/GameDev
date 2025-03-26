@@ -53,6 +53,12 @@ namespace Main.World.Objects.CompletionStatue
             
         }
 
+        public void Setup(StatType left, StatType right)
+        {
+            leftRewardType = left;
+            rightRewardType = right;
+        }
+
 
         private IEnumerator Animate()
         {

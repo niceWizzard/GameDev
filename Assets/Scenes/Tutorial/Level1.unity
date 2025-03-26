@@ -299,6 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeSpawn: {fileID: 1025627393}
   completionStatueLocation: {fileID: 496358045}
+  leftReward: 0
+  rightReward: 2
   requirements:
   - {fileID: 431039301}
   - {fileID: 431039302}
