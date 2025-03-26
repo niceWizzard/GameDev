@@ -29,7 +29,6 @@ namespace Main.World.Objects.CompletionStatue
 
         [SerializeField] private Interactable leftRewardInteractable;
         [SerializeField] private Interactable rightRewardInteractable;
-        [SerializeField] private List<SpriteRenderer> _spriteRenderers;
     
         private Interactable _statueInteractable;
         private bool _isEnabled;
