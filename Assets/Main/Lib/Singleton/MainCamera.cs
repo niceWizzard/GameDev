@@ -1,11 +1,7 @@
-using System;
-using System.Linq;
 using Main.Lib.Level;
 using Main.Player;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.Universal;
 
 namespace Main.Lib.Singleton
 {

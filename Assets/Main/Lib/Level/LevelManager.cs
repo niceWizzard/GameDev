@@ -10,7 +10,6 @@ using Main.World.Objects.Door;
 using Main.World.Objects.Pedestal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Main.Lib.Level
 {
@@ -91,10 +90,9 @@ namespace Main.Lib.Level
         private void SaveAsCompleted()
         {
             var sceneName = SceneManager.GetActiveScene().name;
-            var sceneId = LevelLoader.Instance.GetLevelGuid(sceneName);
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
-                CompletedLevels = v.CompletedLevels.Append(sceneId).ToHashSet()
+                CompletedLevels = v.CompletedLevels.Append(sceneName).ToHashSet()
             });
         }
 

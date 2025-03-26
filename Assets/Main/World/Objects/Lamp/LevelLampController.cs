@@ -1,10 +1,7 @@
-using System;
-using System.Linq;
 using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Singleton;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Main.World.Objects.Lamp
 {
@@ -13,7 +10,7 @@ namespace Main.World.Objects.Lamp
     {
         [SerializeField] private Sprite activatedSprite;
         [SerializeField] private Sprite inactiveSprite;
-        [SerializeField] private AssetReference levelReference; 
+        [SerializeField] private string levelName = "HubLevel"; 
         private SpriteRenderer _spriteRenderer;
 
         private bool IsActive { get; set; }
@@ -21,8 +18,7 @@ namespace Main.World.Objects.Lamp
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            var levelId = levelReference.AssetGUID;
-            if (SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelId))
+            if (SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName))
             {
                 _spriteRenderer.sprite = activatedSprite;
             }
@@ -31,16 +27,13 @@ namespace Main.World.Objects.Lamp
         private void Start()
         {
             var i = GetComponent<Interactable>();
-            if (levelReference == null || string.IsNullOrWhiteSpace(levelReference.AssetGUID))
-                throw new ArgumentNullException($"Level Ref is not set in {name}");
-
             i.OnInteract += Toggle;
         }
 
 
         private void Toggle()
         {
-            LevelLoader.Instance.LoadLevel(levelReference);
+            LevelLoader.Instance.LoadLevel(levelName);
         }
         
         
