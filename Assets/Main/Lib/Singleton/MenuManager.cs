@@ -15,7 +15,6 @@ namespace Main.Lib.Singleton
     public enum MenuNames
     {
         PauseMenu,
-        CompletedMenu,
         DeathMenu,
     }
     public class MenuManager : PrefabSingleton<MenuManager>
@@ -23,7 +22,6 @@ namespace Main.Lib.Singleton
         [SerializeField] private GameObject mainCanvas = null!;
         [SerializeField] private GameObject pauseMenu = null!;
         [SerializeField] private GameObject deathMenu = null!;
-        [SerializeField] private GameObject completionMenu = null!;
 
         private MenuNames? _currentMenu;
         private const float AnimationDuration = 0.2f;
@@ -40,7 +38,6 @@ namespace Main.Lib.Singleton
             };
             pauseMenu.SetActive(false);
             deathMenu.SetActive(false);
-            completionMenu.SetActive(false);
             mainCanvas.SetActive(false);
         }
 
@@ -87,15 +84,12 @@ namespace Main.Lib.Singleton
             return menuName switch
             {
                 MenuNames.PauseMenu => pauseMenu,
-                MenuNames.CompletedMenu => completionMenu,
                 MenuNames.DeathMenu => deathMenu,
                 _ => throw new ArgumentOutOfRangeException(nameof(menuName), menuName, null)
             };
         }
 
         public void ShowDeathMenu() => ShowMenu(MenuNames.DeathMenu);
-        public void ShowCompletionMenu() => ShowMenu(MenuNames.CompletedMenu);
-
 
         public void RetryLevel()    
         {
