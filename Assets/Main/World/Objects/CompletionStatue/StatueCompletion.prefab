@@ -109,6 +109,10 @@ MonoBehaviour:
   rightRewardType: 4
   leftRewardInteractable: {fileID: 3353498935779528142}
   rightRewardInteractable: {fileID: 4452271000460480819}
+  _spriteRenderers:
+  - {fileID: 3812855186092147439}
+  - {fileID: 3131015523970942450}
+  - {fileID: 833265016314797830}
 --- !u!114 &7140104547671619389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderers: []
-  isInteractable: 0
+  isInteractable: 1
   textShown: Break
   textUi: {fileID: 3025350410658905788}
 --- !u!70 &8119722763251964295
