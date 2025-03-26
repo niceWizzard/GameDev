@@ -94,7 +94,7 @@ namespace Main.Lib.Level
             var sceneId = LevelLoader.Instance.GetLevelGuid(sceneName);
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
-                CompletedLevels = v.CompletedLevels.Append(sceneId).ToList() 
+                CompletedLevels = v.CompletedLevels.Append(sceneId).ToHashSet()
             });
         }
 
