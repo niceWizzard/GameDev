@@ -64,7 +64,7 @@ namespace Main.Lib
 
         public void SetText(string text)
         {
-            textUi.text = text;
+            textUi.text = $"{text} (E)";
         }
 
         public void ShowUI()
