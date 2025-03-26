@@ -6,6 +6,7 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
 using Main.UI;
+using Main.World.Objects.CompletionStatue;
 using Main.World.Objects.Door;
 using Main.World.Objects.Pedestal;
 using UnityEngine;
@@ -23,7 +24,11 @@ namespace Main.Lib.Level
     {
         [SerializeField] private Transform safeSpawn;
         [SerializeField] private Transform completionStatueLocation;
-
+        [Header("Completion Reward Choices")]
+        [SerializeField]
+        private StatType leftReward = StatType.Health;
+        [SerializeField]
+        private StatType rightReward = StatType.Speed;
         [Header("Completion Requirements")] [SerializeField]
         private List<Requirement> requirements = new();
         
@@ -93,7 +98,7 @@ namespace Main.Lib.Level
         private void SpawnCompletionMenu()
         {
             var statue = Instantiate(LevelLoader.Instance.CompletionStatuePrefab, (Vector2) completionStatueLocation.position, Quaternion.identity);
-            
+            statue.Setup(leftReward, rightReward);
         }
 
         private void SaveAsCompleted()
