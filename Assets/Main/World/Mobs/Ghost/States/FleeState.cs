@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Main.Lib.FSM;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 namespace Main.World.Mobs.Ghost.States
 {
@@ -27,7 +26,8 @@ namespace Main.World.Mobs.Ghost.States
 
             if (!Agent.detectedPlayer) return;
             var toPlayer = Agent.Position - Agent.detectedPlayer.Position;
-            Agent.Position = -toPlayer.normalized * Random.Range(7, 12);
+            Vector2 randomDir = (Quaternion.Euler(0, 0, Random.Range(-180, 180)) * -toPlayer);
+            Agent.Position += randomDir.normalized * Random.Range(4, 7);
         }
 
         public override void OnUpdate()
