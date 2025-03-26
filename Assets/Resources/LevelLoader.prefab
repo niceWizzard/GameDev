@@ -46,28 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 2547175517923456490}
-  levelMappings:
-  - levelName: Level1
-    scene:
-      m_AssetGUID: ee149d78c26242a4c8d0736f88103706
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - levelName: Level2
-    scene:
-      m_AssetGUID: 3fd4dfdde98f6874fad0373e1784dedf
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 1
-  - levelName: Level3
-    scene:
-      m_AssetGUID: d0fa7c321f3033a4192033760f71def0
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 1
 --- !u!1 &3857065684290015212
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +132,6 @@ GameObject:
   - component: {fileID: 1366170047171148266}
   - component: {fileID: 2055010966115201496}
   - component: {fileID: 5403472851437365297}
-  - component: {fileID: 5599710728089602466}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -228,20 +205,3 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &5599710728089602466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5109016041619461914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295

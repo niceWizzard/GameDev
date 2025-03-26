@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Main.Lib.FSM;
 using Main.Player.States;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Main.Player
 {
@@ -38,14 +38,14 @@ namespace Main.Player
 
         public void ProcessAttackInputs()
         {
-            if (Input.GetMouseButton(0) )
+            if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 player.Gun.NormalAttack();
-            } else if (Input.GetMouseButtonDown(1))
+            } else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
             {
                 player.Gun.SpecialAttack();
             } 
         }
-
+        
     }
 }
