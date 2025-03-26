@@ -39,7 +39,7 @@ namespace Main.Lib.Items
 
         public void Enable(Vector2 position)
         {
-            var angle = Random.Range(-Mathf.PI, Mathf.PI);
+            var angle = Random.Range(-180f, 180f);
             var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
             transform.position = position;
             _velocity = dir.normalized * Random.Range(10f, 20f); 
