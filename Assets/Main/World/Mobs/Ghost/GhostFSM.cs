@@ -45,7 +45,7 @@ namespace Main.World.Mobs.Ghost
                     if (!ghost.detectedPlayer)
                         return true;
                     if (Vector2.Distance(ghost.detectedPlayer.Position,
-                            ghost.Position) > 10f
+                            ghost.Position) > 15f
                     )
                     {
                         ghost.detectedPlayer = null;
