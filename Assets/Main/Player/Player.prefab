@@ -776,6 +776,7 @@ MonoBehaviour:
   attackPerSecond: 5
   accuracy: 4
   reloadTime: 2
+  projectileSpeed: 12
 --- !u!95 &1645421954195471266
 Animator:
   serializedVersion: 7

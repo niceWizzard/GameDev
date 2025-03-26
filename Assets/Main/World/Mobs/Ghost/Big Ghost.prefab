@@ -294,7 +294,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 385
   detectedPlayer: {fileID: 0}
-  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
+  projectilePrefab: {fileID: 5491769752205316236, guid: c1a44ca42bcfacb42818591a621717fe, type: 3}
   rangedStats: {fileID: 6800745101930151584}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
@@ -451,3 +451,4 @@ MonoBehaviour:
   attackPerSecond: 4
   accuracy: 4
   reloadTime: 3
+  projectileSpeed: 5

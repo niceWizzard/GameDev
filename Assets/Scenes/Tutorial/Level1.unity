@@ -344,10 +344,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 594475666362590995, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1182821291677670348, guid: 5a01e7b28ca247d469b760a015c94168, type: 3}
     - target: {fileID: 1118855774158821603, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.96
@@ -387,10 +383,6 @@ PrefabInstance:
     - target: {fileID: 1118855774158821603, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4800492626315091500, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: attackPower
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9108688046645523271, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
       propertyPath: m_Name
@@ -746,18 +738,6 @@ PrefabInstance:
     - target: {fileID: 3453898687403174852, guid: 5985cfd3cf65d6f4eb5b724aae160320, type: 3}
       propertyPath: m_Name
       value: Ghost
-      objectReference: {fileID: 0}
-    - target: {fileID: 3453898687403174852, guid: 5985cfd3cf65d6f4eb5b724aae160320, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371952180967557097, guid: 5985cfd3cf65d6f4eb5b724aae160320, type: 3}
-      propertyPath: _id
-      value: b7d0709d-bc9b-455f-93a0-0ba7d2342172
-      objectReference: {fileID: 0}
-    - target: {fileID: 8904548540393660312, guid: 5985cfd3cf65d6f4eb5b724aae160320, type: 3}
-      propertyPath: movementSpeed
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

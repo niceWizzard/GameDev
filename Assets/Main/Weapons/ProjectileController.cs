@@ -8,7 +8,6 @@ namespace Main.Weapons
 {
     public class ProjectileController : MonoBehaviour
     {
-        [SerializeField] protected float speed = 5f;
         protected IProjectileSender ProjectileSender = null!;
         protected Vector2 Direction = Vector2.zero;
     
@@ -19,6 +18,8 @@ namespace Main.Weapons
 
         protected float Damage;
 
+        protected float Speed;
+
         protected virtual void Awake()
         {
             CircleCollider2D = GetComponent<CircleCollider2D>();
@@ -27,16 +28,17 @@ namespace Main.Weapons
 
         protected virtual void FixedUpdate()
         {
-            var v = Direction * (Time.fixedDeltaTime * speed);
+            var v = Direction * (Time.fixedDeltaTime * Speed);
             transform.position += (Vector3) v;
             TraveledDistance += v.magnitude;
         }
 
-        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage)
+        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, float speed)
         {
             Damage = damage;
             Direction = dir;
             ProjectileSender = sender;
+            Speed = speed;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;

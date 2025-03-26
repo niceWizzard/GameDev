@@ -15,9 +15,9 @@ namespace Main.Weapons.Bullet
             _driftDirection = (Random.Range(0, 1)) > 0 ? -1 : 1;
         }
     
-        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, int accuracy)
+        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, int accuracy, float speed)
         {
-            base.Setup(pos, dir, sender, damage);
+            base.Setup(pos, dir, sender, damage, speed);
             _accuracy = accuracy;
             var maxDriftAngle = ((11f - accuracy) / 10f) * 12f;
             var driftAngle = Random.Range(0.5f, maxDriftAngle);
