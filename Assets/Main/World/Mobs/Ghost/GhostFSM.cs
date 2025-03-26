@@ -60,10 +60,10 @@ namespace Main.World.Mobs.Ghost
                     var distance = Vector2.Distance(ghost.Position, ghost.detectedPlayer.Position);
                     switch (distance)
                     {
-                        case < 2f:
+                        case < 1.5f:
                             PlayerTooClose = 4;
                             break;
-                        case < 3:
+                        case < 2.5f:
                             PlayerTooClose += Time.deltaTime;
                             break;
                     } 
