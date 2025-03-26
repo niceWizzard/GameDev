@@ -94,6 +94,12 @@ namespace Main.Weapons.Gun
             StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
 
+        public void UpdateAmmoCapacity(int newCapacity)
+        {
+            CurrentAmmo = newCapacity;
+            
+        }        
+        
         private IEnumerator StartReloadTimer()
         {
             _isReloading = true;
@@ -105,7 +111,7 @@ namespace Main.Weapons.Gun
             CurrentAmmo = ownerStats.AmmoCapacity;
             _canShoot = true;
         }
-
+        
         private IEnumerator  StartAttackCdTimer()
         {
             yield return new WaitForSeconds(AttackCd);

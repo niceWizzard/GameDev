@@ -54,6 +54,7 @@ namespace Main.Player
         public void LoadStats()
         {
             rangedStats.SetFromSave(SaveManager.Instance.SaveGameData.StatUpgrades);
+            Gun.UpdateAmmoCapacity(rangedStats.AmmoCapacity);
             StatChange?.Invoke(rangedStats);
         }
 

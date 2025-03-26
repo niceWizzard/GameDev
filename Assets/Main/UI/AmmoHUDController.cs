@@ -1,5 +1,7 @@
 #nullable enable
+using System;
 using Main.Player;
+using Main.Weapons.Gun;
 using TMPro;
 using UnityEngine;
 
@@ -19,8 +21,21 @@ namespace Main.UI
             _player.Gun.OnAmmoUsed += OnAmmoUsed;
             SetMaxAmmo(_player.Gun.AmmoCapacity);
             SetAmmoText(_player.Gun.CurrentAmmo);
+            PlayerController.StatChange += PlayerControllerOnStatChange;
         }
-        
+
+        private void OnDestroy()
+        {
+            PlayerController.StatChange -= PlayerControllerOnStatChange;
+        }
+
+        private void PlayerControllerOnStatChange(RangedStats stats)
+        {
+            SetMaxAmmo(stats.AmmoCapacity);
+            if(_player)
+                SetAmmoText(_player.Gun.CurrentAmmo);
+        }
+
         private void SetAmmoText(int ammo)
         {
             currentAmmoText.text = ammo.ToString();
