@@ -37,7 +37,7 @@ namespace Main.Lib.Singleton
         {
             if (!_sceneNames.Contains(levelName))
             {
-                Debug.LogError($"Scene <{levelName}> not found");
+                Debug.LogError($"Scene <{levelName}> not found. Have you added it to the scene list?");
                 return;
             };
             StartCoroutine(LoadLevelCoroutine(levelName));
