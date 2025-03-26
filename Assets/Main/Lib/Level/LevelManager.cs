@@ -50,11 +50,9 @@ namespace Main.Lib.Level
             if( requirements.Count > 0 && !completionStatue)
                 Debug.LogError($"Completion statue is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
-            MainCamera.Instance.Follow(player);
-            player.Position = safeSpawn.position;
-            HUDController.Instance.SetPlayer(player);
             GameManager.Instance.RegisterLevelManager(this);
             player.HealthComponent.OnHealthZero += PlayerOnDie;
+            player.Position = safeSpawn.position;
         }
 
         private void PlayerOnDie()
