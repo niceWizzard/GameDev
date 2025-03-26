@@ -18,7 +18,7 @@ namespace Main.Lib.Items
 
         [SerializeField]
         private List<WithRandom> _randomizedItems = new();
-        private void Awake()
+        private void Start()
         {
             for (var i = 0; i < transform.childCount; i++)
             {
