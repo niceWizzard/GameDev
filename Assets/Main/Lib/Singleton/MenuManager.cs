@@ -50,7 +50,7 @@ namespace Main.Lib.Singleton
                 return;
             var obj = GetMenuObject(_currentMenu.Value);
             _currentMenu = null;
-            _currentTweener = obj.transform.DOScale(Vector3.zero, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true);
+            _currentTweener = obj.transform.DOScale(Vector3.zero, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             await UniTask.WaitForSeconds(AnimationDuration);
             obj.SetActive(false);
         }
@@ -64,7 +64,7 @@ namespace Main.Lib.Singleton
             var obj = GetMenuObject(menu);
             obj.SetActive(true);
             obj.transform.localScale *= 0;
-            _currentTweener = obj.transform.DOScale(Vector3.one, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true);
+            _currentTweener = obj.transform.DOScale(Vector3.one, AnimationDuration).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
         }
 
         public void TogglePauseMenu()

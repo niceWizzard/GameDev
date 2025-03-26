@@ -49,24 +49,24 @@ namespace Main.Lib.Singleton
             StartCoroutine(LoadLevelCoroutine(levelName));
         }
         
-        private static IEnumerator LoadLevelCoroutine(string levelName)
+        private IEnumerator LoadLevelCoroutine(string levelName)
         {
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             yield return new WaitForSecondsRealtime(0.25f);
             yield return Addressables.LoadSceneAsync(levelName).Yield();
             yield return new WaitForSecondsRealtime(0.01f);
-            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             Time.timeScale = 1;
         }
 
 
-        private static IEnumerator LoadLevelCoroutine(AssetReference levelRef)
+        private IEnumerator LoadLevelCoroutine(AssetReference levelRef)
         {
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             yield return new WaitForSecondsRealtime(0.25f);
             yield return levelRef.LoadSceneAsync().Yield();
             yield return new WaitForSecondsRealtime(0.01f);
-            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true);
+            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             Time.timeScale = 1;
         }
     }
