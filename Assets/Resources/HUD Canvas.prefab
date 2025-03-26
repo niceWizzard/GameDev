@@ -783,7 +783,6 @@ GameObject:
   - component: {fileID: 8556872928610183894}
   - component: {fileID: 8244857392347856917}
   - component: {fileID: 605555962742061040}
-  - component: {fileID: 4389260040622309920}
   - component: {fileID: 6784209457518122253}
   m_Layer: 5
   m_Name: HUD Canvas
@@ -860,23 +859,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &4389260040622309920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643372237343701575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &6784209457518122253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,7 +952,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6096396612234043686}
   m_HandleRect: {fileID: 205089745966158770}
