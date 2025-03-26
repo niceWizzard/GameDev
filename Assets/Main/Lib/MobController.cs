@@ -104,8 +104,8 @@ namespace Main.Lib
         /// <param name="damageInfo"></param>
         protected virtual void OnHurtboxHurt(DamageInfo damageInfo)
         {
-            HealthComponent.ReduceHealth(damageInfo.damage);
             _ = HurtAnimation();
+            HealthComponent.ReduceHealth(damageInfo.damage);
         }
 
         protected virtual async UniTask HurtAnimation()
