@@ -9,6 +9,7 @@ using Main.Weapons.Gun;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
+using UnityEditor.Analytics;
 using UnityEngine;
 
 namespace Main.Player
@@ -47,6 +48,7 @@ namespace Main.Player
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
             LoadStats();
+            HealthComponent.SetMaxHealth(rangedStats.Health);
         }
 
         public void LoadStats()
