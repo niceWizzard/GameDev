@@ -18,7 +18,8 @@ namespace Main.World.Objects.CompletionStatue
         Speed,
         Reload,
         Ammo,
-        Accuracy
+        Accuracy,
+        Movement,
     }
     [RequireComponent(typeof(SpriteRenderer), typeof(Interactable), typeof(UniqueId))]
     public class CompletionStatue : MonoBehaviour
@@ -111,6 +112,7 @@ namespace Main.World.Objects.CompletionStatue
                 StatType.Reload => StatUpgrade.ReloadTime,
                 StatType.Ammo => StatUpgrade.AmmoCapacity,
                 StatType.Accuracy => StatUpgrade.Accuracy,
+                StatType.Movement => StatUpgrade.Speed,
                 _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
             };
             _ = SaveManager.Instance.SaveDataAsync(v => v with
@@ -127,6 +129,7 @@ namespace Main.World.Objects.CompletionStatue
             StatType.Reload => "Reload",
             StatType.Attack => "Attack",
             StatType.Speed => "Speed",
+            StatType.Movement => "Movement",
             _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
         };
         
