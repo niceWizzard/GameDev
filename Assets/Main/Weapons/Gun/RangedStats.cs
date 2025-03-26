@@ -12,6 +12,7 @@ namespace Main.Weapons.Gun
         [SerializeField, Range(4, 10)] private int accuracy = 4;
         [SerializeField, Range(0.5f, 5f)] private float reloadTime = 2f;
         [SerializeField, Range(5, 25)] private float projectileSpeed = 5f; 
+        [SerializeField] private bool disposeProjectilesOnDeath = false;
 
         public float SpecialAttackMultiplier => specialAttackMultiplier;
         public int AmmoCapacity => ammoCapacity;
@@ -20,6 +21,7 @@ namespace Main.Weapons.Gun
         public float SpecialAttackDamage => AttackPower * specialAttackMultiplier;
         public float ReloadTime => reloadTime;
         public float ProjectileSpeed => projectileSpeed;
+        public bool DisposeProjectilesOnDeath => disposeProjectilesOnDeath;
 
         public void SetFromSave(PlayerStats playerStats)
         {

@@ -20,6 +20,7 @@ namespace Main.Weapons
 
         protected float Speed;
 
+
         protected virtual void Awake()
         {
             CircleCollider2D = GetComponent<CircleCollider2D>();
@@ -33,7 +34,7 @@ namespace Main.Weapons
             TraveledDistance += v.magnitude;
         }
 
-        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, float speed)
+        public void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  float damage, float speed, bool disposeOnDeath)
         {
             Damage = damage;
             Direction = dir;
@@ -42,7 +43,8 @@ namespace Main.Weapons
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
-            sender.SenderDispose += SenderOnSenderDispose;
+            if(disposeOnDeath)
+                sender.SenderDispose += SenderOnSenderDispose;
         }
 
         private void SenderOnSenderDispose()

@@ -451,3 +451,5 @@ MonoBehaviour:
   attackPerSecond: 4
   accuracy: 4
   reloadTime: 2
+  projectileSpeed: 5
+  disposeProjectilesOnDeath: 0

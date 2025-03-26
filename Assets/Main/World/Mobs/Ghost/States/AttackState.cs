@@ -37,7 +37,7 @@ namespace Main.World.Mobs.Ghost.States
                 }
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
                 var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.RangedStats.AttackPower, Agent.RangedStats.ProjectileSpeed);
+                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.RangedStats.AttackPower, Agent.RangedStats.ProjectileSpeed, Agent.RangedStats.DisposeProjectilesOnDeath);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();

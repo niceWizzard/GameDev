@@ -76,7 +76,7 @@ namespace Main.Weapons.Gun
             _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.AttackPower, ownerStats.Accuracy, ownerStats.ProjectileSpeed);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.AttackPower, ownerStats.Accuracy, ownerStats.ProjectileSpeed, ownerStats.DisposeProjectilesOnDeath);
             AddCameraRecoil(-mouseDir);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
@@ -88,7 +88,7 @@ namespace Main.Weapons.Gun
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.SpecialAttackDamage, ownerStats.Accuracy, ownerStats.ProjectileSpeed);
+            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats.SpecialAttackDamage, ownerStats.Accuracy, ownerStats.DisposeProjectilesOnDeath);
             CurrentAmmo -= 5;
             AddCameraRecoil(-mouseDir);
             StartCoroutine(CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
