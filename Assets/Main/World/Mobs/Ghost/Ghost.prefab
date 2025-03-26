@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizedItems:
-  - chance: 10
+  - chance: 100
     item: {fileID: 6046061068821804954, guid: bb0826bd0e2d63b48b10bf29c978aa68, type: 3}
 --- !u!114 &8853054646203718346
 MonoBehaviour:

@@ -66,7 +66,7 @@ namespace Main.Lib
             VerifyRequiredComponents();
             Hurtbox.OnHurt += OnHurtboxHurt;
             HealthComponent.OnHealthZero += OnHealthZero;
-            HealthComponent.SetHealth(Stats.Health);
+            HealthComponent.SetMaxHealth(Stats.Health);
         }
 
         protected virtual void GetRequiredComponents()
