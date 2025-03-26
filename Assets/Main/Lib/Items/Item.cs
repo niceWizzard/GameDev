@@ -19,7 +19,7 @@ namespace Main.Lib.Items
         private Vector2 _velocity;
         private ItemState _state = ItemState.Dropped;
 
-        private readonly float _friction = 0.95f; // Friction to slow down movement
+        private readonly float _friction = 0.8f; // Friction to slow down movement
         private readonly float _minSpeed = 0.01f; // Stop movement when very slow
         
         private SpriteRenderer _spriteRenderer;
@@ -42,12 +42,12 @@ namespace Main.Lib.Items
             var angle = Random.Range(-180f, 180f);
             var dir = Quaternion.Euler(0,0,angle) * Vector2.right;
             transform.position = position;
-            _velocity = dir.normalized * Random.Range(10f, 20f); 
+            _velocity = dir.normalized * Random.Range(10f,15f); 
             _spriteRenderer.enabled = true;
             _state= ItemState.Dropped;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {            
             if (_state != ItemState.Dropped) return;
 
@@ -55,7 +55,7 @@ namespace Main.Lib.Items
             _velocity *= _friction;
 
             // Move item
-            transform.position += (Vector3)_velocity * Time.deltaTime;
+            transform.position += (Vector3)_velocity * Time.fixedDeltaTime;
 
             // Stop when very slow
             if (_velocity.sqrMagnitude >= _minSpeed * _minSpeed)

@@ -15,9 +15,14 @@ namespace Main.Player.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Agent.Velocity = Vector2.zero;
             Agent.RotateGun();
             Executor.ProcessAttackInputs();
+        }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            Agent.Velocity = Vector2.zero;
         }
     }
 }

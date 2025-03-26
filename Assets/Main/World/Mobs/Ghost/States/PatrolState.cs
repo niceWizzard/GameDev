@@ -25,9 +25,9 @@ namespace Main.World.Mobs.Ghost.States
             Agent.NavMeshAgent.SetDestination(_targetPoint);
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             var toTarget = (_targetPoint - (Vector2)Agent.Position);
             if (toTarget.magnitude < 0.1f)
             {

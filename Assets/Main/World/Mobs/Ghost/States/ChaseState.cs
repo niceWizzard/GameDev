@@ -13,9 +13,9 @@ namespace Main.World.Mobs.Ghost.States
             _drift = Random.Range(-45, 45);
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             Agent.NavMeshAgent.SetDestination(Agent.detectedPlayer.Position);
             var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
             var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f * 0;

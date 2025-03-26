@@ -16,14 +16,15 @@ namespace Main.World.Mobs.Ghost.States
             _biasRotation = Random.Range(-90, 90);
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             Agent.NavMeshAgent.SetDestination(Agent.detectedPlayer.Position);
             var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
             var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f * 0;
             Agent.Velocity = (Quaternion.Euler(0,0, _biasRotation) * vel).normalized * Agent.MovementSpeed;
         }
+        
 
         private IEnumerator Shoot()
         {

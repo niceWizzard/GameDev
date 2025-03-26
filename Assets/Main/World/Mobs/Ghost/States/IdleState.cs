@@ -15,11 +15,11 @@ namespace Main.World.Mobs.Ghost.States
             _patrolCd = 2;
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             Agent.Velocity = Vector2.Lerp(Agent.Velocity, Vector2.zero, 0.5f);
-            _patrolCd -= Time.deltaTime;
+            _patrolCd -= Time.fixedDeltaTime;
             if (_patrolCd <= 0)
             {
                 Executor.CanPatrol = true;

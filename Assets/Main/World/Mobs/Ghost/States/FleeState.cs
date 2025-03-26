@@ -30,13 +30,13 @@ namespace Main.World.Mobs.Ghost.States
             Agent.Position = Agent.detectedPlayer.Position + randomDir.normalized * Random.Range(5f, 7f);
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             var toPlayer = (Agent.detectedPlayer.Position - Agent.Position);
             var dir = -toPlayer.normalized; 
             Agent.Velocity = dir * (Agent.MovementSpeed * 2.5f);
-            timer -= Time.deltaTime;
+            timer -= Time.fixedDeltaTime;
             if (timer <= 0)
             {
                 Executor.PlayerTooClose = 0;

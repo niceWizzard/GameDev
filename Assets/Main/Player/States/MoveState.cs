@@ -7,6 +7,7 @@ namespace Main.Player.States
 {
     public class MoveState : State<PlayerFsm, PlayerController>
     {
+        private Vector2 _input;
         public override void OnEnter()
         {
             base.OnEnter();
@@ -17,14 +18,17 @@ namespace Main.Player.States
         {
             base.OnUpdate();
             Executor.ProcessAttackInputs();
-            var input = Agent.GetMovementInput();
+            _input = Agent.GetMovementInput();
             Agent.RotateGun();
+            
+        }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
             var vel = Agent.Velocity;
-            vel = Vector2.Lerp(vel, input.normalized * Agent.MovementSpeed, Agent.friction);
+            vel = Vector2.Lerp(vel, _input.normalized * Agent.MovementSpeed, Agent.friction);
             Agent.Velocity = vel;
         }
-        
-        
-        
     }
 }
