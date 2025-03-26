@@ -133,8 +133,8 @@ namespace Main.Lib
         /// </summary>
         protected virtual void OnHealthZero()
         {
-            Destroy(gameObject);
             SenderDispose?.Invoke();
+            Destroy(gameObject);
         }
 
         public GameObject GameObject => gameObject;

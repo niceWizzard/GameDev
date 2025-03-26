@@ -9,7 +9,7 @@ namespace Main.Weapons
 {
     public class ProjectileController : MonoBehaviour
     {
-        protected IProjectileSender ProjectileSender = null!;
+        protected IProjectileSender? ProjectileSender;
         protected Vector2 Direction = Vector2.zero;
     
         protected CircleCollider2D? CircleCollider2D ;
@@ -20,6 +20,8 @@ namespace Main.Weapons
         protected float Damage;
 
         protected float Speed;
+
+        protected bool DisposeOnDeath;
 
 
         protected virtual void Awake()
@@ -41,27 +43,31 @@ namespace Main.Weapons
             Direction = dir;
             ProjectileSender = sender;
             Speed = stats.ProjectileSpeed;
+            DisposeOnDeath = stats.DisposeProjectilesOnDeath;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
-            if(stats.DisposeProjectilesOnDeath)
-                sender.SenderDispose += SenderOnSenderDispose;
+            sender.SenderDispose += SenderOnSenderDispose;
         }
 
         private void SenderOnSenderDispose()
         {
-            Destroy(gameObject);
+            ProjectileSender = null;
+            if(DisposeOnDeath)
+                Destroy(gameObject);
         }
 
         private void OnDestroy()
         {
-            ProjectileSender.SenderDispose -= SenderOnSenderDispose;
+            if (ProjectileSender != null) ProjectileSender.SenderDispose -= SenderOnSenderDispose;
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             other.gameObject.GetComponent<IDamageable>()?.TakeDamage(
-                new DamageInfo(Damage, ProjectileSender.GameObject)
+                ProjectileSender?.GameObject
+                    ? new DamageInfo(Damage, ProjectileSender.GameObject)
+                    : new DamageInfo(Damage, null)
             );
             Destroy(gameObject,0.2f);
             if (CircleCollider2D)
