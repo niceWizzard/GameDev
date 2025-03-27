@@ -63,7 +63,7 @@ namespace Main.Lib.Singleton
                 return;
             }
             ShowDialog(message, sender);
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed);
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
         }
         
         public static void ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons,string sender="")
@@ -85,7 +85,7 @@ namespace Main.Lib.Singleton
                 return;
             }
             ShowDialogWithButtons(message, buttons, sender);
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed);
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
         }
 
 
@@ -139,7 +139,7 @@ namespace Main.Lib.Singleton
         {
             if (Instance._dialogState != DialogState.Completed) return;
             CloseDialog();
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed);
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
         }
 
         private async UniTask _CloseDialog()
