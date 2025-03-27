@@ -95,12 +95,7 @@ namespace Main.Lib.Singleton
         private async UniTask _ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons, string sender = "")
         {
             Time.timeScale = 0;
-            canvas.gameObject.SetActive(true);
-            continueText.gameObject.SetActive(false);
-            dialogButtonsContainer.SetActive(false);
-            dialogPanel.transform.localScale *= 0;
-            dialogButtons.ForEach(b => Destroy(b.gameObject));
-            dialogButtons.Clear();
+            Reset();
             _dialogState = DialogState.Opening;
             await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject)
                 .AsyncWaitForCompletion();
@@ -136,6 +131,16 @@ namespace Main.Lib.Singleton
             }
             await AnimateDialog(message, sender);
             dialogButtonsContainer.SetActive(true);
+        }
+
+        private void Reset()
+        {
+            canvas.gameObject.SetActive(true);
+            continueText.gameObject.SetActive(false);
+            dialogButtonsContainer.SetActive(false);
+            dialogPanel.transform.localScale *= 0;
+            dialogButtons.ForEach(b => Destroy(b.gameObject));
+            dialogButtons.Clear();
         }
 
 
@@ -181,10 +186,8 @@ namespace Main.Lib.Singleton
 
         private async UniTask _ShowDialog(string message, string sender = "")
         {
+            Reset();
             Time.timeScale = 0;
-            canvas.gameObject.SetActive(true);
-            continueText.gameObject.SetActive(false);
-            dialogPanel.transform.localScale *= 0;
             _dialogState = DialogState.Opening;
             await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
             await AnimateDialog(message, sender);
