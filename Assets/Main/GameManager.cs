@@ -32,6 +32,7 @@ namespace Main
             HUDController.InitializePrefab("HUD Canvas");
             LevelLoader.InitializePrefab("LevelLoader");
             MenuManager.InitializePrefab("MenuManager");
+            DialogSystem.InitializePrefab("DialogSystem");
         }
 
     }
