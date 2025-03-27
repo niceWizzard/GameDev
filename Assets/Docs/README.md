@@ -18,6 +18,11 @@ A game dev project
 
 ## Creating a Level
 
+**Automated way!**
+There is now an automated way for setting up a level.
+1. Go to `Tools > Setup Level`
+2. As long as there was no error, all the steps from below should have been created automatically.
+
 ### Setting Up the Scene
 1. Navigate to the `Assets/Scenes` folder.
 2. Create a new Scene, name it as desired, and open it.  
