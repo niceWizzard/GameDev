@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -18,6 +19,8 @@ namespace Main.Lib.Singleton
         [SerializeField] private TMP_Text senderText;
         [SerializeField] private TMP_Text continueText;
 
+        private List<Button> dialogButtons = new List<Button>();
+        
         private enum DialogState
         {
             Closed,
@@ -51,6 +54,42 @@ namespace Main.Lib.Singleton
             }
             _ = Instance._ShowDialog(message, sender);
         }
+        
+        public static void ShowDialogWithButtons(string message, List<(string, Action)> buttons,string sender="")
+        {
+            if (Instance._dialogState != DialogState.Closed)
+            {
+                Debug.LogWarning("DialogSystem is already showing");
+                return;
+            }
+            _ = Instance._ShowDialogWithButtons(message, buttons, sender);
+            
+        }
+
+        private async UniTask _ShowDialogWithButtons(string message, List<(string, Action)> buttons, string sender = "")
+        {
+            Time.timeScale = 0;
+            canvas.gameObject.SetActive(true);
+            continueText.gameObject.SetActive(false);
+            dialogButtonsContainer.SetActive(false);
+            dialogPanel.transform.localScale *= 0;
+            dialogButtons.ForEach(b => Destroy(b.gameObject));
+            dialogButtons.Clear();
+            _dialogState = DialogState.Opening;
+            await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            await AnimateDialog(message, sender);
+            foreach (var (text, action) in buttons)
+            {
+                var button = Instantiate(dialogButtonTemplate, dialogPanel.transform);
+                button.transform.parent = dialogButtonsContainer.transform;
+                button.GetComponentInChildren<TMP_Text>().text = text;
+                button.onClick.AddListener(() => action());
+                button.gameObject.SetActive(true);
+                dialogButtons.Add(button);
+            }
+            dialogButtonsContainer.SetActive(true);
+        }
+
 
         private void Update()
         {
@@ -62,12 +101,18 @@ namespace Main.Lib.Singleton
                     dialogText.text = _currentDialog;
                     break;
                 case DialogState.Completed:
-                    _ = CloseDialog();
+                    _ = _CloseDialog();
                     break;
             }
         }
 
-        private async UniTask CloseDialog()
+        public static void CloseDialog()
+        {
+            if (Instance._dialogState != DialogState.Completed) return;
+            _ = Instance._CloseDialog();
+        }
+
+        private async UniTask _CloseDialog()
         {
             _dialogState = DialogState.Closing;
             await dialogPanel.transform.DOScale(Vector3.zero, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
@@ -86,6 +131,11 @@ namespace Main.Lib.Singleton
             dialogPanel.transform.localScale *= 0;
             _dialogState = DialogState.Opening;
             await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            await AnimateDialog(message, sender);
+        }
+
+        private async Task AnimateDialog(string message, string sender)
+        {
             _dialogState = DialogState.DialogAnimation;
             senderText.text = sender;
             _currentDialog = message;
@@ -94,13 +144,12 @@ namespace Main.Lib.Singleton
             {
                 if (_dialogState != DialogState.DialogAnimation)
                     break;
-                dialogText.text = t;
                 t += c;
+                dialogText.text = t;
                 await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
             }
             _dialogState = DialogState.Completed;
             continueText.gameObject.SetActive(true);
         }
-
     }
 }
