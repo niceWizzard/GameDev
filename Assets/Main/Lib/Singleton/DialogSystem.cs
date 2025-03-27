@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 
 namespace Main.Lib.Singleton
@@ -33,6 +35,7 @@ namespace Main.Lib.Singleton
         private DialogState _dialogState = DialogState.Closed;
         
         private string _currentDialog = "";
+        private int _currentButtonIndex;
 
         protected override void Awake()
         {
@@ -101,6 +104,7 @@ namespace Main.Lib.Singleton
             _dialogState = DialogState.Opening;
             await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject)
                 .AsyncWaitForCompletion();
+            
             foreach (var (text, action) in buttons)
             {
                 var button = Instantiate(dialogButtonTemplate, dialogPanel.transform);
@@ -109,6 +113,26 @@ namespace Main.Lib.Singleton
                 button.onClick.AddListener(() => action());
                 button.gameObject.SetActive(true);
                 dialogButtons.Add(button);
+            }
+            EventSystem.current.SetSelectedGameObject(dialogButtons[0].gameObject);
+            for (int i = 0; i < dialogButtons.Count; i++)
+            {
+                var button = dialogButtons[i];
+                var navigation = button.navigation;
+                navigation.mode = Navigation.Mode.Explicit;
+                // Set up "Up" and "Down" navigation
+                if (i > 0)
+                    navigation.selectOnUp = dialogButtons[i - 1];
+                if (i < buttons.Count - 1)
+                    navigation.selectOnDown = dialogButtons[i + 1];
+                if (dialogButtons.Count > 1)
+                {
+                    if(i == 0)
+                        navigation.selectOnUp = dialogButtons[^1];
+                    if (i == buttons.Count - 1)
+                        navigation.selectOnDown = dialogButtons[0];
+                }
+                button.navigation = navigation;
             }
             await AnimateDialog(message, sender);
             dialogButtonsContainer.SetActive(true);
@@ -129,6 +153,7 @@ namespace Main.Lib.Singleton
                     break;
             }
         }
+        
 
         public static void CloseDialog()
         {
