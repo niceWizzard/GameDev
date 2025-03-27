@@ -26,10 +26,9 @@ namespace Main.Lib.Level
         [SerializeField] private Transform safeSpawn;
         [Header("Completion Requirements")] 
         [SerializeField] private CompletionStatue completionStatue;
-        [SerializeField]
-        private List<Requirement> requirements = new();
+        public List<Requirement> _requirements = new();
         
-        public List<Requirement> Requirements => requirements;
+        public List<Requirement> Requirements => _requirements;
         
         private List<int> _mobsInLevel = new(); 
         private List<int> _deadMobsInLevel = new();
@@ -48,7 +47,8 @@ namespace Main.Lib.Level
         {
             if(safeSpawn == null)
                 Debug.LogError($"Safe spawn is null at {name}");
-            if( requirements.Count > 0 && !completionStatue)
+            _requirements = GetComponentsInChildren<Requirement>().ToList();
+            if( _requirements.Count > 0 && !completionStatue)
                 Debug.LogError($"Completion statue is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
             GameManager.Instance.RegisterLevelManager(this);
@@ -83,7 +83,7 @@ namespace Main.Lib.Level
                                 LevelLoader.Instance.LoadLevel("HubLevel");
                             })
                         });
-                    if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
+                    if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
                         return;
                     SpawnCompletionMenu();
                     SaveAsCompleted();
