@@ -13,7 +13,6 @@ namespace Scenes
         public void OnStartBtnClick()
         {
             LevelLoader.Instance.LoadLevel("HubLevel");
-            gameObject.SetActive(false);
         }
     }
 }

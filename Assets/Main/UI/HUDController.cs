@@ -12,6 +12,18 @@ namespace Main.UI
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            GameManager.LevelUnload += GameManagerOnLevelUnload;
+        }
+
+        private void GameManagerOnLevelUnload()
+        {
+            ammoHUDController.Disable();
+            healthHUDController.Disable();
+        }
+
 
         public void SetPlayer(PlayerController player)
         {
