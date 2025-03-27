@@ -45,6 +45,7 @@ namespace Main.Lib.Singleton
         
         private IEnumerator LoadLevelCoroutine(string levelName)
         {
+            Time.timeScale = 0;
             Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
             yield return new WaitForSecondsRealtime(0.25f);
             yield return SceneManager.LoadSceneAsync(levelName).Yield();
