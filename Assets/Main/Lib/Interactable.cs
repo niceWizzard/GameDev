@@ -71,6 +71,7 @@ namespace Main.Lib
         public void ShowUI()
         {
             IsUiShown = true;
+            DOTween.Kill(gameObject);
             _interactableMaterial.DOFloat(OutlineSize, Size, TransitionDuration).SetLink(gameObject);
             textUi.DOFade(1, TransitionDuration).SetEase(Ease.OutBounce).SetLink(gameObject);
         }
@@ -78,6 +79,7 @@ namespace Main.Lib
         public void HideUI()
         {
             IsUiShown = false;
+            DOTween.Kill(gameObject);
             textUi.DOFade(0, TransitionDuration).SetEase(Ease.OutBounce).SetLink(gameObject);
             _interactableMaterial.DOFloat(0f, Size, TransitionDuration).SetLink(gameObject);
         }
