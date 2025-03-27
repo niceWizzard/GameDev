@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
@@ -72,8 +73,16 @@ namespace Main.Lib.Level
             switch (_state)
             {
                 case LevelState.Playing:
-                    if (Input.GetKeyDown(KeyCode.Escape))
-                        MenuManager.Instance.TogglePauseMenu();
+                    if (Input.GetKeyDown(KeyCode.Escape) && Mathf.Approximately(Time.timeScale, 1))
+                        DialogSystem.ShowDialogWithButtons("Pausing?", new List<(string, Func<UniTask>)>()
+                        {
+                            ("Continue", DialogSystem.CloseDialogAsync),
+                            ("Exit", async () =>
+                            {
+                                await DialogSystem.CloseDialogAsync();
+                                LevelLoader.Instance.LoadLevel("HubLevel");
+                            })
+                        });
                     if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
                         return;
                     SpawnCompletionMenu();
