@@ -141,7 +141,7 @@ namespace Main.Player
         
         public void RotateGun()
         {
-            if (!_camera)
+            if (!_camera || Time.timeScale == 0) 
                 return;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 toMouse = (mouse - transform.position).normalized;
