@@ -1,6 +1,6 @@
 namespace Main.Lib.Level
 {
-    public class WipeoutEnemies : Requirement
+    public class EnemyClear : Requirement
     {
         public override bool CheckCompleted()
         {
