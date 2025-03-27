@@ -20,8 +20,10 @@ namespace Main.UI
 
         private void GameManagerOnLevelUnload()
         {
-            ammoHUDController.Disable();
-            healthHUDController.Disable();
+            if(ammoHUDController)
+                ammoHUDController.Disable();
+            if (healthHUDController)
+                healthHUDController.Disable();
         }
 
 
