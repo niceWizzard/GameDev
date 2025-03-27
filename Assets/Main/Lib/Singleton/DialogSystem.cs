@@ -54,8 +54,19 @@ namespace Main.Lib.Singleton
             }
             _ = Instance._ShowDialog(message, sender);
         }
+
+        public static async UniTask ShowDialogAsync(string message, string sender = "")
+        {
+            if (Instance._dialogState != DialogState.Closed)
+            {
+                Debug.LogWarning("DialogSystem is already showing");
+                return;
+            }
+            ShowDialog(message, sender);
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed);
+        }
         
-        public static void ShowDialogWithButtons(string message, List<(string, Action)> buttons,string sender="")
+        public static void ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons,string sender="")
         {
             if (Instance._dialogState != DialogState.Closed)
             {
@@ -63,10 +74,22 @@ namespace Main.Lib.Singleton
                 return;
             }
             _ = Instance._ShowDialogWithButtons(message, buttons, sender);
-            
         }
 
-        private async UniTask _ShowDialogWithButtons(string message, List<(string, Action)> buttons, string sender = "")
+        public static async UniTask ShowDialogWithButtonsAsync(string message, List<(string, Func<UniTask>)> buttons,
+            string sender = "")
+        {
+            if (Instance._dialogState != DialogState.Closed)
+            {
+                Debug.LogWarning("DialogSystem is already showing");
+                return;
+            }
+            ShowDialogWithButtons(message, buttons, sender);
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed);
+        }
+
+
+        private async UniTask _ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons, string sender = "")
         {
             Time.timeScale = 0;
             canvas.gameObject.SetActive(true);
@@ -110,6 +133,13 @@ namespace Main.Lib.Singleton
         {
             if (Instance._dialogState != DialogState.Completed) return;
             _ = Instance._CloseDialog();
+        }
+
+        public static async UniTask CloseDialogAsync()
+        {
+            if (Instance._dialogState != DialogState.Completed) return;
+            CloseDialog();
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed);
         }
 
         private async UniTask _CloseDialog()
