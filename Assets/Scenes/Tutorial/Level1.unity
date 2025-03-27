@@ -314,9 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeSpawn: {fileID: 1025627393}
   completionStatue: {fileID: 2030418041}
-  requirements:
-  - {fileID: 431039301}
-  - {fileID: 431039302}
+  _requirements: []
 --- !u!4 &431039300
 Transform:
   m_ObjectHideFlags: 0
@@ -23142,7 +23140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_OverrideArea: 1
-  m_Area: 1
+  m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
 --- !u!4 &1355760059 stripped
@@ -122385,8 +122383,8 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 256
-  m_UseGeometry: 1
-  m_DefaultArea: 0
+  m_UseGeometry: 0
+  m_DefaultArea: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
