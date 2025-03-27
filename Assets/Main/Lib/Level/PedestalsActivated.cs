@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Main.Lib.Level
 {
-    public class PedestalActivated : Requirement
+    public class PedestalsActivated : Requirement
     {
         public override bool CheckCompleted()
         {
