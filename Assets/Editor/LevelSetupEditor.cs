@@ -1,3 +1,4 @@
+using System.Linq;
 using Main.Lib.Level;
 using NavMeshPlus.Components;
 using NavMeshPlus.Extensions;
@@ -63,6 +64,42 @@ namespace Editor
             
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene()); 
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            AddCurrentSceneToBuild();
+        }
+        
+        private static void AddCurrentSceneToBuild()
+        {
+            // Get the active scene
+            var currentScene = SceneManager.GetActiveScene();
+            var scenePath = currentScene.path;
+
+            if (string.IsNullOrEmpty(scenePath))
+            {
+                Debug.LogError("Current scene has not been saved. Please save the scene first.");
+                return;
+            }
+
+            // Get the current build scenes
+            var buildScenes = EditorBuildSettings.scenes;
+
+            // Check if the scene is already in the build settings
+            if (buildScenes.Any(scene => scene.path == scenePath))
+            {
+                Debug.Log("Scene is already in Build Settings.");
+                return;
+            }
+
+            // Add the scene to the build settings
+            var newBuildScenes = new EditorBuildSettingsScene[buildScenes.Length + 1];
+            for (var i = 0; i < buildScenes.Length; i++)
+            {
+                newBuildScenes[i] = buildScenes[i];
+            }
+
+            newBuildScenes[buildScenes.Length] = new EditorBuildSettingsScene(scenePath, true);
+            EditorBuildSettings.scenes = newBuildScenes;
+
+            Debug.Log($"Added {scenePath} to Build Settings.");
         }
 
         private static void AddTilemaps()
