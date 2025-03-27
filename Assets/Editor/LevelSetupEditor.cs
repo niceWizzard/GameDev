@@ -70,6 +70,7 @@ namespace Editor
             // Create a Grid object (required for Tilemaps)
             var grid = new GameObject("Grid");
             var gridComponent = grid.AddComponent<Grid>();
+            grid.layer = LayerMask.NameToLayer("World");
             Undo.RegisterCreatedObjectUndo(grid, "Create Grid");
 
             // Create a Tilemap GameObject (child of Grid)
@@ -122,6 +123,7 @@ namespace Editor
                     parent = grid
                 }
             };
+            tilemap.layer = LayerMask.NameToLayer("World");
             tilemap.AddComponent<Tilemap>();
             var renderer =tilemap.AddComponent<TilemapRenderer>();
             renderer.sortingLayerName = "background";
