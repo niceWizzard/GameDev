@@ -147,7 +147,7 @@ namespace Main.World.Objects.CompletionStatue
         
         private void StatueInteractableOnInteract()
         {
-            LevelLoader.Instance.LoadLevel("HubLevel");
+            LevelLoader.Instance.LoadHub();
         }
 
         

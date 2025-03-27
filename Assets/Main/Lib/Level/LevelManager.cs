@@ -80,7 +80,7 @@ namespace Main.Lib.Level
                             ("Exit", async () =>
                             {
                                 DialogSystem.CloseDialog();
-                                LevelLoader.Instance.LoadLevel("HubLevel");
+                                LevelLoader.Instance.LoadHub();
                             })
                         });
                     if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))

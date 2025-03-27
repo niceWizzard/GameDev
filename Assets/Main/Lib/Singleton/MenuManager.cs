@@ -106,7 +106,7 @@ namespace Main.Lib.Singleton
 
         public void GoToHub()
         {
-            LevelLoader.Instance.LoadLevel("HubLevel");
+            LevelLoader.Instance.LoadHub();
             _ = CloseCurrentMenu();
 
         }

@@ -34,7 +34,7 @@ namespace Main.UI
 
         public void World()
         {
-            LevelLoader.Instance.LoadLevel("HubLevel");
+            LevelLoader.Instance.LoadHub();
             Hide();
         }
         

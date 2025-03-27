@@ -32,6 +32,10 @@ namespace Main.Lib.Singleton
             }
         }
 
+        public void LoadHub()
+        {
+            LoadLevel("HubLevel");
+        }
 
         public void LoadLevel(string levelName)
         {
