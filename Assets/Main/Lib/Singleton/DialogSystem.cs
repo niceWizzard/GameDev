@@ -99,8 +99,8 @@ namespace Main.Lib.Singleton
             dialogButtons.ForEach(b => Destroy(b.gameObject));
             dialogButtons.Clear();
             _dialogState = DialogState.Opening;
-            await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
-            await AnimateDialog(message, sender);
+            await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject)
+                .AsyncWaitForCompletion();
             foreach (var (text, action) in buttons)
             {
                 var button = Instantiate(dialogButtonTemplate, dialogPanel.transform);
@@ -110,6 +110,7 @@ namespace Main.Lib.Singleton
                 button.gameObject.SetActive(true);
                 dialogButtons.Add(button);
             }
+            await AnimateDialog(message, sender);
             dialogButtonsContainer.SetActive(true);
         }
 
@@ -123,7 +124,7 @@ namespace Main.Lib.Singleton
                     _dialogState = DialogState.Completed;
                     dialogText.text = _currentDialog;
                     break;
-                case DialogState.Completed:
+                case DialogState.Completed when dialogButtons.Count == 0:
                     _ = _CloseDialog();
                     break;
             }
@@ -179,7 +180,8 @@ namespace Main.Lib.Singleton
                 await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
             }
             _dialogState = DialogState.Completed;
-            continueText.gameObject.SetActive(true);
+            if(dialogButtons.Count == 0)
+                continueText.gameObject.SetActive(true);
         }
     }
 }
