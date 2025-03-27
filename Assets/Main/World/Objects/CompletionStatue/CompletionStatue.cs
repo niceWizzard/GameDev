@@ -116,7 +116,8 @@ namespace Main.World.Objects.CompletionStatue
             };
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
-                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
+                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList(),
+                BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet(),
             });
         }
 
@@ -134,10 +135,6 @@ namespace Main.World.Objects.CompletionStatue
         
         private void StatueInteractableOnInteract()
         {
-            SaveManager.Instance.SaveData(v => v with
-            {
-                BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet()
-            });
             LevelLoader.Instance.LoadLevel("HubLevel");
         }
 
