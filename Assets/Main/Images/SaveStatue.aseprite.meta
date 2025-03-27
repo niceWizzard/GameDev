@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: STATUE
     originalName: 
-    pivot: {x: 0.6, y: 0.055555556}
+    pivot: {x: 0.5, y: 0.06}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 

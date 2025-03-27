@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 933347695
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -1799876390, guid: 395193bff04f587479c149f10db17bfc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &3890371823879880324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activatedSprite: {fileID: 758236509, guid: 395193bff04f587479c149f10db17bfc, type: 3}
   inactiveSprite: {fileID: -1799876390, guid: 395193bff04f587479c149f10db17bfc, type: 3}
+  levelName: HubLevel
 --- !u!58 &7771305498973735549
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,8 +140,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.03849417, y: -0.23524213}
-  m_Radius: 0.2813542
+  m_Offset: {x: 0.03849417, y: 0.2660333}
+  m_Radius: 0.28135407
 --- !u!114 &7222369109535253973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894ed57fd818b3741a9eb756ed07dd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderers: []
+  isInteractable: 1
   textShown: Interact
   textUi: {fileID: 2256695234440082807}
 --- !u!1 &8661287812472289858
