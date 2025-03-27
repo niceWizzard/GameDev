@@ -79,7 +79,7 @@ namespace Main.Lib.Level
                             ("Continue", DialogSystem.CloseDialogAsync),
                             ("Exit", async () =>
                             {
-                                await DialogSystem.CloseDialogAsync();
+                                DialogSystem.CloseDialog();
                                 LevelLoader.Instance.LoadLevel("HubLevel");
                             })
                         });
