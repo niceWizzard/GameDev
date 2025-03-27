@@ -37,7 +37,7 @@ namespace Main.Lib
 
         public void Interact()
         {
-            if (isInteractable)
+            if (isInteractable && Mathf.Approximately(Time.timeScale, 1))
                 OnInteract?.Invoke();
         }
         
