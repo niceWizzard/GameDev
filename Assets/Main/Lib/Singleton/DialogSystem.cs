@@ -103,7 +103,7 @@ namespace Main.Lib.Singleton
             foreach (var (text, action) in buttons)
             {
                 var button = Instantiate(dialogButtonTemplate, dialogPanel.transform);
-                button.transform.parent = dialogButtonsContainer.transform;
+                button.transform.SetParent(dialogButtonsContainer.transform);
                 button.GetComponentInChildren<TMP_Text>().text = text;
                 button.onClick.AddListener(() => action());
                 button.gameObject.SetActive(true);
