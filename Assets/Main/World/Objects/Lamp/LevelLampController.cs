@@ -15,7 +15,7 @@ namespace Main.World.Objects.Lamp
         
         private SpriteRenderer _spriteRenderer;
 
-        private bool IsActive { get; set; }
+        public bool IsActive { get; private set; }
 
         private void Awake()
         {
