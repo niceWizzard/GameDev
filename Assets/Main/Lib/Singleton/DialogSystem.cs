@@ -6,7 +6,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 
 namespace Main.Lib.Singleton
@@ -14,7 +13,7 @@ namespace Main.Lib.Singleton
     public class DialogSystem : PrefabSingleton<DialogSystem>
     {
         [SerializeField] private Canvas canvas;
-        [SerializeField] private GameObject dialogPanel;
+        [SerializeField] private Image dialogPanel;
         [SerializeField] private GameObject dialogButtonsContainer;
         [SerializeField] private Button dialogButtonTemplate;
         [SerializeField] private TMP_Text dialogText;
@@ -97,8 +96,7 @@ namespace Main.Lib.Singleton
             Time.timeScale = 0;
             Reset();
             _dialogState = DialogState.Opening;
-            await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject)
-                .AsyncWaitForCompletion();
+            await AnimateDialogPanelOpen();
             
             foreach (var (text, action) in buttons)
             {
@@ -131,6 +129,27 @@ namespace Main.Lib.Singleton
             }
             await AnimateDialog(message, sender);
             dialogButtonsContainer.SetActive(true);
+        }
+
+        private async UniTask AnimateDialogPanelOpen()
+        {
+            var sequence = DOTween.Sequence();
+            sequence.Append(
+                dialogPanel.transform.DOScale(Vector3.one, 0.1f)
+                .SetEase(Ease.InCubic)
+                .SetUpdate(true)
+                .SetLink(Instance.gameObject)
+            );
+            var color = dialogPanel.color;
+            color.a = 0;
+            dialogPanel.color = color;
+            sequence.Join(
+                dialogPanel.DOFade(1, 0.2f)
+                    .SetEase(Ease.InCubic)
+                    .SetUpdate(true)
+                    .SetLink(Instance.gameObject)
+            );
+            await sequence.Play().SetUpdate(true).AsyncWaitForCompletion();
         }
 
         private void Reset()
@@ -181,7 +200,7 @@ namespace Main.Lib.Singleton
         private async UniTask _CloseDialog()
         {
             _dialogState = DialogState.Closing;
-            await dialogPanel.transform.DOScale(Vector3.zero, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            dialogPanel.transform.localScale *= 0;
             _dialogState = DialogState.Closed;
             canvas.gameObject.SetActive(false);
             senderText.text = "";
@@ -189,16 +208,18 @@ namespace Main.Lib.Singleton
             Time.timeScale = 1;
         }
 
+        
+
         private async UniTask _ShowDialog(string message, string sender = "")
         {
             Reset();
             Time.timeScale = 0;
             _dialogState = DialogState.Opening;
-            await dialogPanel.transform.DOScale(Vector3.one, 0.5f).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            await AnimateDialogPanelOpen();
             await AnimateDialog(message, sender);
         }
 
-        private async Task AnimateDialog(string message, string sender)
+        private async UniTask AnimateDialog(string message, string sender)
         {
             _dialogState = DialogState.DialogAnimation;
             senderText.text = sender;

@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1931644733197436272}
-  dialogPanel: {fileID: 3771573952925701335}
+  dialogPanel: {fileID: 7819185761951413373}
   dialogButtonsContainer: {fileID: 1374183182394633635}
   dialogButtonTemplate: {fileID: 1627075113758479829}
   dialogText: {fileID: 7292754717245395904}
