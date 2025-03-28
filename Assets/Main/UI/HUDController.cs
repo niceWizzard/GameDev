@@ -26,6 +26,18 @@ namespace Main.UI
                 healthHUDController.Disable();
         }
 
+        public void EnterCutsceneMode()
+        {
+            ammoHUDController.Disable();
+            healthHUDController.Disable();
+        }
+
+        public void ExitCutsceneMode()
+        {
+            ammoHUDController.Enable();
+            healthHUDController.Enable();
+        }
+
 
         public void SetPlayer(PlayerController player)
         {

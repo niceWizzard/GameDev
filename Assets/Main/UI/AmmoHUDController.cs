@@ -23,7 +23,8 @@ namespace Main.UI
             maxAmmoText.gameObject.SetActive(false);
             ammoText.gameObject.SetActive(false);
         }
-        private void Enable()
+
+        public void Enable()
         {
             currentAmmoText.gameObject.SetActive(true);
             maxAmmoText.gameObject.SetActive(true);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Main.Lib.Save;
 using Main.World.Objects.CompletionStatue;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -34,7 +35,21 @@ namespace Main.Lib.Singleton
 
         public void LoadHub()
         {
-            LoadLevel("HubLevel");
+            if (SaveManager.Instance.SaveGameData.CompletedTutorial)
+            {
+                LoadLevel("HubLevel");
+            }
+            else
+            {
+                if (SaveManager.Instance.SaveGameData.PlayedCutScenes.Contains("TutorialHub Cutscene"))
+                {
+                    LoadLevel("TutorialHub");
+                }
+                else
+                {
+                    LoadLevel("TutorialHub Cutscene");
+                }
+            }
         }
 
         public void LoadLevel(string levelName)
