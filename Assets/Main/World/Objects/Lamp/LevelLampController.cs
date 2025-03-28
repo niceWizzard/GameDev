@@ -10,7 +10,9 @@ namespace Main.World.Objects.Lamp
     {
         [SerializeField] private Sprite activatedSprite;
         [SerializeField] private Sprite inactiveSprite;
-        [SerializeField] private string levelName = "HubLevel"; 
+        [SerializeField] private string levelName = "HubLevel";
+        [SerializeField] private LevelLampController activateFirst;
+        
         private SpriteRenderer _spriteRenderer;
 
         private bool IsActive { get; set; }
@@ -18,16 +20,23 @@ namespace Main.World.Objects.Lamp
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            if (SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName))
+            if (activateFirst && activateFirst == this)
             {
-                _spriteRenderer.sprite = activatedSprite;
+                Debug.LogError($"You have required itself to be active first at {name}");
             }
+            if (!SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName)) return;
+            _spriteRenderer.sprite = activatedSprite;
+            IsActive = true;
         }
 
         private void Start()
         {
             var i = GetComponent<Interactable>();
             i.OnInteract += Toggle;
+            if (activateFirst && !activateFirst.IsActive)
+            {
+                i.IsInteractable = false;
+            }
         }
 
 
