@@ -67,7 +67,70 @@ namespace Main.Lib.Singleton
         }
 
 
+        public static void CloseDialog()
+        {
+            if (Instance._dialogState != DialogState.Completed) return;
+            Instance._CloseDialog();
+        }
 
+        public static async UniTask AsyncAwaitForClose()
+        {
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
+        }
+
+        public static async UniTask AsyncAwaitComplete()
+        {
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
+        }
+
+        public static async UniTask CloseDialogAsync()
+        {
+            if (Instance._dialogState != DialogState.Completed) return;
+            CloseDialog();
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
+        }
+
+        private void _CloseDialog()
+        {
+            _dialogState = DialogState.Closing;
+            dialogPanel.transform.localScale *= 0;
+            _dialogState = DialogState.Closed;
+            canvas.gameObject.SetActive(false);
+            senderText.text = "";
+            dialogText.text = "";
+            Time.timeScale = 1;
+        }
+
+        
+
+        private async UniTask _ShowDialog(string message, string sender = "")
+        {
+            Reset();
+            Time.timeScale = 0;
+            _dialogState = DialogState.Opening;
+            await AnimateDialogPanelOpen();
+            await AnimateDialog(message, sender);
+        }
+
+        private async UniTask AnimateDialog(string message, string sender)
+        {
+            _dialogState = DialogState.DialogAnimation;
+            senderText.text = sender;
+            _currentDialog = message;
+            var t = "";
+            foreach (var c in message)
+            {
+                if (_dialogState != DialogState.DialogAnimation)
+                    break;
+                t += c;
+                dialogText.text = t;
+                await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
+            }
+            _dialogState = DialogState.Completed;
+            if(dialogButtons.Count == 0)
+                continueText.gameObject.SetActive(true);
+        }
+        
         private async UniTask _ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons, string sender = "")
         {
             Time.timeScale = 0;
@@ -153,71 +216,6 @@ namespace Main.Lib.Singleton
                     _CloseDialog();
                     break;
             }
-        }
-        
-
-        public static void CloseDialog()
-        {
-            if (Instance._dialogState != DialogState.Completed) return;
-            Instance._CloseDialog();
-        }
-
-        public static async UniTask AsyncAwaitForClose()
-        {
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
-        }
-
-        public static async UniTask AsyncAwaitComplete()
-        {
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
-        }
-
-        public static async UniTask CloseDialogAsync()
-        {
-            if (Instance._dialogState != DialogState.Completed) return;
-            CloseDialog();
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
-        }
-
-        private void _CloseDialog()
-        {
-            _dialogState = DialogState.Closing;
-            dialogPanel.transform.localScale *= 0;
-            _dialogState = DialogState.Closed;
-            canvas.gameObject.SetActive(false);
-            senderText.text = "";
-            dialogText.text = "";
-            Time.timeScale = 1;
-        }
-
-        
-
-        private async UniTask _ShowDialog(string message, string sender = "")
-        {
-            Reset();
-            Time.timeScale = 0;
-            _dialogState = DialogState.Opening;
-            await AnimateDialogPanelOpen();
-            await AnimateDialog(message, sender);
-        }
-
-        private async UniTask AnimateDialog(string message, string sender)
-        {
-            _dialogState = DialogState.DialogAnimation;
-            senderText.text = sender;
-            _currentDialog = message;
-            var t = "";
-            foreach (var c in message)
-            {
-                if (_dialogState != DialogState.DialogAnimation)
-                    break;
-                t += c;
-                dialogText.text = t;
-                await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
-            }
-            _dialogState = DialogState.Completed;
-            if(dialogButtons.Count == 0)
-                continueText.gameObject.SetActive(true);
         }
     }
 }
