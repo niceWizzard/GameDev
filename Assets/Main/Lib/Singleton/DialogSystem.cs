@@ -56,6 +56,20 @@ namespace Main.Lib.Singleton
             _ = Instance._ShowDialog(message, sender);
         }
 
+        public static void ShowMultiDialog(List<string> messages, string sender = "")
+        {
+            _ = _ShowMultiDialog(messages, sender);
+        }
+
+        private static async UniTask _ShowMultiDialog(List<string> messages, string sender = "")
+        {
+            foreach (var message in messages)
+            {
+                ShowDialog(message, sender);
+                await AsyncAwaitForClose();
+            }
+        }
+
         public static void ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons,string sender="")
         {
             if (Instance._dialogState != DialogState.Closed)
@@ -89,6 +103,8 @@ namespace Main.Lib.Singleton
             CloseDialog();
             await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
         }
+        
+        
 
         private void _CloseDialog()
         {

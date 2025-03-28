@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Main.Lib.Save;
@@ -18,53 +19,37 @@ public class TutHubCut1 : MonoBehaviour
 
     public void StartDialog()
     {
-        _ = _StartDialog();
-    }
-    private async UniTask _StartDialog()
-    {
-        DialogSystem.ShowDialog("Wake up prince", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("You need to escape this dungeon.", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("Follow me.", "Old man");
+        DialogSystem.ShowMultiDialog(new List<string>()
+        {
+            "Wake up prince",
+            "You need to escape this dungeon.",
+            "Follow me.",
+        }, "Old man");
     }
 
     public void StartDialog2()
     {
-        _ = _StartDialog2();
-    }
-    
-    private async UniTask _StartDialog2()
-    {
-        DialogSystem.ShowDialog("These are the Seal Lamps", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("Listen to me, prince, these lamps are scattered all over the dungeon.", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("You must light every lamps to break the seal binding you here.", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("Take this gun to protect yourself against monsters", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
+        DialogSystem.ShowMultiDialog(new List<string>()
+        {
+            "These are the Seal Lamps",
+            "Listen to me, prince, these lamps are scattered all over the dungeon.",
+            "You must light every lamps to break the seal binding you here.",
+            "Take this gun to protect yourself against monsters"
+        }, "Old man");
     }
     
     public void StartDialog3()
     {
-        _ = _StartDialog3();
-    }
-    
-    private async UniTask _StartDialog3()
-    {
-        DialogSystem.ShowDialog("Every lamps propose a challenge for you to defeat.", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("You will enter an artificial world", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("YOU MUST BREAK THE STATUE IN THAT WORLD!", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-        DialogSystem.ShowDialog("Try it now, prince.", "Old man");
-        await DialogSystem.AsyncAwaitForClose();
-    }
-    
-    
+        DialogSystem.ShowMultiDialog(new List<string>()
+        {
+            "Every lamps propose a challenge for you to defeat.",
+            "You will enter an artificial world",
+            "YOU MUST BREAK THE STATUE IN THAT WORLD!",
+            "Try it now, prince.",
+        }, "Old man");
 
+    }
+    
     public void GoToTutorial1()
     {
         SaveManager.Instance.SaveData(v => v with
