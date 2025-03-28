@@ -85156,7 +85156,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2132316889}
   - component: {fileID: 2132316890}
-  - component: {fileID: 2132316891}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -85192,23 +85191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeSpawn: {fileID: 2132316889}
---- !u!320 &2132316891
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132316887}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: e85fb1df3cec9004b93eb297d4202c5e, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings: []
-  m_ExposedReferences:
-    m_References: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
