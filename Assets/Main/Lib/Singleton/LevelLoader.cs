@@ -1,10 +1,7 @@
 #nullable enable
-using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
+using Cysharp.Threading.Tasks;
 using Main.Lib.Save;
-using Main.World.Objects.CompletionStatue;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -59,18 +56,16 @@ namespace Main.Lib.Singleton
                 Debug.LogError($"Scene <{levelName}> not found. Have you added it to the scene list?");
                 return;
             };
-            StartCoroutine(LoadLevelCoroutine(levelName));
+            _ = _LoadLevel(levelName);
         }
         
-        private IEnumerator LoadLevelCoroutine(string levelName)
+        private async UniTask _LoadLevel(string levelName)
         {
             Time.timeScale = 0;
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
-            yield return new WaitForSecondsRealtime(0.25f);
-            yield return SceneManager.LoadSceneAsync(levelName).Yield();
-            yield return new WaitForSecondsRealtime(0.01f);
-            Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
+            await CutscenePanel.FadeInAsync();
+            await SceneManager.LoadSceneAsync(levelName);
             Time.timeScale = 1;
+            await CutscenePanel.FadeOutAsync();
         }
 
     }

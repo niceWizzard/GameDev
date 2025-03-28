@@ -33,6 +33,7 @@ namespace Main
             LevelLoader.InitializePrefab("LevelLoader");
             MenuManager.InitializePrefab("MenuManager");
             DialogSystem.InitializePrefab("DialogSystem");
+            DialogSystem.InitializePrefab("CutscenePanel");
         }
 
     }
