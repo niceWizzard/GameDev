@@ -106,6 +106,7 @@ MonoBehaviour:
   activatedSprite: {fileID: 758236509, guid: 395193bff04f587479c149f10db17bfc, type: 3}
   inactiveSprite: {fileID: -1799876390, guid: 395193bff04f587479c149f10db17bfc, type: 3}
   levelName: HubLevel
+  activateFirst: {fileID: 0}
 --- !u!58 &7771305498973735549
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderers: []
   isInteractable: 1
-  textShown: Interact
+  textShown: Enter
   textUi: {fileID: 2256695234440082807}
 --- !u!1 &8661287812472289858
 GameObject:
