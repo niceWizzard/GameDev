@@ -23,9 +23,9 @@ public class TutHubCut1 : MonoBehaviour
     private async UniTask _StartDialog()
     {
         DialogSystem.ShowDialog("Wake up prince", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("You need to escape this dungeon.", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("Follow me.", "Old man");
     }
 
@@ -37,13 +37,13 @@ public class TutHubCut1 : MonoBehaviour
     private async UniTask _StartDialog2()
     {
         DialogSystem.ShowDialog("These are the Seal Lamps", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("Listen to me, prince, these lamps are scattered all over the dungeon.", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("You must light every lamps to break the seal binding you here.", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("Take this gun to protect yourself against monsters", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
     }
     
     public void StartDialog3()
@@ -54,13 +54,13 @@ public class TutHubCut1 : MonoBehaviour
     private async UniTask _StartDialog3()
     {
         DialogSystem.ShowDialog("Every lamps propose a challenge for you to defeat.", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("You will enter an artificial world", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("YOU MUST BREAK THE STATUE IN THAT WORLD!", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
         DialogSystem.ShowDialog("Try it now, prince.", "Old man");
-        await DialogSystem.WaitForClose();
+        await DialogSystem.AsyncAwaitForClose();
     }
     
     

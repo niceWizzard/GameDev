@@ -162,7 +162,7 @@ namespace Main.Lib.Singleton
             Instance._CloseDialog();
         }
 
-        public static async UniTask WaitForClose()
+        public static async UniTask AsyncAwaitForClose()
         {
             await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
         }
