@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -57,17 +56,6 @@ namespace Main.Lib.Singleton
             _ = Instance._ShowDialog(message, sender);
         }
 
-        public static async UniTask ShowDialogAsync(string message, string sender = "")
-        {
-            if (Instance._dialogState != DialogState.Closed)
-            {
-                Debug.LogWarning("DialogSystem is already showing");
-                return;
-            }
-            ShowDialog(message, sender);
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
-        }
-        
         public static void ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons,string sender="")
         {
             if (Instance._dialogState != DialogState.Closed)
@@ -78,17 +66,6 @@ namespace Main.Lib.Singleton
             _ = Instance._ShowDialogWithButtons(message, buttons, sender);
         }
 
-        public static async UniTask ShowDialogWithButtonsAsync(string message, List<(string, Func<UniTask>)> buttons,
-            string sender = "")
-        {
-            if (Instance._dialogState != DialogState.Closed)
-            {
-                Debug.LogWarning("DialogSystem is already showing");
-                return;
-            }
-            ShowDialogWithButtons(message, buttons, sender);
-            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
-        }
 
 
         private async UniTask _ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons, string sender = "")
@@ -173,7 +150,7 @@ namespace Main.Lib.Singleton
                     dialogText.text = _currentDialog;
                     break;
                 case DialogState.Completed when dialogButtons.Count == 0:
-                    _ = _CloseDialog();
+                    _CloseDialog();
                     break;
             }
         }
@@ -182,12 +159,17 @@ namespace Main.Lib.Singleton
         public static void CloseDialog()
         {
             if (Instance._dialogState != DialogState.Completed) return;
-            _ = Instance._CloseDialog();
+            Instance._CloseDialog();
         }
 
         public static async UniTask WaitForClose()
         {
             await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
+        }
+
+        public static async UniTask AsyncAwaitComplete()
+        {
+            await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Completed, cancellationToken: Instance.destroyCancellationToken);
         }
 
         public static async UniTask CloseDialogAsync()
@@ -197,7 +179,7 @@ namespace Main.Lib.Singleton
             await UniTask.WaitUntil(() => Instance._dialogState == DialogState.Closed, cancellationToken: Instance.destroyCancellationToken);
         }
 
-        private async UniTask _CloseDialog()
+        private void _CloseDialog()
         {
             _dialogState = DialogState.Closing;
             dialogPanel.transform.localScale *= 0;

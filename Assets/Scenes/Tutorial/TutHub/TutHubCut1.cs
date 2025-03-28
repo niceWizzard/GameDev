@@ -22,11 +22,11 @@ public class TutHubCut1 : MonoBehaviour
     }
     private async UniTask _StartDialog()
     {
-        await DialogSystem.ShowDialogAsync("Wake up prince", "Old man");
+        DialogSystem.ShowDialog("Wake up prince", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("You need to escape this dungeon.", "Old man");
+        DialogSystem.ShowDialog("You need to escape this dungeon.", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("Follow me.", "Old man");
+        DialogSystem.ShowDialog("Follow me.", "Old man");
     }
 
     public void StartDialog2()
@@ -36,13 +36,13 @@ public class TutHubCut1 : MonoBehaviour
     
     private async UniTask _StartDialog2()
     {
-        await DialogSystem.ShowDialogAsync("These are the Seal Lamps", "Old man");
+        DialogSystem.ShowDialog("These are the Seal Lamps", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("Listen to me, prince, these lamps are scattered all over the dungeon.", "Old man");
+        DialogSystem.ShowDialog("Listen to me, prince, these lamps are scattered all over the dungeon.", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("You must light every lamps to break the seal binding you here.", "Old man");
+        DialogSystem.ShowDialog("You must light every lamps to break the seal binding you here.", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("Take this gun to protect yourself against monsters", "Old man");
+        DialogSystem.ShowDialog("Take this gun to protect yourself against monsters", "Old man");
         await DialogSystem.WaitForClose();
     }
     
@@ -53,13 +53,13 @@ public class TutHubCut1 : MonoBehaviour
     
     private async UniTask _StartDialog3()
     {
-        await DialogSystem.ShowDialogAsync("Every lamps propose a challenge for you to defeat.", "Old man");
+        DialogSystem.ShowDialog("Every lamps propose a challenge for you to defeat.", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("You will enter an artificial world", "Old man");
+        DialogSystem.ShowDialog("You will enter an artificial world", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("YOU MUST BREAK THE STATUE IN THAT WORLD!", "Old man");
+        DialogSystem.ShowDialog("YOU MUST BREAK THE STATUE IN THAT WORLD!", "Old man");
         await DialogSystem.WaitForClose();
-        await DialogSystem.ShowDialogAsync("Try it now, prince.", "Old man");
+        DialogSystem.ShowDialog("Try it now, prince.", "Old man");
         await DialogSystem.WaitForClose();
     }
     
