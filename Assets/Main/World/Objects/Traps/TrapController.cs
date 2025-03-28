@@ -12,6 +12,7 @@ namespace Main.World.Objects.Traps
         private Animator _animator;
         
         private bool _isActivated;
+        [SerializeField] private float damage = 100f;
         [SerializeField]
         private Hitbox hitbox;
 
@@ -33,7 +34,7 @@ namespace Main.World.Objects.Traps
 
         private void OnHurtboxHit(Hurtbox hurtbox)
         {
-            hurtbox.TakeDamage(new DamageInfo(30, gameObject));
+            hurtbox.TakeDamage(new DamageInfo(damage, gameObject));
         }
 
         private void OnTriggerStay2D(Collider2D other)
