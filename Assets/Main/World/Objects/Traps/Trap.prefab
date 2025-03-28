@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4083138576773737521}
   - component: {fileID: 5374499437208377236}
   - component: {fileID: -4405593483223973799}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

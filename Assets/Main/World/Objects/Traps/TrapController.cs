@@ -39,7 +39,7 @@ namespace Main.World.Objects.Traps
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.CompareTag("Player") || _isActivated)
+            if (!other.CompareTag("Player") || !other.attachedRigidbody || _isActivated)
                 return;
             _isActivated = true;
             _animator.SetBool(IsActivated, true);
