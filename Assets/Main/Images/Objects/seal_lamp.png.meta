@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: a4001172e929c964792528d65b9c3466
+guid: fce6c69bf3607254497ed1c414898a16
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2998837615283745097
-    second: peaks_3_0
+      213: -5269212760567089921
+    second: seal_lamp_0
+  - first:
+      213: -4596880737145096799
+    second: seal_lamp_1
+  - first:
+      213: -3233670223880455204
+    second: seal_lamp_2
+  - first:
+      213: 4551000040570774831
+    second: seal_lamp_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,23 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: peaks_3_0
+      name: seal_lamp_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7becee1d31df166d0800000000000000
-      internalID: -2998837615283745097
+      spriteID: ff4717869eeffd6b0800000000000000
+      internalID: -5269212760567089921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seal_lamp_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a571ab23599430c0800000000000000
+      internalID: -4596880737145096799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seal_lamp_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdbf8d86012bf13d0800000000000000
+      internalID: -3233670223880455204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seal_lamp_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f256207bc66682f30800000000000000
+      internalID: 4551000040570774831
       vertices: []
       indices: 
       edges: []
@@ -151,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: f52ec46318feb564c876173524ca76d8
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      peaks_3_0: -2998837615283745097
+      seal_lamp_0: -5269212760567089921
+      seal_lamp_1: -4596880737145096799
+      seal_lamp_2: -3233670223880455204
+      seal_lamp_3: 4551000040570774831
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

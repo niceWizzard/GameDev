@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 69ba0ab4c392697459edf95bb97c2e49
+guid: 2bdd82af64a386a43b76614d464aab59
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4855136594817860659
-    second: peaks_4_0
+      213: -5285276679569695801
+    second: flame_trap_0
+  - first:
+      213: -7002012123817667838
+    second: flame_trap_1
+  - first:
+      213: 8488430997873183061
+    second: flame_trap_2
+  - first:
+      213: -9045838548103072560
+    second: flame_trap_3
+  - first:
+      213: 4985755501500079916
+    second: flame_trap_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: peaks_4_0
+      name: flame_trap_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 16
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +153,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3344e166209e06340800000000000000
-      internalID: 4855136594817860659
+      spriteID: 7cb979eccdce6a6b0800000000000000
+      internalID: -5285276679569695801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_trap_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2039ed6521bd3de90800000000000000
+      internalID: -7002012123817667838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_trap_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55945a8d407fcc570800000000000000
+      internalID: 8488430997873183061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_trap_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d4f7c474c9b67280800000000000000
+      internalID: -9045838548103072560
       vertices: []
       indices: 
       edges: []
@@ -151,7 +229,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 63537aeb50e8e9449b94192a63d5261f
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +239,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      peaks_4_0: 4855136594817860659
+      flame_trap_0: -5285276679569695801
+      flame_trap_1: -7002012123817667838
+      flame_trap_2: 8488430997873183061
+      flame_trap_3: -9045838548103072560
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

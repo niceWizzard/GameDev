@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Main.World.Objects.Traps
 {
+    [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
     public class TrapController : MonoBehaviour
     {
         private static readonly int IsActivated = Animator.StringToHash("is_activated");
@@ -53,6 +54,7 @@ namespace Main.World.Objects.Traps
         public void DeactivationAnimationStart()
         {
             _isActivated = false;
+            _animator.SetBool(IsActivated, false);
             hitbox.Disable();
         }
 
