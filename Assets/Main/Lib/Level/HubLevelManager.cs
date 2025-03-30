@@ -37,20 +37,14 @@ public class HubLevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale != 0)
         {
-            DialogSystem.ShowDialogWithButtons("Pausing?", new List<(string, Func<UniTask>)>()
+            Dialog.CreateDialog("Pausing?", new List<(string, Action)>()
             {
-                ("Continue", DialogSystem.CloseDialogAsync),
+                ("Continue", null),
                 ("Menu",  () =>
                 {
-                    DialogSystem.CloseDialog();
-                    LevelLoader.Instance.LoadMenu();
-                    return UniTask.CompletedTask;
+                    SceneManager.LoadScene("Startup");
                 }),
-                ("Quit", () =>
-                {
-                    Application.Quit();
-                    return UniTask.CompletedTask;
-                }),
+                ("Quit", Application.Quit),
             });
         }
     }

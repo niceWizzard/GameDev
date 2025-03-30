@@ -130,7 +130,7 @@ namespace Main.World.Objects.CompletionStatue
                 StatType.Movement => "Movement Speed increased",
                 _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
             };
-            DialogSystem.ShowDialog(message);
+            _ = Dialog.CreateDialog(message);
         }
 
         private static string GetStatText(StatType statType) => statType switch

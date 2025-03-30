@@ -35,26 +35,25 @@ namespace Scenes.Tutorial
         private async UniTask StartDialog()
         {
             await Wait(1);
-            DialogSystem.ShowDialog("Wake up prince.");
+            await Dialog.CreateDialog("Wake up prince.", "Old Man", false);
             await Wait(1.5f);
-            await DialogSystem.AsyncAwaitForClose();
             await CutscenePanel.HideAsync();
-            await DialogSystem.AsyncAwaitForClose();
-            DialogSystem.ShowMultiDialog(new List<string>()
+            await Dialog.CreateDialogs(new List<string>()
             {
                 "You need to escape this dungeon.",
                 "Follow me.",
-            }, "Old man");
-            await DialogSystem.AsyncAwaitMultiDialogClose();
+            }, "Old man", false);
+            await Wait(1.5f);
             wizardEntity.SpriteRenderer.flipX = true;
             await Wait(0.5f);
+            
             wizardEntity.WalkTo(wizardWalk[0].position, 1);
             await Wait(0.5f);
             playerEntity.WalkTo(playerWalk[0].position, 1);
             playerEntity.Play("MoveGun");
             await Wait(1);
             await CutscenePanel.ShowAsync();
-
+            await Wait(1);
             playerEntity.Play("Idle");
             wizardEntity.CancelWalk();
             playerEntity.CancelWalk();
@@ -64,29 +63,26 @@ namespace Scenes.Tutorial
             
             await Wait(2);
             await CutscenePanel.HideAsync();
-            DialogSystem.ShowMultiDialog(new List<string>()
+            await Dialog.CreateDialogs(new List<string>()
             {
                 "These are the Seal Lamps",
                 "Listen to me, prince, these lamps are scattered all over the dungeon.",
                 "You must light every lamps to break the seal binding you here.",
                 "Take this gun to protect yourself against monsters"
-            }, "Old man");
-            await DialogSystem.AsyncAwaitMultiDialogClose();
+            }, "Old man", false);
             
             await Wait(1f);
             playerGun.SetActive(true);
             playerEntity.Play("IdleGun");
             await Wait(1f);
             
-            DialogSystem.ShowMultiDialog(new List<string>()
+            await Dialog.CreateDialogs(new List<string>()
             {
                 "Every lamps propose a challenge for you to defeat.",
                 "You will enter an artificial world",
                 "YOU MUST BREAK THE STATUE IN THAT WORLD!",
                 "Try it now, prince.",
-            }, "Old man");
-            await DialogSystem.AsyncAwaitMultiDialogClose();
-            
+            }, "Old man", false);
             
             playerEntity.WalkTo(playerWalk[1].position, 1.5f);
             playerEntity.Play("MoveGun");
