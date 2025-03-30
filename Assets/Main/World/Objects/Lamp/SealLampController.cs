@@ -7,10 +7,10 @@ using UnityEngine.Rendering.Universal;
 namespace Main.World.Objects.Lamp
 {
     [RequireComponent(typeof(Interactable))]
-    public class LevelLampController : MonoBehaviour
+    public class SealLampController : MonoBehaviour
     {
         [SerializeField] private string levelName = "HubLevel";
-        [SerializeField] private LevelLampController activateFirst;
+        [SerializeField] private SealLampController activateFirst;
         
         private SpriteRenderer _spriteRenderer;
 

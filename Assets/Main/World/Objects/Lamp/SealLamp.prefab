@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7771305498973735549}
   - component: {fileID: 7222369109535253973}
   m_Layer: 8
-  m_Name: LevelLamp
+  m_Name: SealLamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

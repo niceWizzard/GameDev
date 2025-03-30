@@ -22,7 +22,7 @@ namespace Main.Lib.Level
 
         private void Start()
         {
-            var activatedAll = FindObjectsByType<LevelLampController>(FindObjectsSortMode.InstanceID).All(v => v.IsActive);
+            var activatedAll = FindObjectsByType<SealLampController>(FindObjectsSortMode.InstanceID).All(v => v.IsActive);
             if (!activatedAll)
                 return;
             SaveManager.Instance.SaveData(v => v with { CompletedTutorial = true });
