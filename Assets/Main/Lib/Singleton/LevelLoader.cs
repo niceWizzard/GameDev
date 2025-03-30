@@ -52,6 +52,11 @@ namespace Main.Lib.Singleton
             }
         }
 
+        public void LoadMenu()
+        {
+            LoadLevel("Startup");
+        }
+
         public void LoadLevel(string levelName)
         {
             if (!_sceneNames.Contains(levelName))

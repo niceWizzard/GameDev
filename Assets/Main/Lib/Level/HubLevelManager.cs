@@ -25,7 +25,7 @@ public class HubLevelManager : MonoBehaviour
                 ("Menu",  () =>
                 {
                     DialogSystem.CloseDialog();
-                    SceneManager.LoadScene("Startup");
+                    LevelLoader.Instance.LoadMenu();
                     return UniTask.CompletedTask;
                 }),
                 ("Quit", () =>

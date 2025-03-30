@@ -75,7 +75,7 @@ namespace Main.Lib.Level
                 ("Menu", () =>
                 {
                     DialogSystem.CloseDialog();
-                    LevelLoader.Instance.LoadLevel("Startup");
+                    LevelLoader.Instance.LoadMenu();
                     return UniTask.CompletedTask;
                 })
             });
