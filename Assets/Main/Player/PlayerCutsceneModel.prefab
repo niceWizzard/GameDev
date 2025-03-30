@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3650976649572022706}
   - component: {fileID: 693580906089221812}
   - component: {fileID: 6033996096961085687}
-  m_Layer: 0
+  - component: {fileID: 4648547976050503824}
+  m_Layer: 6
   m_Name: PlayerCutsceneModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 933347695
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -1182821291677670348, guid: 5a01e7b28ca247d469b760a015c94168, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &3650976649572022706
 Animator:
   serializedVersion: 7
@@ -138,6 +139,33 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!50 &4648547976050503824
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3616773698382905967}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5598208781924040398
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,8 +320,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 933347695
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -6814046994445013082, guid: d7b377608bf39544d81661a3c3384a0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
