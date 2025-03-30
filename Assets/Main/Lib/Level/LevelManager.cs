@@ -64,6 +64,7 @@ namespace Main.Lib.Level
 
         public void PlayerDeathMenu()
         {
+            GameManager.DiedAtLevel = SceneManager.GetActiveScene().name;
             DialogSystem.ShowDialogWithButtons("You have died.", new List<(string, Func<UniTask>)>
             {
                 ("Respawn", () =>

@@ -22,10 +22,34 @@ namespace Main.Lib.Level
 
         private void Start()
         {
-            var activatedAll = FindObjectsByType<SealLampController>(FindObjectsSortMode.InstanceID).All(v => v.IsActive);
+            var lamps = FindObjectsByType<SealLampController>(FindObjectsSortMode.InstanceID);
+            if (!string.IsNullOrEmpty(GameManager.DiedAtLevel))
+            {
+                foreach (var lamp in lamps)
+                {
+                    if (lamp.LevelName != GameManager.DiedAtLevel) continue;
+                    var player = FindAnyObjectByType<PlayerController>();
+                    player.Position = lamp.transform.position + Vector3.right * 1.5f;
+                    GameManager.DiedAtLevel = "";
+                    break;
+                }
+            }
+            var activatedAll = lamps.All(v => v.IsActive);
             if (!activatedAll)
                 return;
-            SaveManager.Instance.SaveData(v => v with { CompletedTutorial = true });
+            _ = DoHasActivatedAllLamps();
+        }
+
+        private async UniTask DoHasActivatedAllLamps()
+        {
+            await UniTask.WaitForSeconds(0.1f, cancellationToken: destroyCancellationToken);
+            DialogSystem.ShowMultiDialog(new List<string>()
+            {
+                "You are now ready, prince.",
+                "Good luck! HEHEHE...."
+            }, "Old man");
+            await DialogSystem.AsyncAwaitMultiDialogClose();
+            await SaveManager.Instance.SaveDataAsync(v => v with { CompletedTutorial = true });
             LevelLoader.Instance.LoadHub();
         }
 

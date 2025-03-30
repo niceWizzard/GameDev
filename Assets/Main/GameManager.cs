@@ -12,6 +12,8 @@ namespace Main
         public static event Action LevelUnload; 
         private LevelManager _levelManager;
 
+        public static string DiedAtLevel { get; set; } = "";
+
         public LevelManager CurrentLevelManager => _levelManager;
 
         public void RegisterLevelManager(LevelManager levelManager)
