@@ -73,10 +73,11 @@ namespace Scenes.Tutorial
             }, "Old man");
             await DialogSystem.AsyncAwaitMultiDialogClose();
             
-            await Wait(2.5f);
+            await Wait(1f);
             playerGun.SetActive(true);
             playerEntity.Play("IdleGun");
-
+            await Wait(1f);
+            
             DialogSystem.ShowMultiDialog(new List<string>()
             {
                 "Every lamps propose a challenge for you to defeat.",
