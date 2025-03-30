@@ -34,7 +34,9 @@ namespace Scenes.Tutorial
 
         private async UniTask StartDialog()
         {
+            await Wait(1);
             DialogSystem.ShowDialog("Wake up prince.");
+            await Wait(1.5f);
             await DialogSystem.AsyncAwaitForClose();
             await CutscenePanel.HideAsync();
             await DialogSystem.AsyncAwaitForClose();
@@ -71,9 +73,9 @@ namespace Scenes.Tutorial
             }, "Old man");
             await DialogSystem.AsyncAwaitMultiDialogClose();
             
+            await Wait(2.5f);
             playerGun.SetActive(true);
             playerEntity.Play("IdleGun");
-            await Wait(1);
 
             DialogSystem.ShowMultiDialog(new List<string>()
             {

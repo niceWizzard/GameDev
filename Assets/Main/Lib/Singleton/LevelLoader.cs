@@ -41,13 +41,13 @@ namespace Main.Lib.Singleton
             }
             else
             {
-                if (SaveManager.Instance.SaveGameData.PlayedCutScenes.Contains("TutorialHub Cutscene"))
+                if (SaveManager.Instance.SaveGameData.PlayedCutScenes.Contains("TutorialHub Cutscene1"))
                 {
                     LoadLevel("TutorialHub");
                 }
                 else
                 {
-                    LoadLevel("TutorialHub Cutscene");
+                    LoadLevel("TutorialHub Cutscene1");
                 }
             }
         }
