@@ -189,8 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b537553ec8530024b9433f89478dd501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatedSprite: {fileID: -5269212760567089921, guid: fce6c69bf3607254497ed1c414898a16, type: 3}
-  inactiveSprite: {fileID: -5269212760567089921, guid: fce6c69bf3607254497ed1c414898a16, type: 3}
   levelName: HubLevel
   activateFirst: {fileID: 0}
 --- !u!95 &4385034789360992958
@@ -265,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderers: []
   isInteractable: 1
-  textShown: Enter
+  textShown: Challenge
   textUi: {fileID: 2256695234440082807}
 --- !u!1 &8661287812472289858
 GameObject:
