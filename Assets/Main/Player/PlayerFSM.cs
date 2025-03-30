@@ -36,6 +36,20 @@ namespace Main.Player
             Setup(player, states, transitions, idleState, this);
         }
 
+        protected override void Update()
+        {
+            if (Mathf.Approximately(Time.timeScale, 0))
+                return;
+            base.Update();
+        }
+        
+        protected override void FixedUpdate()
+        {
+            if (Mathf.Approximately(Time.timeScale, 0))
+                return;
+            base.FixedUpdate();
+        }
+
         public void ProcessAttackInputs()
         {
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())

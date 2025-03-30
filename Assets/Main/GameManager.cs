@@ -12,6 +12,8 @@ namespace Main
         public static event Action LevelUnload; 
         private LevelManager _levelManager;
 
+        public static string DiedAtLevel { get; set; } = "";
+
         public LevelManager CurrentLevelManager => _levelManager;
 
         public void RegisterLevelManager(LevelManager levelManager)
@@ -31,7 +33,8 @@ namespace Main
             MainCamera.InitializePrefab("Camera Container");
             HUDController.InitializePrefab("HUD Canvas");
             LevelLoader.InitializePrefab("LevelLoader");
-            MenuManager.InitializePrefab("MenuManager");
+            DialogSystem.InitializePrefab("DialogSystem");
+            DialogSystem.InitializePrefab("CutscenePanel");
         }
 
     }

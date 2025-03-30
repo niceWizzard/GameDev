@@ -43,22 +43,24 @@ namespace Main.Player
 
         private void Update()
         {
-            if (_interactables.Count == 0)
+            if (_interactables.Count == 0 || Time.timeScale == 0)
                 return;
-            var filtered = _interactables.Where(v => v.IsInteractable).ToList();
-            if (!filtered.Any())
-                return;
-            CurrentInteractable = filtered.OrderBy(v => (transform.position - v.transform.position).sqrMagnitude)
-                .First();
-            if (!CurrentInteractable)
-                return;
-            if (!CurrentInteractable.IsInteractable )
+            if (CurrentInteractable && !CurrentInteractable.IsInteractable )
             {
                 if(CurrentInteractable.IsUiShown)
                     CurrentInteractable.HideUI();
             } 
-            Vector2 toClosest = CurrentInteractable.transform.position - transform.position;
-            switch (toClosest.magnitude)
+            var filtered = _interactables.Where(v => v.IsInteractable).ToList();
+            if (!filtered.Any())
+                return;
+            var closest = filtered.OrderBy(v => (transform.position - v.transform.position).sqrMagnitude)
+                .First();
+            if (!closest)
+                return;
+            CurrentInteractable = closest;
+            
+            Vector2 toInteractable = CurrentInteractable.transform.position - transform.position;
+            switch (toInteractable.magnitude)
             {
                 case <= Interactable.InteractableDistance:
                     if(!CurrentInteractable.IsUiShown) 

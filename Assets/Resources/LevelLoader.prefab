@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10029e12ab7901b469765007b29bf6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  completionStatuePrefab: {fileID: 1919324429396944793, guid: ae53d0ddd5c0c9f4aa33b08c0f939cb3, type: 3}
   blackScreen: {fileID: 2547175517923456490}
 --- !u!1 &3857065684290015212
 GameObject:
@@ -181,7 +180,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &5403472851437365297
 MonoBehaviour:

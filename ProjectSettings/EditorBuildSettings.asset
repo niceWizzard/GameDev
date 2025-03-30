@@ -9,20 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Startup.unity
     guid: af8def9277202264cbc4c4a2175f725f
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/Tutorial/Level1.unity
-    guid: ee149d78c26242a4c8d0736f88103706
-  - enabled: 1
-    path: Assets/Scenes/Tutorial/Level2.unity
-    guid: 3fd4dfdde98f6874fad0373e1784dedf
-  - enabled: 1
-    path: Assets/Scenes/Tutorial/Level3.unity
-    guid: d0fa7c321f3033a4192033760f71def0
-  - enabled: 1
     path: Assets/Scenes/HubLevel.unity
     guid: 5030d81fafb2ccd49b5b7646951e2d3f
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/Tut1.unity
+    guid: ee149d78c26242a4c8d0736f88103706
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/TutorialHub.unity
+    guid: a1e2888fe987a09449ee70c55a9bbde9
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/TutorialHub Cutscene1.unity
+    guid: 318e0ba29d066aa40af5e947427f4756
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 19f42c5c13309d34486ca770d30daa22, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

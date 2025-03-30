@@ -5,6 +5,8 @@ using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Health;
 using Main.Lib.Save;
+using Main.Lib.Singleton;
+using Main.UI;
 using Main.Weapons.Gun;
 using TMPro;
 using Unity.Cinemachine;
@@ -39,7 +41,14 @@ namespace Main.Player
         
         public bool InHurtAnimation { get; private set; }
 
-        public static event Action<RangedStats> StatChange; 
+        public static event Action<RangedStats> StatChange;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            MainCamera.Instance.Follow(this);
+            HUDController.Instance.SetPlayer(this);
+        }
 
         private void Start()
         {
@@ -132,7 +141,7 @@ namespace Main.Player
         
         public void RotateGun()
         {
-            if (!_camera)
+            if (!_camera || Time.timeScale == 0) 
                 return;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 toMouse = (mouse - transform.position).normalized;

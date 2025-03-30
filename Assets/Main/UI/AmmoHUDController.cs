@@ -11,12 +11,32 @@ namespace Main.UI
     {
         [SerializeField] private TMP_Text currentAmmoText = null!;
         [SerializeField] private TMP_Text maxAmmoText = null!;
+        [SerializeField] private TMP_Text ammoText = null!;
+        private void Awake()
+        {
+            Disable();
+        }
+
+        public void Disable()
+        {
+            currentAmmoText.gameObject.SetActive(false);
+            maxAmmoText.gameObject.SetActive(false);
+            ammoText.gameObject.SetActive(false);
+        }
+
+        public void Enable()
+        {
+            currentAmmoText.gameObject.SetActive(true);
+            maxAmmoText.gameObject.SetActive(true);
+            ammoText.gameObject.SetActive(true);
+        }
 
         private PlayerController? _player;
         public void Setup(PlayerController p)
         {
             if (!p)
                 return;
+            Enable();
             _player = p;
             _player.Gun.OnAmmoUsed += OnAmmoUsed;
             SetMaxAmmo(_player.Gun.AmmoCapacity);

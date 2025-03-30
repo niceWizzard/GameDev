@@ -6,12 +6,14 @@ using UnityEngine.Serialization;
 
 namespace Main.World.Objects.Traps
 {
+    [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
     public class TrapController : MonoBehaviour
     {
         private static readonly int IsActivated = Animator.StringToHash("is_activated");
         private Animator _animator;
         
         private bool _isActivated;
+        [SerializeField] private float damage = 100f;
         [SerializeField]
         private Hitbox hitbox;
 
@@ -33,12 +35,12 @@ namespace Main.World.Objects.Traps
 
         private void OnHurtboxHit(Hurtbox hurtbox)
         {
-            hurtbox.TakeDamage(new DamageInfo(30, gameObject));
+            hurtbox.TakeDamage(new DamageInfo(damage, gameObject));
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.CompareTag("Player") || _isActivated)
+            if (!other.CompareTag("Player") || !other.attachedRigidbody || _isActivated)
                 return;
             _isActivated = true;
             _animator.SetBool(IsActivated, true);
@@ -52,6 +54,7 @@ namespace Main.World.Objects.Traps
         public void DeactivationAnimationStart()
         {
             _isActivated = false;
+            _animator.SetBool(IsActivated, false);
             hitbox.Disable();
         }
 

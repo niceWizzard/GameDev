@@ -1,8 +1,9 @@
 #nullable enable
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Main.World.Objects.CompletionStatue;
+using Main.Lib.Save;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,21 +33,44 @@ namespace Main.Lib.Singleton
             }
         }
 
+        public void LoadHub()
+        {
+            if (SaveManager.Instance.SaveGameData.CompletedTutorial)
+            {
+                LoadLevel("HubLevel");
+            }
+            else
+            {
+                if (SaveManager.Instance.SaveGameData.PlayedCutScenes.Contains("TutorialHub Cutscene1"))
+                {
+                    LoadLevel("TutorialHub");
+                }
+                else
+                {
+                    LoadLevel("TutorialHub Cutscene1");
+                }
+            }
+        }
+
+        public void LoadMenu()
+        {
+            LoadLevel("Startup");
+        }
 
         public void LoadLevel(string levelName)
         {
             if (!_sceneNames.Contains(levelName))
             {
-                Debug.LogError($"Scene <{levelName}> not found");
+                Debug.LogError($"Scene <{levelName}> not found. Have you added it to the scene list?");
                 return;
             };
-            StartCoroutine(LoadLevelCoroutine(levelName));
+            StartCoroutine(_LoadLevel(levelName));
         }
         
-        private IEnumerator LoadLevelCoroutine(string levelName)
+        private IEnumerator _LoadLevel(string levelName)
         {
-            Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);
-            yield return new WaitForSecondsRealtime(0.25f);
+            Time.timeScale = 0;
+            yield return Instance.blackScreen.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject).WaitForCompletion();
             yield return SceneManager.LoadSceneAsync(levelName).Yield();
             yield return new WaitForSecondsRealtime(0.01f);
             Instance.blackScreen.DOFade(0, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(gameObject);

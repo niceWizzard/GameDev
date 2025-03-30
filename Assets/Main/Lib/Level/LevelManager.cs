@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.Player;
@@ -25,10 +26,9 @@ namespace Main.Lib.Level
         [SerializeField] private Transform safeSpawn;
         [Header("Completion Requirements")] 
         [SerializeField] private CompletionStatue completionStatue;
-        [SerializeField]
-        private List<Requirement> requirements = new();
+        public List<Requirement> _requirements = new();
         
-        public List<Requirement> Requirements => requirements;
+        public List<Requirement> Requirements => _requirements;
         
         private List<int> _mobsInLevel = new(); 
         private List<int> _deadMobsInLevel = new();
@@ -47,20 +47,25 @@ namespace Main.Lib.Level
         {
             if(safeSpawn == null)
                 Debug.LogError($"Safe spawn is null at {name}");
-            if( requirements.Count > 0 && !completionStatue)
+            _requirements = GetComponentsInChildren<Requirement>().ToList();
+            if( _requirements.Count > 0 && !completionStatue)
                 Debug.LogError($"Completion statue is null at {name}");
             var player = FindAnyObjectByType<PlayerController>();
-            MainCamera.Instance.Follow(player);
-            player.Position = safeSpawn.position;
-            HUDController.Instance.SetPlayer(player);
             GameManager.Instance.RegisterLevelManager(this);
             player.HealthComponent.OnHealthZero += PlayerOnDie;
+            player.Position = safeSpawn.position;
         }
 
         private void PlayerOnDie()
         {
             _state = LevelState.Died;
-            MenuManager.Instance.ShowDeathMenu();
+            Invoke(nameof(PlayerDeathMenu), 0.5f);
+        }
+
+        public void PlayerDeathMenu()
+        {
+            GameManager.DiedAtLevel = SceneManager.GetActiveScene().name;
+            LevelLoader.Instance.LoadHub();
         }
 
         private void OnDestroy()
@@ -74,9 +79,17 @@ namespace Main.Lib.Level
             switch (_state)
             {
                 case LevelState.Playing:
-                    if (Input.GetKeyDown(KeyCode.Escape))
-                        MenuManager.Instance.TogglePauseMenu();
-                    if (requirements.Count == 0 || !requirements.All(v => v.CheckCompleted()))
+                    if (Input.GetKeyDown(KeyCode.Escape) && Mathf.Approximately(Time.timeScale, 1))
+                        DialogSystem.ShowDialogWithButtons("Pausing?", new List<(string, Func<UniTask>)>()
+                        {
+                            ("Continue", DialogSystem.CloseDialogAsync),
+                            ("Exit", async () =>
+                            {
+                                DialogSystem.CloseDialog();
+                                LevelLoader.Instance.LoadHub();
+                            })
+                        });
+                    if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
                         return;
                     SpawnCompletionMenu();
                     SaveAsCompleted();

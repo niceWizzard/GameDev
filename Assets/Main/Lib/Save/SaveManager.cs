@@ -85,7 +85,11 @@ namespace Main.Lib.Save
 
         public string GetSaveSlotPath(int index)
         {
-            return $"save-{index}.sav";
+            return $"save-{index}"
+            #if UNITY_EDITOR
+                + "-debug"
+            #endif
+                + ".sav";
         }
         
         

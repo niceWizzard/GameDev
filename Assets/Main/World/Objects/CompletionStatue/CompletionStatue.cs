@@ -116,8 +116,21 @@ namespace Main.World.Objects.CompletionStatue
             };
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
-                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList()
+                StatUpgrades = v.StatUpgrades.Append(upgrade).ToList(),
+                BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet(),
             });
+            var message = statType switch
+            {
+                StatType.Health => "Health increased by 25",
+                StatType.Attack => "Attack Power + 10%",
+                StatType.Speed => "Attack Speed increased",
+                StatType.Reload => "Reload Time decreased by 0.25s",
+                StatType.Ammo => "Ammo Increased by 5",
+                StatType.Accuracy => "Accuracy Increased",
+                StatType.Movement => "Movement Speed increased",
+                _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
+            };
+            DialogSystem.ShowDialog(message);
         }
 
         private static string GetStatText(StatType statType) => statType switch
@@ -134,11 +147,7 @@ namespace Main.World.Objects.CompletionStatue
         
         private void StatueInteractableOnInteract()
         {
-            SaveManager.Instance.SaveData(v => v with
-            {
-                BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet()
-            });
-            LevelLoader.Instance.LoadLevel("HubLevel");
+            LevelLoader.Instance.LoadHub();
         }
 
         
