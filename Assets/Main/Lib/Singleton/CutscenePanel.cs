@@ -17,31 +17,45 @@ namespace Main.Lib.Singleton
             panel.color = color;
         }
 
-        public static async UniTask FadeInAsync()
+        public static async UniTask ShowAsync()
         {
             var color = Instance.panel.color;
             color.a = 0;
             Instance.panel.color = color;
-            await Instance.panel.DOFade(1, 0.25f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            await Instance.panel.DOFade(1, 0.5f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
         }
 
-        public static async UniTask FadeOutAsync()
+        public static async UniTask HideAsync()
         {
             DOTween.Kill(Instance.gameObject);
             var color = Instance.panel.color;
             color.a = 1;
             Instance.panel.color = color;
-            await Instance.panel.DOFade(0, 0.99f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
+            await Instance.panel.DOFade(0, 0.5f).SetEase(Ease.InCubic).SetUpdate(true).SetLink(Instance.gameObject).AsyncWaitForCompletion();
         }
 
-        public static void FadeOut()
+        public static void ShowImmediately()
         {
-            _ = FadeOutAsync();
+            var color = Instance.panel.color;
+            color.a = 1;
+            Instance.panel.color = color;
         }
 
-        public static void FadeIn()
+        public static void HideImmediately()
         {
-            _ = FadeInAsync();
+            var color = Instance.panel.color;
+            color.a = 0;
+            Instance.panel.color = color;
+        }
+
+        public static void Hide()
+        {
+            _ = HideAsync();
+        }
+
+        public static void Show()
+        {
+            _ = ShowAsync();
         }
         
         

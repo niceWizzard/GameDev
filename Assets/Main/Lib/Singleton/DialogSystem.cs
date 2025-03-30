@@ -20,6 +20,8 @@ namespace Main.Lib.Singleton
         [SerializeField] private TMP_Text continueText;
 
         private List<Button> dialogButtons = new List<Button>();
+
+        private int _multiDialogLength = 0;
         
         private enum DialogState
         {
@@ -58,9 +60,18 @@ namespace Main.Lib.Singleton
 
         public static void ShowMultiDialog(List<string> messages, string sender = "")
         {
+            Instance._multiDialogLength = messages.Count;
             _ = _ShowMultiDialog(messages, sender);
         }
 
+        public static async UniTask AsyncAwaitMultiDialogClose()
+        {
+            for (var i = 0; i < Instance._multiDialogLength; i++)
+            {
+                await AsyncAwaitForClose();
+            }
+        }
+        
         private static async UniTask _ShowMultiDialog(List<string> messages, string sender = "")
         {
             foreach (var message in messages)
@@ -68,6 +79,8 @@ namespace Main.Lib.Singleton
                 ShowDialog(message, sender);
                 await AsyncAwaitForClose();
             }
+
+            Instance._multiDialogLength = -1;
         }
 
         public static void ShowDialogWithButtons(string message, List<(string, Func<UniTask>)> buttons,string sender="")
