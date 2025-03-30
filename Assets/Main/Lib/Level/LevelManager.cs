@@ -59,7 +59,26 @@ namespace Main.Lib.Level
         private void PlayerOnDie()
         {
             _state = LevelState.Died;
-            MenuManager.Instance.ShowDeathMenu();
+            Invoke(nameof(PlayerDeathMenu), 0.5f);
+        }
+
+        public void PlayerDeathMenu()
+        {
+            DialogSystem.ShowDialogWithButtons("You have died.", new List<(string, Func<UniTask>)>
+            {
+                ("Respawn", () =>
+                {
+                    DialogSystem.CloseDialog();
+                    LevelLoader.Instance.LoadHub();
+                    return UniTask.CompletedTask;
+                }),
+                ("Menu", () =>
+                {
+                    DialogSystem.CloseDialog();
+                    LevelLoader.Instance.LoadLevel("Startup");
+                    return UniTask.CompletedTask;
+                })
+            });
         }
 
         private void OnDestroy()

@@ -31,7 +31,6 @@ namespace Main
             MainCamera.InitializePrefab("Camera Container");
             HUDController.InitializePrefab("HUD Canvas");
             LevelLoader.InitializePrefab("LevelLoader");
-            MenuManager.InitializePrefab("MenuManager");
             DialogSystem.InitializePrefab("DialogSystem");
             DialogSystem.InitializePrefab("CutscenePanel");
         }
