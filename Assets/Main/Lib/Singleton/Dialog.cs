@@ -32,8 +32,10 @@ namespace Main.Lib.Singleton
             ResetDialog();
         }
 
-        public static async UniTask CreateDialog(string message, string sender="")
+        public static async UniTask CreateDialog(string message, string sender="", bool pause=true)
         {
+            if(pause)
+                Time.timeScale = 0;
             Instance._isDialogOpen = true;
             await Instance.AnimateDialogPanelOpening();
             _ = Instance.AnimateDialogText(message, sender);
@@ -50,11 +52,11 @@ namespace Main.Lib.Singleton
             await CloseDialog();
         }
 
-        public static async UniTask CreateDialogs(List<string> messages, string sender)
+        public static async UniTask CreateDialogs(List<string> messages, string sender, bool pause=true)
         {
             foreach (var message in messages)
             {
-                await CreateDialog(message, sender);
+                await CreateDialog(message, sender, pause);
             }
         }
 
