@@ -222,6 +222,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: seal_lamp_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8f4b68946889d43ac79c3a9a74cf32
+      internalID: -722272118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -240,6 +262,7 @@ TextureImporter:
       seal_lamp_1: -4596880737145096799
       seal_lamp_2: -3233670223880455204
       seal_lamp_3: 4551000040570774831
+      seal_lamp_4: -722272118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

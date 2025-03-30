@@ -11,24 +11,24 @@ namespace Main.World.Objects.Lamp
     {
         [SerializeField] private string levelName = "HubLevel";
         [SerializeField] private SealLampController activateFirst;
-        
-        private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
 
-        
+
         public string LevelName => levelName;
         public bool IsActive { get; private set; }
 
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             if (activateFirst && activateFirst == this)
             {
                 Debug.LogError($"You have required itself to be active first at {name}");
             }
-
+            
             var hasBeenCleared = SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName);
             IsActive = hasBeenCleared;
-            
+            if(IsActive)
+                _animator.Play("Destroyed");
         }
 
         private void Start()
