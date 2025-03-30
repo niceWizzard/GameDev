@@ -13,19 +13,29 @@ namespace Main.Lib.Singleton
 
         private void Start()
         {
-            GameManager.LevelLoaded += GameManagerOnLevelLoaded;
+            GameManager.LevelLoaded += OnLevelLoad;
+            GameManager.LevelUnload += OnLevelUnload;
         }
+
+        
 
         private void OnDestroy()
         {
-            GameManager.LevelLoaded -= GameManagerOnLevelLoaded;
+            GameManager.LevelLoaded -= OnLevelLoad;
+            GameManager.LevelUnload -= OnLevelUnload;
         }
 
-        private void GameManagerOnLevelLoaded(LevelManager level)
+        private void OnLevelLoad(LevelManager level)
         {
             CinemachineImpulseManager.Instance.Clear();
         }
 
+        private void OnLevelUnload()
+        {
+            CinemachineImpulseManager.Instance.Clear();
+
+        }
+        
         public void Follow(PlayerController playerController)
         {
             cmCamera.Target.TrackingTarget = playerController.transform;   
