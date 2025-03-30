@@ -21,10 +21,9 @@ namespace Main.Lib.Singleton
         [SerializeField] private TMP_Text senderText;
         [SerializeField] private TMP_Text continueText;
         
-        private UniTaskCompletionSource _dialogClosedCompletionSource;
         private bool _isAnimatingText = false;
         private string _currentDialogMessage;
-        
+        private bool _isDialogOpen = false;
         private List<Button> _dialogButtons = new();
 
         protected override void Awake()
@@ -33,23 +32,22 @@ namespace Main.Lib.Singleton
             ResetDialog();
         }
 
-        private static async UniTask CreateDialog(string message, string sender)
+        public static async UniTask CreateDialog(string message, string sender="")
         {
+            Instance._isDialogOpen = true;
             await Instance.AnimateDialogPanelOpening();
             _ = Instance.AnimateDialogText(message, sender);
             await UniTask.WaitUntil(() =>
             {
                 if (!Input.GetKeyDown(KeyCode.Space))
                     return false;
-                if (Instance._isAnimatingText)
-                {
-                    Instance._isAnimatingText = false;
-                    Instance.dialogText.text = Instance._currentDialogMessage;
-                    return false;
-                }
-                return true;
-            });
-            await Instance.AnimateDialogClosing();
+                if (!Instance._isAnimatingText) 
+                    return true;
+                Instance._isAnimatingText = false;
+                Instance.dialogText.text = Instance._currentDialogMessage;
+                return false;
+            }, cancellationToken: Instance.destroyCancellationToken);
+            await CloseDialog();
         }
 
         public static async UniTask CreateDialogs(List<string> messages, string sender)
@@ -60,10 +58,11 @@ namespace Main.Lib.Singleton
             }
         }
 
-        public static void CreateDialog(string message, List<(string, Action)> buttons, string sender = "")
+        public static void CreateDialog(string message, List<(string, Action)> buttons, string sender = "", bool pause=true)
         {
-            Instance._dialogButtons.ForEach(b => Destroy(b.gameObject));
-            Instance._dialogButtons.Clear();
+            if(pause)
+                Time.timeScale = 0;
+            ClearButtons();
             foreach (var (text, action) in buttons)
             {
                 var button = Instantiate(Instance.dialogButtonTemplate, Instance.dialogPanel.transform);
@@ -72,7 +71,7 @@ namespace Main.Lib.Singleton
                 button.onClick.AddListener(() =>
                 {
                     _ = CloseDialog();
-                    action.Invoke();
+                    action?.Invoke();
                 });
                 button.gameObject.SetActive(true);
                 button.transform.localScale = Vector3.one;
@@ -104,27 +103,38 @@ namespace Main.Lib.Singleton
             
             Instance.dialogButtonsContainer.SetActive(true);
             _ = AsyncAnimateDialog();
+            return;
 
-            UniTask AsyncAnimateDialog()
+            async UniTask AsyncAnimateDialog()
             {
-                return CreateDialog(message, sender);
+                Instance._isDialogOpen = true;
+                await Instance.AnimateDialogPanelOpening();
+                _ = Instance.AnimateDialogText(message, sender);
             }
+        }
+
+        private static void ClearButtons()
+        {
+            Instance._dialogButtons.ForEach(b => Destroy(b.gameObject));
+            Instance._dialogButtons.Clear();
         }
 
         public static async UniTask CloseDialog()
         {
+            Instance._isDialogOpen = true;
+            ClearButtons();
             await Instance.AnimateDialogClosing();
         }
 
         private void ResetDialog()
         {
-            canvas.gameObject.SetActive(true);
+            canvas.gameObject.SetActive(false);
             continueText.gameObject.SetActive(false);
             dialogButtonsContainer.SetActive(false);
             senderText.text = "";
             dialogText.text = "";
             dialogPanel.transform.localScale *= 0;
-            
+            Time.timeScale = 1;
         }
 
 
@@ -139,11 +149,14 @@ namespace Main.Lib.Singleton
                 dialogText.text = t;
                 await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
             }
-            continueText.gameObject.SetActive(true);
+            _isAnimatingText = false;
+            if(_dialogButtons.Count == 0)
+                continueText.gameObject.SetActive(true);
         }
         
         private async UniTask AnimateDialogClosing()
         {
+            
             await dialogPanel.DOFade(0, .1f)
                 .SetEase(Ease.InCubic)
                 .SetUpdate(true)
@@ -154,6 +167,7 @@ namespace Main.Lib.Singleton
         
         private UniTask AnimateDialogPanelOpening()
         {
+            canvas.gameObject.SetActive(true);
             var sequence = DOTween.Sequence();
             sequence.Append(
                 dialogPanel.transform.DOScale(Vector3.one, 0.1f)

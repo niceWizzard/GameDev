@@ -43,12 +43,11 @@ namespace Main.Lib.Level
         private async UniTask DoHasActivatedAllLamps()
         {
             await UniTask.WaitForSeconds(0.1f, cancellationToken: destroyCancellationToken);
-            DialogSystem.ShowMultiDialog(new List<string>()
+            await Dialog.CreateDialogs(new List<string>()
             {
                 "You are now ready, prince.",
                 "Good luck! HEHEHE...."
             }, "Old man");
-            await DialogSystem.AsyncAwaitMultiDialogClose();
             await SaveManager.Instance.SaveDataAsync(v => v with { CompletedTutorial = true });
             LevelLoader.Instance.LoadHub();
         }
@@ -57,20 +56,14 @@ namespace Main.Lib.Level
         {
             if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale != 0)
             {
-                DialogSystem.ShowDialogWithButtons("Pausing?", new List<(string, Func<UniTask>)>()
+                Dialog.CreateDialog("Pausing?", new List<(string, Action)>()
                 {
-                    ("Continue", DialogSystem.CloseDialogAsync),
+                    ("Continue", null),
                     ("Menu",  () =>
                     {
-                        DialogSystem.CloseDialog();
                         SceneManager.LoadScene("Startup");
-                        return UniTask.CompletedTask;
                     }),
-                    ("Quit", () =>
-                    {
-                        Application.Quit();
-                        return UniTask.CompletedTask;
-                    }),
+                    ("Quit", Application.Quit),
                 });
             }
         }

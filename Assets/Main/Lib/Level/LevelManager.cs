@@ -82,7 +82,7 @@ namespace Main.Lib.Level
                     if (Input.GetKeyDown(KeyCode.Escape) && Mathf.Approximately(Time.timeScale, 1))
                         Dialog.CreateDialog("Pausing?", new List<(string, Action)>()
                         {
-                            ("Continue", () => { }),
+                            ("Continue", null),
                             ("Exit",  () =>
                             {
                                 _ = DoExit();
