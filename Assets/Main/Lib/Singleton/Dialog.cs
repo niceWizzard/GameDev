@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Main.Lib.Singleton
@@ -22,6 +24,8 @@ namespace Main.Lib.Singleton
         private UniTaskCompletionSource _dialogClosedCompletionSource;
         private bool _isAnimatingText = false;
         private string _currentDialogMessage;
+        
+        private List<Button> _dialogButtons = new();
 
         protected override void Awake()
         {
@@ -46,7 +50,6 @@ namespace Main.Lib.Singleton
                 return true;
             });
             await Instance.AnimateDialogClosing();
-            Instance._dialogClosedCompletionSource.TrySetResult();
         }
 
         public static async UniTask CreateDialogs(List<string> messages, string sender)
@@ -57,6 +60,61 @@ namespace Main.Lib.Singleton
             }
         }
 
+        public static void CreateDialog(string message, List<(string, Action)> buttons, string sender = "")
+        {
+            Instance._dialogButtons.ForEach(b => Destroy(b.gameObject));
+            Instance._dialogButtons.Clear();
+            foreach (var (text, action) in buttons)
+            {
+                var button = Instantiate(Instance.dialogButtonTemplate, Instance.dialogPanel.transform);
+                button.transform.SetParent(Instance.dialogButtonsContainer.transform);
+                button.GetComponentInChildren<TMP_Text>().text = text;
+                button.onClick.AddListener(() =>
+                {
+                    _ = CloseDialog();
+                    action.Invoke();
+                });
+                button.gameObject.SetActive(true);
+                button.transform.localScale = Vector3.one;
+                Instance._dialogButtons.Add(button);
+            }
+
+            // Set navigation
+            var dialogButtons = Instance._dialogButtons;
+            EventSystem.current.SetSelectedGameObject(dialogButtons[0].gameObject);
+            for (var i = 0; i < dialogButtons.Count; i++)
+            {
+                var button = dialogButtons[i];
+                var navigation = button.navigation;
+                navigation.mode = Navigation.Mode.Explicit;
+                // Set up "Up" and "Down" navigation
+                if (i > 0)
+                    navigation.selectOnUp = dialogButtons[i - 1];
+                if (i < buttons.Count - 1)
+                    navigation.selectOnDown = dialogButtons[i + 1];
+                if (dialogButtons.Count > 1)
+                {
+                    if(i == 0)
+                        navigation.selectOnUp = dialogButtons[^1];
+                    if (i == buttons.Count - 1)
+                        navigation.selectOnDown = dialogButtons[0];
+                }
+                button.navigation = navigation;
+            }
+            
+            Instance.dialogButtonsContainer.SetActive(true);
+            _ = AsyncAnimateDialog();
+
+            UniTask AsyncAnimateDialog()
+            {
+                return CreateDialog(message, sender);
+            }
+        }
+
+        public static async UniTask CloseDialog()
+        {
+            await Instance.AnimateDialogClosing();
+        }
 
         private void ResetDialog()
         {
@@ -66,16 +124,9 @@ namespace Main.Lib.Singleton
             senderText.text = "";
             dialogText.text = "";
             dialogPanel.transform.localScale *= 0;
+            
         }
 
-        private static void AssignCompletionSource()
-        {
-            Instance._dialogClosedCompletionSource = new UniTaskCompletionSource();
-            Instance.destroyCancellationToken.Register(() =>
-            {
-                Instance._dialogClosedCompletionSource.TrySetCanceled();
-            });
-        }
 
         private async UniTask AnimateDialogText(string message, string sender)
         {

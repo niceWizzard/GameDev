@@ -80,13 +80,12 @@ namespace Main.Lib.Level
             {
                 case LevelState.Playing:
                     if (Input.GetKeyDown(KeyCode.Escape) && Mathf.Approximately(Time.timeScale, 1))
-                        DialogSystem.ShowDialogWithButtons("Pausing?", new List<(string, Func<UniTask>)>()
+                        Dialog.CreateDialog("Pausing?", new List<(string, Action)>()
                         {
-                            ("Continue", DialogSystem.CloseDialogAsync),
-                            ("Exit", async () =>
+                            ("Continue", () => { }),
+                            ("Exit",  () =>
                             {
-                                DialogSystem.CloseDialog();
-                                LevelLoader.Instance.LoadHub();
+                                _ = DoExit();
                             })
                         });
                     if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
@@ -101,7 +100,14 @@ namespace Main.Lib.Level
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
+            return;
+
+            async UniTask DoExit()
+            {
+                await Dialog.CloseDialog();
+                LevelLoader.Instance.LoadHub();
+            }
         }
 
         private void SpawnCompletionMenu()
