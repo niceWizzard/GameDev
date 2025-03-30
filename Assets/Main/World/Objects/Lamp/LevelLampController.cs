@@ -2,14 +2,13 @@ using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Singleton;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Main.World.Objects.Lamp
 {
     [RequireComponent(typeof(Interactable))]
     public class LevelLampController : MonoBehaviour
     {
-        [SerializeField] private Sprite activatedSprite;
-        [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private string levelName = "HubLevel";
         [SerializeField] private LevelLampController activateFirst;
         
@@ -24,19 +23,22 @@ namespace Main.World.Objects.Lamp
             {
                 Debug.LogError($"You have required itself to be active first at {name}");
             }
-            if (!SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName)) return;
-            _spriteRenderer.sprite = activatedSprite;
-            IsActive = true;
+
+            var hasBeenCleared = SaveManager.Instance.SaveGameData.CompletedLevels.Contains(levelName);
+            IsActive = hasBeenCleared;
+            
         }
 
         private void Start()
         {
             var i = GetComponent<Interactable>();
             i.OnInteract += Toggle;
+            i.IsInteractable = !IsActive;
             if (activateFirst && !activateFirst.IsActive)
             {
                 i.IsInteractable = false;
             }
+
         }
 
 
