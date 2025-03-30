@@ -151,7 +151,7 @@ TextureImporter:
       name: tutorial_tileset_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 32
         y: 48
         width: 16
         height: 16
@@ -173,7 +173,7 @@ TextureImporter:
       name: tutorial_tileset_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 48
         width: 16
         height: 16
@@ -195,8 +195,8 @@ TextureImporter:
       name: tutorial_tileset_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 80
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -217,7 +217,7 @@ TextureImporter:
       name: tutorial_tileset_4
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 32
         width: 16
         height: 16
@@ -239,7 +239,7 @@ TextureImporter:
       name: tutorial_tileset_5
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 32
         width: 16
         height: 16
@@ -261,7 +261,7 @@ TextureImporter:
       name: tutorial_tileset_6
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 32
         width: 16
         height: 16
@@ -283,7 +283,7 @@ TextureImporter:
       name: tutorial_tileset_7
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 32
         width: 16
         height: 16
@@ -305,7 +305,7 @@ TextureImporter:
       name: tutorial_tileset_8
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 32
         width: 16
         height: 16
@@ -327,8 +327,8 @@ TextureImporter:
       name: tutorial_tileset_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
+        x: 80
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -349,7 +349,7 @@ TextureImporter:
       name: tutorial_tileset_10
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 16
         width: 16
         height: 16
@@ -371,7 +371,7 @@ TextureImporter:
       name: tutorial_tileset_11
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 16
         width: 16
         height: 16
@@ -393,7 +393,7 @@ TextureImporter:
       name: tutorial_tileset_12
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 16
         width: 16
         height: 16
@@ -415,7 +415,7 @@ TextureImporter:
       name: tutorial_tileset_13
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 16
         width: 16
         height: 16
@@ -437,7 +437,7 @@ TextureImporter:
       name: tutorial_tileset_14
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 16
         width: 16
         height: 16
@@ -459,8 +459,8 @@ TextureImporter:
       name: tutorial_tileset_15
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 80
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -473,6 +473,28 @@ TextureImporter:
       bones: []
       spriteID: 84e88d78f5b705443bd32bc466052055
       internalID: -457775810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tutorial_tileset_16
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5029de1273cac4941bf6e712f091deec
+      internalID: 1647927052
       vertices: []
       indices: 
       edges: []
@@ -499,6 +521,7 @@ TextureImporter:
       tutorial_tileset_13: -478825913
       tutorial_tileset_14: -1662619491
       tutorial_tileset_15: -457775810
+      tutorial_tileset_16: 1647927052
       tutorial_tileset_2: 777979048
       tutorial_tileset_3: 1715496633
       tutorial_tileset_4: -117177076
