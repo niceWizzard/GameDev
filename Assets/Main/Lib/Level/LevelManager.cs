@@ -114,7 +114,6 @@ namespace Main.Lib.Level
                     if (_requirements.Count == 0 || !_requirements.All(v => v.CheckCompleted()))
                         return;
                     SpawnCompletionMenu();
-                    SaveAsCompleted();
                     _state = LevelState.Finished;
                     break;
                 case LevelState.Died:
@@ -138,14 +137,7 @@ namespace Main.Lib.Level
             completionStatue.Setup();
         }
 
-        private void SaveAsCompleted()
-        {
-            var sceneName = SceneManager.GetActiveScene().name;
-            _ = SaveManager.Instance.SaveDataAsync(v => v with
-            {
-                CompletedLevels = v.CompletedLevels.Append(sceneName).ToHashSet()
-            });
-        }
+
 
         public void RegisterAsDead(GameObject mob)
         {
