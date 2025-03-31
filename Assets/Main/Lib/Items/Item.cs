@@ -28,6 +28,7 @@ namespace Main.Lib.Items
         protected virtual void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            GetComponent<Collider2D>().isTrigger = true;
             _velocity = Vector2.zero; // Default state
         }
 
