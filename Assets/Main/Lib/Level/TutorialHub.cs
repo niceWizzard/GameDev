@@ -52,6 +52,11 @@ namespace Main.Lib.Level
             LevelLoader.Instance.LoadHub();
         }
 
+        private void OnDestroy()
+        {
+            GameManager.Instance.UnregisterLevelManager();
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale != 0)

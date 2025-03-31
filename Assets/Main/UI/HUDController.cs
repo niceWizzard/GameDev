@@ -18,6 +18,7 @@ namespace Main.UI
         {
             base.Awake();
             GameManager.LevelUnload += GameManagerOnLevelUnload;
+            bossHealthHUDController.Disable();
         }
 
         private void GameManagerOnLevelUnload()
