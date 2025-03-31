@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/SwampLevel_01.unity
     guid: 53d9c813f3ecaf1469e2fa8e502f6ef0
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/Prologue.unity
+    guid: 3cc596861602c9542b634573fea52d28
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 19f42c5c13309d34486ca770d30daa22, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
