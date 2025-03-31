@@ -48,7 +48,7 @@ namespace Main.World.Objects.CompletionStatue
             _statueInteractable.OnInteract += StatueInteractableOnInteract;
             leftRewardInteractable.OnInteract += LeftRewardInteractableOnInteract;
             rightRewardInteractable.OnInteract += RightRewardInteractableOnInteract;
-            _inSaveFile = SaveManager.Instance.SaveGameData.BrokenStatues.Contains(_uniqueId.Id);
+            _inSaveFile = SaveManager.Instance.SaveGameData.CompletedLevels.Contains(SceneManager.GetActiveScene().name);
             
             _statueInteractable.IsInteractable = false;
             leftRewardInteractable.IsInteractable= false;
@@ -114,10 +114,12 @@ namespace Main.World.Objects.CompletionStatue
                 StatType.Movement => StatUpgrade.Speed,
                 _ => throw new ArgumentOutOfRangeException(nameof(statType), statType, null)
             };
+            var sceneName = SceneManager.GetActiveScene().name;
             _ = SaveManager.Instance.SaveDataAsync(v => v with
             {
                 StatUpgrades = v.StatUpgrades.Append(upgrade).ToList(),
                 BrokenStatues = v.BrokenStatues.Append(_uniqueId.Id).ToHashSet(),
+                CompletedLevels = v.CompletedLevels.Append(sceneName).ToHashSet(),
             });
             var message = statType switch
             {

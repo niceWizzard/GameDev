@@ -1,4 +1,5 @@
 using Main.Lib.Level;
+using Main.Lib.Mobs;
 using Main.Lib.Singleton;
 using Main.Player;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace Main.UI
         private PlayerController  _player;
         [SerializeField] private AmmoHUDController ammoHUDController = null!;
         [SerializeField] private HealthHUDController healthHUDController = null!;
-
+        [SerializeField] private BossHealthController bossHealthHUDController = null!;
+        
         protected override void Awake()
         {
             base.Awake();
             GameManager.LevelUnload += GameManagerOnLevelUnload;
+            bossHealthHUDController.Disable();
         }
 
         private void GameManagerOnLevelUnload()
@@ -24,20 +27,29 @@ namespace Main.UI
                 ammoHUDController.Disable();
             if (healthHUDController)
                 healthHUDController.Disable();
+            if(bossHealthHUDController)
+                bossHealthHUDController.Disable();
         }
 
         public void EnterCutsceneMode()
         {
             ammoHUDController.Disable();
             healthHUDController.Disable();
+            bossHealthHUDController.Disable();
         }
 
         public void ExitCutsceneMode()
         {
             ammoHUDController.Enable();
             healthHUDController.Enable();
+            bossHealthHUDController.Enable();
         }
 
+        public void RegisterBoss(EnemyController boss)
+        {
+            bossHealthHUDController.Enable();
+            bossHealthHUDController.Setup(boss);
+        }
 
         public void SetPlayer(PlayerController player)
         {
