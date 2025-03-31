@@ -48,7 +48,7 @@ namespace Main.World.Objects.CompletionStatue
             _statueInteractable.OnInteract += StatueInteractableOnInteract;
             leftRewardInteractable.OnInteract += LeftRewardInteractableOnInteract;
             rightRewardInteractable.OnInteract += RightRewardInteractableOnInteract;
-            _inSaveFile = SaveManager.Instance.SaveGameData.BrokenStatues.Contains(_uniqueId.Id);
+            _inSaveFile = SaveManager.Instance.SaveGameData.CompletedLevels.Contains(SceneManager.GetActiveScene().name);
             
             _statueInteractable.IsInteractable = false;
             leftRewardInteractable.IsInteractable= false;
