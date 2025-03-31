@@ -14,21 +14,14 @@ namespace Main.World.Mobs.Ghost.States
             Agent.StartCoroutine(Shoot());
             Executor.FinishedAttack = false;
             _biasRotation = Random.Range(-90, 90);
+            Agent.Animator.Play("Attack");
+            Agent.Velocity *= 0;
         }
-
-        public override void OnFixedUpdate()
-        {
-            base.OnFixedUpdate();
-            Agent.NavMeshAgent.SetDestination(Agent.detectedPlayer.Position);
-            var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
-            var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f * 0;
-            Agent.Velocity = (Quaternion.Euler(0,0, _biasRotation) * vel).normalized * Agent.MovementSpeed;
-        }
-        
 
         private IEnumerator Shoot()
         {
             Executor.CanAttack = false;
+            yield return new WaitForSeconds(1);
             for (var i = 0; i < Agent.RangedStats.AmmoCapacity; i++)
             {
                 if (!Agent || !Agent.detectedPlayer)

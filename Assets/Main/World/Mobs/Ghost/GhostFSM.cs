@@ -19,8 +19,9 @@ namespace Main.World.Mobs.Ghost
         public bool FinishedAttack { get; set; } = true;
         public float PlayerTooClose { get; set; } = 0;
 
-        private void Awake()
+        private void Start()
         {
+            SpawnPoint = ghost.Position;
             var idle = typeof(IdleState);
             var patrol = typeof(PatrolState);
             var chase = typeof(ChaseState);
@@ -83,10 +84,7 @@ namespace Main.World.Mobs.Ghost
         }
 
 
-        private void Start()
-        {
-            SpawnPoint = ghost.Position;
-        }
+       
 
         
 

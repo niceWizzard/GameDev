@@ -67,8 +67,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.00413844, y: -0.064514846}
-  m_Radius: 0.34036234
+  m_Offset: {x: 0.0041384697, y: 0.502676}
+  m_Radius: 0.40176296
 --- !u!114 &27498408140041973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -5899927303015767666, guid: b3370cd23393846418ea0f81acee057a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.875, y: 0.9375}
@@ -357,8 +357,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.049928486, y: -0.026153326}
-  m_Radius: 0.25477004
+  m_Offset: {x: 0.001029849, y: 0.43759197}
+  m_Radius: 0.3099771
 --- !u!114 &5407956428903910269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +404,7 @@ Animator:
   m_GameObject: {fileID: 3453898687403174852}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e2784ad505aaa9149aeeedd2a0e90e69, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
