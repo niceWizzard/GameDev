@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 933347695
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6814046994445013082, guid: d7b377608bf39544d81661a3c3384a0b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33046bfed3d851442a00b4147787c3be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -103,11 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f43a820e0eba924aa4a685bff234797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPerSecond: 5
-  ammoCapacity: 10
-  accuracy: 4
-  normalAttackDamage: 10
-  specialAttackDamage: 25
+  ownerStats: {fileID: 0}
   leftNozzleTransform: {fileID: 8819877636025232071}
   rightNozzleTransform: {fileID: 4877817975505174290}
   owner: {fileID: 0}
