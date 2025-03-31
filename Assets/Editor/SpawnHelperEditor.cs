@@ -15,6 +15,7 @@ namespace Editor
         {
             Ghost,
             BigGhost,
+            Slime,
             Door,
             Key,
             TimedSpikeTrap,
@@ -39,6 +40,7 @@ namespace Editor
             Keys.SealLamp => "Assets/Main/World/Objects/Lamp/SealLamp.prefab",
             Keys.Pedestal => "Assets/Main/World/Objects/Pedestal/Pedestal.prefab",
             Keys.HealthPotion => "Assets/Main/World/Objects/Items/Health Potion/HealthPotion.prefab",
+            Keys.Slime => "Assets/Main/World/Mobs/Slime/Slime.prefab",
             _ => throw new ArgumentOutOfRangeException(nameof(keys), keys, null)
         };
 
@@ -120,7 +122,9 @@ namespace Editor
         
         [MenuItem("Tools/Spawn/Items/Health Potion")]
         public static void SpawnHealthPotion() => SpawnPrefab(Keys.HealthPotion);
-        
+
+        [MenuItem("Tools/Spawn/Mobs/Slime")]
+        public static void SpawnSlime() => SpawnPrefab(Keys.Slime);
         
         private static GameObject SpawnPrefab(Keys key)
         {

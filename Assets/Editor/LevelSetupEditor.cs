@@ -5,6 +5,7 @@ using NavMeshPlus.Extensions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -116,7 +117,7 @@ namespace Editor
             wallsGo.AddComponent<TilemapCollider2D>();
             var modifier = wallsGo.AddComponent<NavMeshModifier>();
             modifier.overrideArea = true;
-            modifier.area = 0;
+            modifier.area = 1;
             CreateTileMap("BG", grid.transform);
         }
 
@@ -131,9 +132,11 @@ namespace Editor
                 }
             };
             var surface = navMeshGo.AddComponent<NavMeshSurface>();
-            navMeshGo.AddComponent<CollectSources2d>();
-            surface.defaultArea = 1;
-            
+            var collect = navMeshGo.AddComponent<CollectSources2d>();
+            collect.compressBounds = true;
+            surface.defaultArea = 0;
+            surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+            surface.BuildNavMesh();
             Undo.RegisterCreatedObjectUndo(navMeshGo, "Create Nav");
         }
 
