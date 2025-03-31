@@ -1,4 +1,5 @@
 using Main.Lib.FSM;
+using UnityEngine;
 
 namespace Main.World.Mobs.Slime.States
 {
@@ -13,9 +14,10 @@ namespace Main.World.Mobs.Slime.States
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            var toTarget = Agent.detectedPlayer.Position - Agent.Position;
-
-            Agent.Velocity = toTarget.normalized * Agent.MovementSpeed;
+            Agent.NavMeshAgent.SetDestination(Agent.detectedPlayer.Position);
+            var dir = ((Vector2)Agent.NavMeshAgent.desiredVelocity).normalized;
+            var vel = dir + Agent.ContextBasedSteer(dir) * 0.5f * 0;
+            Agent.Velocity = vel.normalized * Agent.MovementSpeed;
             Agent.SetFacingDirection();
         }
     }
