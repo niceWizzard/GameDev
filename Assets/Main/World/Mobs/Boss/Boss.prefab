@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 2707302830366066098}
   - component: {fileID: 4104643051168015420}
   - component: {fileID: 6415559783472546429}
+  - component: {fileID: 8639068881075265478}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Untagged
@@ -549,12 +550,13 @@ MonoBehaviour:
   mobDetector: {fileID: 7845373068264997892}
   dangerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   detectedPlayer: {fileID: 0}
   projectilePrefab: {fileID: 5491769752205316236, guid: 9d8ba155662a6e84aa4aa19bc239ee7f, type: 3}
   rangedStats: {fileID: 2707302830366066098}
   bodyHitbox: {fileID: 3510365406036523427}
   projectileSpawnPoint: {fileID: 2934666038401619275}
+  impulseSource: {fileID: 8639068881075265478}
 --- !u!114 &6415559783472546429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,3 +570,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randomizedItems: []
+--- !u!114 &8639068881075265478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8472005309565998581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 0
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 3
+    DissipationRate: 0
+    RawSignal: {fileID: 11400000, guid: 9dd8eec557eb5a74db48a4688e0ad971, type: 2}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  IgnoreTag: 
+  UseImpactDirection: 0
+  ScaleImpactWithMass: 0
+  ScaleImpactWithSpeed: 0
