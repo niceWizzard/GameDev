@@ -73,17 +73,17 @@ namespace Main.Lib.Mobs
         {
             NavMeshAgent.nextPosition = Position;
         }
-        
-        
+
+
         /// <summary>
         /// Supposed to let mob's movement detect obstacles and move accordingly.
         /// </summary>
         /// <param name="desiredVelocity">The direction the mob wants to go.</param>
+        /// <param name="rayLength"></param>
         /// <returns>The steered velocity that is safe from obstacles</returns>
-        public Vector2 ContextBasedSteer(Vector2 desiredVelocity)
+        public Vector2 ContextBasedSteer(Vector2 desiredVelocity, float rayLength=1.5f)
         {
             const int RAY_COUNT = 8;
-            const float RAY_LENGTH = 1.5f;
             var rays = Enumerable.Range(0,RAY_COUNT).Select(i =>
             {
                 var angle = (i * 2 * Mathf.PI / RAY_COUNT) * math.TODEGREES;
@@ -99,7 +99,7 @@ namespace Main.Lib.Mobs
             for (var i = 0; i < rays.Count; i++)
             {
                 var ray = rays[i];
-                var hit = Physics2D.Raycast(Position, ray, RAY_LENGTH, dangerMask);
+                var hit = Physics2D.Raycast(Position, ray, rayLength, dangerMask);
                 if (hit )
                 {
                     interests[i] -= 3f;
