@@ -88,7 +88,7 @@ namespace Main.World.Mobs.Boss.States
                 var perpendicular = new Vector2(-dir.y, dir.x); // Get a perpendicular vector
                 for (var j = -1; j < 2; j++)
                 {
-                    var translate = perpendicular * (j * 0.5f);
+                    var translate = perpendicular * (j * 0.8f);
                     SpawnProjectile( dir, Agent.ProjectileSpawn + translate);
                 }
                 yield return new WaitForSeconds(0.1f);
@@ -131,7 +131,7 @@ namespace Main.World.Mobs.Boss.States
                 var perpendicular = new Vector2(-dir.y, dir.x); // Get a perpendicular vector
                 for (var j = -1; j < 2; j++)
                 {
-                    var translate = perpendicular * (j * 0.5f);
+                    var translate = perpendicular * (j * 0.8f);
                     SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn + translate, 6);
                 }
                 yield return new WaitForSeconds(0.3f);
