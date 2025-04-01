@@ -9,10 +9,20 @@ namespace Main.World.Mobs.Boss.States
         private float _traveled = 4;
         private Vector2 _fixedDirection;
         private float _time = 2;
+        private bool _animationFinished = false;
         public override void OnEnter()
         {
             base.OnEnter();
             Executor.TackleStateDone = false;
+            _animationFinished = false;
+            Agent.Animator.Play("Tackle");
+            Agent.StartCoroutine(StartAnimationWaitTimer());
+        }
+
+        private IEnumerator StartAnimationWaitTimer()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _animationFinished = true;
         }
 
         public override void OnExit()
@@ -25,6 +35,8 @@ namespace Main.World.Mobs.Boss.States
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
+            if (!_animationFinished)
+                return;
             var toTarget = (Agent.detectedPlayer.Position - Agent.Position); 
             if (_traveled > 2)
             {
