@@ -23,7 +23,6 @@ namespace Main.World.Mobs.Boss
         
         private void Start()
         {
-        
             var idle = typeof(IdleState);
             var chill = typeof(RestState);
             var fleeStart = typeof(FleeStartState);
