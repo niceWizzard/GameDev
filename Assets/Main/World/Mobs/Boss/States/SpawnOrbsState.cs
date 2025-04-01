@@ -153,19 +153,8 @@ namespace Main.World.Mobs.Boss.States
                 yield return new WaitForSeconds(0.15f); // Delay between waves
             }
         }
-        
-        private void SpawnProjectile(Vector2 dir, Vector2 position, float speed =-1)
-        {
-            
-            var orb = Object.Instantiate(Agent.ProjectilePrefab);
-            orb.Setup(
-                position,
-                dir,
-                Agent,
-                Agent.RangedStats,
-                speed
-            );
-        }
+
+        private void SpawnProjectile(Vector2 pos, Vector2 dir, float speed=-1) => Executor.SpawnProjectile(pos, dir, speed);
         
         
     }
