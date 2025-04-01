@@ -14,8 +14,11 @@ namespace Main.Lib.Health
 
         private void Awake()
         {
-            SetMaxHealth(startingHealth);
+            if(MaxHealth == 0)
+                SetMaxHealth(startingHealth);
         }
+        
+        public float HealthPercentage => _health / MaxHealth;
 
         public float MaxHealth { get; private set; }
         public float Health => _health;

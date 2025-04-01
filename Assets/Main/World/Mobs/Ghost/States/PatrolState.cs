@@ -1,6 +1,7 @@
 using System;
 using Main.Lib.FSM;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Main.World.Mobs.Ghost.States
@@ -44,20 +45,20 @@ namespace Main.World.Mobs.Ghost.States
 
         }
         
-        
-        
         private Vector2 GetRandomPoint(Vector2 origin, float radius = 3f)
         {
             var iteration = 0;
             while (iteration++ < 1000)
             {
                 var angle = Random.Range(0f, 360f);
-                var distance = Random.Range(0.5f, radius);
+                var distance = Random.Range(3f, radius);
                 Vector2 point = (Vector3)origin + Quaternion.Euler(0, 0, angle) * Vector2.right * distance;
                 Agent.Collider2d.enabled = false;
                 var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, Agent.dangerMask);
                 Agent.Collider2d.enabled = true;
                 if (hit) continue;
+                if(!NavMesh.SamplePosition(point, out var navMeshHit,2, NavMesh.AllAreas))
+                    continue;
                 return point;
             }
             

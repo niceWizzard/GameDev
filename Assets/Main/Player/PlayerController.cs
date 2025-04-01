@@ -95,6 +95,7 @@ namespace Main.Player
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();
+            feetHurtbox.Disable();
             try
             {
                 for (var i = 0; i < 3; i++)
@@ -113,6 +114,7 @@ namespace Main.Player
                 return;
             }
             Hurtbox.Enable();
+            feetHurtbox.Enable();
             SetVisibility(true);
             InHurtAnimation = false;
         }
