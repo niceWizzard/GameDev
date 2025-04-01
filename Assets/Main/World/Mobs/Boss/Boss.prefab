@@ -249,8 +249,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 933347695
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -3626920284416232143, guid: c4b215a58a12b064f9446aa038cd9709, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -262,7 +262,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!58 &920792113029618736
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -409,14 +409,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  health: 10000
-  attackPower: 10
+  health: 5000
+  attackPower: 30
   specialAttackMultiplier: 1.5
   ammoCapacity: 7
   attackPerSecond: 4
   accuracy: 4
   reloadTime: 2
-  projectileSpeed: 5
+  projectileSpeed: 8
   disposeProjectilesOnDeath: 0
 --- !u!114 &4104643051168015420
 MonoBehaviour:
@@ -436,6 +436,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectedPlayer: {fileID: 0}
+  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
+  rangedStats: {fileID: 2707302830366066098}
 --- !u!114 &6415559783472546429
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8772,26 +8772,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2707302830366066098, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-      propertyPath: health
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2707302830366066098, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-      propertyPath: attackPower
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2707302830366066098, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-      propertyPath: projectileSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4104643051168015420, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-      propertyPath: rangedStats
-      value: 
-      objectReference: {fileID: 1612956454}
-    - target: {fileID: 4104643051168015420, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-      propertyPath: projectilePrefab
-      value: 
-      objectReference: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
     - target: {fileID: 8472005309565998581, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -9031,17 +9011,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1612956454 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2707302830366066098, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-  m_PrefabInstance: {fileID: 74036991}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8300be8396b10d44b828cf9dc9c16cb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1632713311
 GameObject:
   m_ObjectHideFlags: 0
