@@ -116,7 +116,7 @@ namespace Main.World.Mobs.Boss.States
                     break;
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
                 var driftAngle = Random.Range(-45f, 45f);
-                SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn);
+                SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn, 6);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -133,7 +133,7 @@ namespace Main.World.Mobs.Boss.States
                 for (var j = -1; j < 2; j++)
                 {
                     var translate = perpendicular * (j * 0.5f);
-                    SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn + translate);
+                    SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn + translate, 6);
                 }
                 yield return new WaitForSeconds(0.3f);
             }
@@ -154,14 +154,16 @@ namespace Main.World.Mobs.Boss.States
             }
         }
         
-        private void SpawnProjectile(Vector2 dir, Vector2 position)
+        private void SpawnProjectile(Vector2 dir, Vector2 position, float speed =-1)
         {
+            
             var orb = Object.Instantiate(Agent.ProjectilePrefab);
             orb.Setup(
                 position,
                 dir,
                 Agent,
-                Agent.RangedStats
+                Agent.RangedStats,
+                speed
             );
         }
         
