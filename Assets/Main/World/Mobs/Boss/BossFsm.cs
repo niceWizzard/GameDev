@@ -72,7 +72,6 @@ namespace Main.World.Mobs.Boss
                 // Rampage
                 Transition.Create(chill, rampage, () => !RampageOnCd && bossController.HealthComponent.HealthPercentage < .5f ),
                 Transition.Create(rampage, chill, () => RampageStateDone),
-                
             };
             Setup(
                 bossController,
