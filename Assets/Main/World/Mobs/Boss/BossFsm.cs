@@ -93,11 +93,6 @@ namespace Main.World.Mobs.Boss
             );
         }
 
-        private void LateUpdate()
-        {
-            Debug.Log(CurrentState);
-        }
-        
         
         public void SpawnProjectile(Vector2 dir, Vector2 position, float speed =-1)
         {
