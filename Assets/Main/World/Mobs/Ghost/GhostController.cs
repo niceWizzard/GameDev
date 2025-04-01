@@ -14,6 +14,9 @@ namespace Main.World.Mobs.Ghost
         [SerializeField] private ProjectileController projectilePrefab;
             
         [SerializeField] private RangedStats rangedStats;
+        [SerializeField] private Transform orbSpawn;
+        
+        public Vector2 OrbSpawn => orbSpawn.position;
         
         public ProjectileController ProjectilePrefab => projectilePrefab;
         public RangedStats RangedStats => rangedStats;

@@ -30,8 +30,8 @@ namespace Main.World.Mobs.Ghost.States
                     yield break;
                 }
                 var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
-                var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.Position +  dir.normalized * 3, Quaternion.identity);
-                projectile.Setup(Agent.Position, dir.normalized, Agent, Agent.RangedStats);
+                var projectile = Object.Instantiate(Agent.ProjectilePrefab, Agent.OrbSpawn, Quaternion.identity);
+                projectile.Setup(Agent.OrbSpawn, dir.normalized, Agent, Agent.RangedStats);
                 yield return new WaitForSeconds(0.25f);
             }
             yield return StartAttackCdTimer();

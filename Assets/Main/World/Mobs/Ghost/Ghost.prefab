@@ -206,6 +206,7 @@ Transform:
   m_Children:
   - {fileID: 3794591697007334637}
   - {fileID: 7930400701933209300}
+  - {fileID: 6453486218732660635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1871215968226044275
@@ -296,6 +297,7 @@ MonoBehaviour:
   detectedPlayer: {fileID: 0}
   projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
   rangedStats: {fileID: 8853054646203718346}
+  orbSpawn: {fileID: 6453486218732660635}
 --- !u!50 &4472328565976319353
 Rigidbody2D:
   serializedVersion: 5
@@ -453,3 +455,34 @@ MonoBehaviour:
   reloadTime: 2
   projectileSpeed: 5
   disposeProjectilesOnDeath: 0
+--- !u!1 &7975303160378781838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6453486218732660635}
+  m_Layer: 0
+  m_Name: OrbSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6453486218732660635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975303160378781838}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0067634583, y: 0.621, z: -0.016289867}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 964687445083250980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
