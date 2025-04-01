@@ -7,11 +7,12 @@ namespace Main.World.Mobs.Ghost.States
     {
         private float _patrolCd = 2;
         
-
+        
 
         public override void OnEnter()
         {
             base.OnEnter();
+            Agent.Animator.Play("Idle");
             _patrolCd = 2;
         }
 

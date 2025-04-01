@@ -11,6 +11,7 @@ namespace Main.World.Mobs.Ghost.States
         {
             base.OnEnter();
             _drift = Random.Range(-45, 45);
+            Agent.Animator.Play("Move");
         }
 
         public override void OnFixedUpdate()

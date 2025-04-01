@@ -8,6 +8,7 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.UI;
 using Main.Weapons.Gun;
+using Main.World.Mobs.Death_Animation;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
@@ -32,6 +33,7 @@ namespace Main.Player
         [SerializeField] private TMP_Text reloadingText;
 
         [SerializeField] private Transform gunAnchor;
+        [SerializeField] private Hurtbox feetHurtbox;
         
         private Camera _camera;
         private CinemachineImpulseSource _impulseSource;
@@ -54,11 +56,14 @@ namespace Main.Player
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
+            feetHurtbox.OnHurt += OnHurtboxHurt;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
             LoadStats();
             HealthComponent.SetMaxHealth(rangedStats.Health);
         }
+
+        
 
         public void LoadStats()
         {
@@ -110,6 +115,11 @@ namespace Main.Player
             Hurtbox.Enable();
             SetVisibility(true);
             InHurtAnimation = false;
+        }
+
+        protected override void OnDeathAnimation(DeathAnimation deathAnimation)
+        {
+            deathAnimation.Setup("PlayerDeath");
         }
 
         public void SetVisibility(bool visible)

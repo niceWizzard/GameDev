@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Main.Weapons
 {
+    [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
     public class ProjectileController : MonoBehaviour
     {
         protected IProjectileSender? ProjectileSender;
@@ -22,12 +23,14 @@ namespace Main.Weapons
         protected float Speed;
 
         protected bool DisposeOnDeath;
+        private Animator _animator;
 
 
         protected virtual void Awake()
         {
             CircleCollider2D = GetComponent<CircleCollider2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
         }
 
         protected virtual void FixedUpdate()
@@ -48,6 +51,7 @@ namespace Main.Weapons
             transform.localEulerAngles = new Vector3(0,0, angle);
             transform.position = pos;
             sender.SenderDispose += SenderOnSenderDispose;
+            _animator.Play("Spawn");
         }
 
         private void SenderOnSenderDispose()
@@ -69,11 +73,15 @@ namespace Main.Weapons
                     ? new DamageInfo(Damage, ProjectileSender.GameObject)
                     : new DamageInfo(Damage, null)
             );
-            Destroy(gameObject,0.2f);
             if (CircleCollider2D)
                 CircleCollider2D.enabled = false;
-            SpriteRenderer.enabled = false;
             Direction *= 0;
+            _animator.Play("Hit");
+        }
+
+        public void DestroyProjectile()
+        {
+            Destroy(gameObject);
         }
 
 

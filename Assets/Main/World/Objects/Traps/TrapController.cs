@@ -17,15 +17,22 @@ namespace Main.World.Objects.Traps
         [SerializeField]
         private Hitbox hitbox;
 
+        private Collider2D _collider;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _collider = GetComponent<Collider2D>();
             hitbox.HurtboxHit += OnHurtboxHit;
+            
         }
 
         private void Start()
         {
             hitbox.Disable();
+            _collider.includeLayers = LayerMask.GetMask("Player Feet");
+            hitbox.Collider.includeLayers = LayerMask.GetMask("Player Feet");
+            hitbox.Collider.excludeLayers = LayerMask.GetMask("Player Hurtbox");
         }
 
         private void OnDestroy()
@@ -40,7 +47,7 @@ namespace Main.World.Objects.Traps
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.CompareTag("Player") || !other.attachedRigidbody || _isActivated)
+            if (!other.CompareTag("PlayerFeet") || !other.attachedRigidbody || _isActivated)
                 return;
             _isActivated = true;
             _animator.SetBool(IsActivated, true);

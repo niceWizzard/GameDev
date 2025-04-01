@@ -1,6 +1,7 @@
 using System;
 using Main.Lib.Health;
 using Main.Lib.Mobs;
+using Main.World.Mobs.Death_Animation;
 using UnityEngine;
 
 namespace Main.World.Mobs.Slime
@@ -34,7 +35,11 @@ namespace Main.World.Mobs.Slime
                 SpriteRenderer.flipX = Mathf.Sign(Velocity.x) < 0; 
             }
         }
-        
-        
+
+
+        protected override void OnDeathAnimation(DeathAnimation deathAnimation)
+        {
+            deathAnimation.Setup("SlimeDeath");
+        }
     }
 }

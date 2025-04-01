@@ -82,7 +82,7 @@ namespace Main.Lib.Level
         private void PlayerOnDie()
         {
             _state = LevelState.Died;
-            Invoke(nameof(PlayerDeathMenu), 0.5f);
+            Invoke(nameof(PlayerDeathMenu), 2f);
         }
 
         public void PlayerDeathMenu()

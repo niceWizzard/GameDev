@@ -22,6 +22,8 @@ namespace Main.World.Objects.Traps.Timed.TimedSpikes
             _animator = GetComponent<Animator>();
             hitbox.Disable();
             hitbox.HurtboxHit += HitboxOnHurtboxHit;
+            hitbox.Collider.includeLayers = LayerMask.GetMask("Player Feet");
+            hitbox.Collider.excludeLayers = LayerMask.GetMask("Player Hurtbox");
             _time = startDelay;
         }
 

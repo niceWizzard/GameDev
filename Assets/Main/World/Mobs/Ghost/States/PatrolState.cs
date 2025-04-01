@@ -23,6 +23,7 @@ namespace Main.World.Mobs.Ghost.States
             Executor.ReachedPatrolPoint = false;
             _targetPoint = GetRandomPoint(Executor.SpawnPoint);
             Agent.NavMeshAgent.SetDestination(_targetPoint);
+            Agent.Animator.Play("Move");
         }
 
         public override void OnFixedUpdate()

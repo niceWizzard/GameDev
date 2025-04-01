@@ -9,6 +9,8 @@ namespace Main.Lib.Health
         private Collider2D _collider;
         public event Action<Hurtbox> HurtboxHit; 
         
+        public Collider2D Collider => _collider;
+        
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
