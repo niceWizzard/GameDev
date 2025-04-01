@@ -17,10 +17,12 @@ namespace Main.World.Mobs.Boss
         
         public bool AttackOnCd { get; set; }
         public bool TackleOnCd { get; set; }
+        public bool RampageOnCd { get; set; }
 
         public bool AttackStateDone { get; set; } = true;
         
         public bool TackleStateDone { get; set; } = true;
+        public bool RampageStateDone { get; set; } = true;
 
         public float ShouldFlee { get; set; } = 1;
         
@@ -32,6 +34,7 @@ namespace Main.World.Mobs.Boss
             var fleeFinish = typeof(FleeFinishState);
             var tackle = typeof(TackleState);
             var spawnOrbAttackState = typeof(SpawnOrbsState);
+            var rampage = typeof(RampageState);
             var states = new List<Type>()
             {
                 idle,
@@ -39,6 +42,7 @@ namespace Main.World.Mobs.Boss
                 fleeStart,
                 fleeFinish,
                 tackle,
+                rampage,
                 spawnOrbAttackState,
             };
 
@@ -53,6 +57,8 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
                 
+                
+                
                 //Tackle
                 Transition.Create(chill, tackle, () => 
                     AttackOnCd && !TackleOnCd && bossController.detectedPlayer 
@@ -61,7 +67,12 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(tackle, chill, () => !bossController.detectedPlayer || TackleStateDone) ,
                 // Spawn orb
                 Transition.Create(chill, spawnOrbAttackState, () => PlayerInSweetSpot && !AttackOnCd),
-                Transition.Create(spawnOrbAttackState, chill, () => AttackStateDone)
+                Transition.Create(spawnOrbAttackState, chill, () => AttackStateDone),
+                
+                // Rampage
+                Transition.Create(chill, rampage, () => !RampageOnCd && bossController.HealthComponent.HealthPercentage < .5f ),
+                Transition.Create(rampage, chill, () => RampageStateDone),
+                
             };
             Setup(
                 bossController,
@@ -75,6 +86,20 @@ namespace Main.World.Mobs.Boss
         private void LateUpdate()
         {
             Debug.Log(CurrentState);
+        }
+        
+        
+        public void SpawnProjectile(Vector2 dir, Vector2 position, float speed =-1)
+        {
+            
+            var orb = Instantiate(bossController.ProjectilePrefab);
+            orb.Setup(
+                position,
+                dir,
+                bossController,
+                bossController.RangedStats,
+                speed
+            );
         }
     }
 }

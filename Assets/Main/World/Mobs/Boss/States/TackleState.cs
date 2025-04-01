@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Main.World.Mobs.Boss.States
 {
-    public class TackleState: State<BossFsm, BossController>
+    public class TackleState : State<BossFsm, BossController>
     {
         private float _traveled = 4;
         private Vector2 _fixedDirection;
