@@ -16,8 +16,11 @@ namespace Main.World.Mobs.Boss
         public bool FleeFinishDone { get; set; }
         
         public bool AttackOnCd { get; set; }
+        public bool TackleOnCd { get; set; }
 
         public bool AttackStateDone { get; set; } = true;
+        
+        public bool TackleStateDone { get; set; } = true;
 
         public float ShouldFlee { get; set; } = 1;
         
@@ -27,6 +30,7 @@ namespace Main.World.Mobs.Boss
             var chill = typeof(RestState);
             var fleeStart = typeof(FleeStartState);
             var fleeFinish = typeof(FleeFinishState);
+            var tackle = typeof(TackleState);
             var spawnOrbAttackState = typeof(SpawnOrbsState);
             var states = new List<Type>()
             {
@@ -34,6 +38,7 @@ namespace Main.World.Mobs.Boss
                 chill,
                 fleeStart,
                 fleeFinish,
+                tackle,
                 spawnOrbAttackState,
             };
 
@@ -47,6 +52,14 @@ namespace Main.World.Mobs.Boss
                 ),
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
+                
+                //Tackle
+                Transition.Create(chill, tackle, () => 
+                    AttackOnCd && !TackleOnCd && bossController.detectedPlayer 
+                    && Vector2.Distance(bossController.detectedPlayer.Position, bossController.Position) > 3
+                ),
+                Transition.Create(tackle, chill, () => !bossController.detectedPlayer || TackleStateDone) ,
+                // Spawn orb
                 Transition.Create(chill, spawnOrbAttackState, () => PlayerInSweetSpot && !AttackOnCd),
                 Transition.Create(spawnOrbAttackState, chill, () => AttackStateDone)
             };
