@@ -22,6 +22,7 @@ namespace Main.World.Mobs.Boss.States
                 (30, StraightSingleBulletSpawn),
                 (5, ScatteredTripleBulletSpawn),
                 (5, ScatteredSingleBulletSpawn),
+                (10, SpiralBulletSpawn)
             };
         }
 
@@ -115,6 +116,21 @@ namespace Main.World.Mobs.Boss.States
                     SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.Position + translate);
                 }
                 yield return new WaitForSeconds(0.3f);
+            }
+        }
+
+        private IEnumerator SpiralBulletSpawn()
+        {
+            const float angleStep = 360f / 20; 
+            
+            var dir = (Agent.detectedPlayer.Position - Agent.Position).normalized;
+            for (var wave = 0; wave < 20; wave++) 
+            {
+                var angle = wave * angleStep; 
+                var d = Quaternion.Euler(0,0, angle) * dir;
+                SpawnProjectile(d, Agent.Position);
+                SpawnProjectile(-d, Agent.Position);
+                yield return new WaitForSeconds(0.15f); // Delay between waves
             }
         }
         
