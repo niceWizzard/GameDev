@@ -551,7 +551,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectedPlayer: {fileID: 0}
-  projectilePrefab: {fileID: 5491769752205316236, guid: 650754e6414217144ac0ea88b6da0021, type: 3}
+  projectilePrefab: {fileID: 5491769752205316236, guid: 9d8ba155662a6e84aa4aa19bc239ee7f, type: 3}
   rangedStats: {fileID: 2707302830366066098}
   bodyHitbox: {fileID: 3510365406036523427}
   projectileSpawnPoint: {fileID: 2934666038401619275}
