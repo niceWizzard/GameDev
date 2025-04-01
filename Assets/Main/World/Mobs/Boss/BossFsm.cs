@@ -49,16 +49,13 @@ namespace Main.World.Mobs.Boss
             var transitions = new List<Transition>()
             {
                 Transition.Create(idle, chill, () => bossController.detectedPlayer),
-                Transition.Create(chill, idle, () => !bossController.detectedPlayer),
+                Transition.Create(Lib.FSM.States.AnyState, idle, () => !bossController.detectedPlayer),
                 Transition.MultiFrom(fleeStart, 
                     () => bossController.detectedPlayer && ShouldFlee <= 0, 
                 chill, idle
                 ),
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
-                
-                
-                
                 //Tackle
                 Transition.Create(chill, tackle, () => 
                     AttackOnCd && !TackleOnCd && bossController.detectedPlayer 
