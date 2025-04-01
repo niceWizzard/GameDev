@@ -12,6 +12,9 @@ namespace Main.World.Mobs.Boss
         [SerializeField] private ProjectileController projectilePrefab;
         [SerializeField] private RangedStats rangedStats;
         [SerializeField] private Hitbox bodyHitbox;
+        [SerializeField] private Transform projectileSpawnPoint;
+        
+        public Vector2 ProjectileSpawn => projectileSpawnPoint.position;
         public ProjectileController ProjectilePrefab => projectilePrefab;
         public RangedStats RangedStats => rangedStats;
 
