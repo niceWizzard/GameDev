@@ -15,6 +15,10 @@ namespace Main.World.Mobs.Boss
         public bool FleeStartDone { get; set; }
         public bool FleeFinishDone { get; set; }
         
+        public bool AttackOnCd { get; set; }
+
+        public bool AttackStateDone { get; set; } = true;
+        
         private void Start()
         {
         
@@ -22,17 +26,20 @@ namespace Main.World.Mobs.Boss
             var chill = typeof(RestState);
             var fleeStart = typeof(FleeStartState);
             var fleeFinish = typeof(FleeFinishState);
+            var spawnOrbAttackState = typeof(SpawnOrbsState);
             var states = new List<Type>()
             {
                 idle,
                 chill,
                 fleeStart,
-                fleeFinish
+                fleeFinish,
+                spawnOrbAttackState,
             };
 
             var transitions = new List<Transition>()
             {
                 Transition.Create(idle, chill, () => bossController.detectedPlayer),
+                Transition.Create(chill, idle, () => !bossController.detectedPlayer),
                 Transition.MultiFrom(fleeStart, 
                     () => bossController.detectedPlayer &&
                                                  Vector2.Distance(bossController.Position, bossController.detectedPlayer.Position) < 1.2f, 
@@ -40,6 +47,8 @@ namespace Main.World.Mobs.Boss
                 ),
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
+                Transition.Create(chill, spawnOrbAttackState, () => PlayerInSweetSpot && !AttackOnCd),
+                Transition.Create(spawnOrbAttackState, chill, () => AttackStateDone)
             };
             Setup(
                 bossController,
@@ -48,6 +57,11 @@ namespace Main.World.Mobs.Boss
                 idle,
                 this
             );
+        }
+
+        private void LateUpdate()
+        {
+            Debug.Log(CurrentState);
         }
     }
 }
