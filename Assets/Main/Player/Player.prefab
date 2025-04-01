@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c703a6c408df90c4f91c987ada4d229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  startingHealth: 100
 --- !u!114 &9213815184446082909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,8 +870,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.01608003, y: 0.13130221}
-  m_Size: {x: 0.22098137, y: 0.2593996}
+  m_Offset: {x: 0.01608003, y: 0.20028192}
+  m_Size: {x: 0.17092517, y: 0.397359}
   m_Direction: 0
 --- !u!210 &4896112983767289640
 SortingGroup:
