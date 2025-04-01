@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Main.Lib.FSM;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Main.World.Mobs.Boss.States
@@ -46,6 +47,8 @@ namespace Main.World.Mobs.Boss.States
                 var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, Agent.dangerMask);
                 Agent.Collider2d.enabled = true;
                 if (hit) continue;
+                if(!NavMesh.SamplePosition(point, out var navMeshHit,2, NavMesh.AllAreas))
+                    continue;
                 return point;
             }
             
