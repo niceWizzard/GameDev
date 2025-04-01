@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Lib.Health;
+using Main.Lib.Singleton;
 using Main.Lib.Stat;
 using Main.UI;
 using Main.Weapons;
+using Main.World.Mobs.Death_Animation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -134,8 +136,24 @@ namespace Main.Lib
         protected virtual void OnHealthZero()
         {
             SenderDispose?.Invoke();
+            SpawnDeathAnimation();
             Destroy(gameObject);
         }
+
+        private void SpawnDeathAnimation()
+        {
+            var instance = PrefabLoader.SpawnDeathAnimation();
+            instance.transform.position = Position;
+            instance.transform.localScale = transform.localScale;
+            instance.SpriteRenderer.flipX = SpriteRenderer.flipX;
+            instance.SpriteRenderer.color = SpriteRenderer.color;
+            instance.SpriteRenderer.spriteSortPoint = SpriteRenderer.spriteSortPoint;
+            instance.SpriteRenderer.sortingOrder = SpriteRenderer.sortingOrder;
+            instance.SpriteRenderer.sortingLayerID = SpriteRenderer.sortingLayerID;
+            OnDeathAnimation(instance);
+        }
+
+        protected abstract void OnDeathAnimation(DeathAnimation deathAnimation);
 
         public GameObject GameObject => gameObject;
         public event Action SenderDispose;

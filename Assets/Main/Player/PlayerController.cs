@@ -8,6 +8,7 @@ using Main.Lib.Save;
 using Main.Lib.Singleton;
 using Main.UI;
 using Main.Weapons.Gun;
+using Main.World.Mobs.Death_Animation;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
@@ -110,6 +111,11 @@ namespace Main.Player
             Hurtbox.Enable();
             SetVisibility(true);
             InHurtAnimation = false;
+        }
+
+        protected override void OnDeathAnimation(DeathAnimation deathAnimation)
+        {
+            deathAnimation.Setup("PlayerDeath");
         }
 
         public void SetVisibility(bool visible)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Main.World.Mobs.Old_Man
 {
-    public class OldMan : MobController
+    public class OldMan
     {
         
     }
