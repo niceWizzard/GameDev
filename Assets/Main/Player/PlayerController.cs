@@ -33,6 +33,7 @@ namespace Main.Player
         [SerializeField] private TMP_Text reloadingText;
 
         [SerializeField] private Transform gunAnchor;
+        [SerializeField] private Hurtbox feetHurtbox;
         
         private Camera _camera;
         private CinemachineImpulseSource _impulseSource;
@@ -55,11 +56,14 @@ namespace Main.Player
         {
             gun.OnReloadStart += GunOnReloadStart;
             gun.OnReloadEnd += GunOnReloadEnd;
+            feetHurtbox.OnHurt += OnHurtboxHurt;
             reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
             LoadStats();
             HealthComponent.SetMaxHealth(rangedStats.Health);
         }
+
+        
 
         public void LoadStats()
         {

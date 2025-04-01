@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlayerBullet
+  - PlayerFeet
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Enemy Hitbox
   - Player Hurtbox
   - Enemy Hurtbox
-  - 
+  - Player Feet
   - 
   - 
   - 

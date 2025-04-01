@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f13d44953556f459912bbdeba9b54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 101
   startDelay: 0
   endDelay: 1.5
   hitbox: {fileID: 1815897544369310458}
@@ -138,7 +139,7 @@ GameObject:
   - component: {fileID: 2804956134752782984}
   - component: {fileID: 8224935844509434614}
   - component: {fileID: 1815897544369310458}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +177,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
