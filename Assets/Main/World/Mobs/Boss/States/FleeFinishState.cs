@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Main.Lib.FSM;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Main.World.Mobs.Boss.States
@@ -15,6 +16,7 @@ namespace Main.World.Mobs.Boss.States
             Agent.Animator.Play("Flee");
             Agent.Collider2d.enabled = true;
             Agent.Hurtbox.Enable();
+            Agent.BodyHitbox.Enable();
             Agent.SpriteRenderer.DOFade(1, 1f).SetLink(Agent.gameObject);
             Agent.Velocity *= 0;
             Agent.Position = GetRandomPoint(Agent.detectedPlayer.Position, 9);
@@ -46,6 +48,8 @@ namespace Main.World.Mobs.Boss.States
                 var hit = Physics2D.CircleCast(point, 0.5f, Vector2.zero, 0, Agent.dangerMask);
                 Agent.Collider2d.enabled = true;
                 if (hit) continue;
+                if(!NavMesh.SamplePosition(point, out var navMeshHit,2, NavMesh.AllAreas))
+                    continue;
                 return point;
             }
             

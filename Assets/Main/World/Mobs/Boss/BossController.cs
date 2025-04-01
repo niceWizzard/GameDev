@@ -3,6 +3,7 @@ using Main.Lib.Mobs;
 using Main.Weapons;
 using Main.Weapons.Gun;
 using Main.World.Mobs.Death_Animation;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Main.World.Mobs.Boss
@@ -13,10 +14,14 @@ namespace Main.World.Mobs.Boss
         [SerializeField] private RangedStats rangedStats;
         [SerializeField] private Hitbox bodyHitbox;
         [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] private CinemachineImpulseSource impulseSource;
+        
+        public CinemachineImpulseSource CinemachineImpulseSource => impulseSource;
         
         public Vector2 ProjectileSpawn => projectileSpawnPoint.position;
         public ProjectileController ProjectilePrefab => projectilePrefab;
         public RangedStats RangedStats => rangedStats;
+        public Hitbox BodyHitbox => bodyHitbox;
 
         protected override void Start()
         {
@@ -31,7 +36,7 @@ namespace Main.World.Mobs.Boss
 
         protected override void OnDeathAnimation(DeathAnimation deathAnimation)
         {
-            deathAnimation.Setup("GhostDeath");
+            deathAnimation.Setup("BossDeath");
         }
     }
 }

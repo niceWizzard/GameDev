@@ -17,6 +17,7 @@ namespace Main.World.Mobs.Boss.States
             base.OnFixedUpdate();
             var distance = Vector2.Distance(Agent.Position, Agent.detectedPlayer.Position);
             var toTarget = (Agent.detectedPlayer.Position - Agent.Position).normalized;
+            var vel = (Agent.Velocity.normalized + Agent.ContextBasedSteer(toTarget, 2.5f) * 0.5f).normalized * Agent.MovementSpeed;
             Executor.PlayerInSweetSpot = false;
             switch (distance)
             {
@@ -27,10 +28,10 @@ namespace Main.World.Mobs.Boss.States
                     Executor.ShouldFlee -= Time.fixedDeltaTime;
                     break;
                 case < 3f:
-                    MoveAway(-toTarget);
+                    Agent.Velocity = -vel;
                     break;
                 case > 4f:
-                    MoveTowards(toTarget);
+                    Agent.Velocity = vel;
                     break;
                 default:
                     Agent.Velocity = Vector2.zero;
@@ -39,15 +40,6 @@ namespace Main.World.Mobs.Boss.States
             }
         }
 
-        private void MoveAway(Vector2 dir)
-        {
-            Agent.Velocity = dir.normalized * Agent.MovementSpeed;
-        }
-
-        private void MoveTowards(Vector2 dir)
-        {
-            Agent.Velocity = dir.normalized * Agent.MovementSpeed;
-            Executor.ShouldFlee += Time.fixedDeltaTime;
-        }
+        
     }
 }

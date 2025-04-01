@@ -8781,17 +8781,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
---- !u!114 &74036992 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4104643051168015420, guid: ccf47de186c846a40bb3f143eaa9233c, type: 3}
-  m_PrefabInstance: {fileID: 74036991}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1179c47904424449478c37c7b39f24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &152990534
 GameObject:
   m_ObjectHideFlags: 0
@@ -8995,7 +8984,7 @@ MonoBehaviour:
   safeSpawn: {fileID: 911593452}
   completionStatue: {fileID: 350654586}
   _requirements: []
-  boss: {fileID: 74036992}
+  boss: {fileID: 0}
 --- !u!4 &911593452
 Transform:
   m_ObjectHideFlags: 0

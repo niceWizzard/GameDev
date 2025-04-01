@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Main.Lib.FSM;
 using Main.World.Mobs.Boss.States;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Main.World.Mobs.Boss
 {
@@ -18,6 +19,7 @@ namespace Main.World.Mobs.Boss
         public bool AttackOnCd { get; set; }
         public bool TackleOnCd { get; set; }
         public bool RampageOnCd { get; set; }
+        public bool SummonOnCd { get; set; }
 
         public bool AttackStateDone { get; set; } = true;
         
@@ -25,7 +27,8 @@ namespace Main.World.Mobs.Boss
         public bool RampageStateDone { get; set; } = true;
 
         public float ShouldFlee { get; set; } = 1;
-        
+        public bool SummonStartStateDone { get; set; }
+
         private void Start()
         {
             var idle = typeof(IdleState);
@@ -35,6 +38,7 @@ namespace Main.World.Mobs.Boss
             var tackle = typeof(TackleState);
             var spawnOrbAttackState = typeof(SpawnOrbsState);
             var rampage = typeof(RampageState);
+            var summonStartState = typeof(SummonStartState);
             var states = new List<Type>()
             {
                 idle,
@@ -44,12 +48,13 @@ namespace Main.World.Mobs.Boss
                 tackle,
                 rampage,
                 spawnOrbAttackState,
+                summonStartState,
             };
 
             var transitions = new List<Transition>()
             {
                 Transition.Create(idle, chill, () => bossController.detectedPlayer),
-                Transition.Create(chill, idle, () => !bossController.detectedPlayer),
+                Transition.Create(Lib.FSM.States.AnyState, idle, () => !bossController.detectedPlayer),
                 Transition.MultiFrom(fleeStart, 
                     () => bossController.detectedPlayer && ShouldFlee <= 0, 
                 chill, idle
@@ -57,7 +62,12 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
                 
-                
+                // Summon
+                Transition.Create(chill, summonStartState, () => !SummonOnCd && TackleOnCd && AttackOnCd
+                                            && bossController.HealthComponent.HealthPercentage < .75f  
+                                            &&Random.Range(0, 20) < 3 
+                ),
+                Transition.Create(summonStartState, fleeFinish, () => SummonStartStateDone),
                 
                 //Tackle
                 Transition.Create(chill, tackle, () => 
@@ -82,11 +92,6 @@ namespace Main.World.Mobs.Boss
             );
         }
 
-        private void LateUpdate()
-        {
-            Debug.Log(CurrentState);
-        }
-        
         
         public void SpawnProjectile(Vector2 dir, Vector2 position, float speed =-1)
         {

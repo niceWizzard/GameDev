@@ -11,20 +11,20 @@ namespace Main.World.Mobs.Boss.States
 {
     public class SpawnOrbsState : State<BossFsm, BossController>
     {
-        private List<(float, Func<IEnumerator>)> attackPattern;
+        private List<(float, string,Func<IEnumerator>)> attackPattern;
 
         
 
         public override void OnSetup()
         {
             base.OnSetup();
-            attackPattern = new List<(float, Func<IEnumerator>)>
+            attackPattern = new List<(float, string,Func<IEnumerator>)>
             {
-                (30, TripleBulletSpawn),
-                (30, StraightSingleBulletSpawn),
-                (5, ScatteredTripleBulletSpawn),
-                (5, ScatteredSingleBulletSpawn),
-                (10, SpiralBulletSpawn)
+                (30, "Attack2", TripleBulletSpawn),
+                (5, "Attack2",ScatteredTripleBulletSpawn),
+                (30, "Attack1", StraightSingleBulletSpawn),
+                (5, "Attack1",ScatteredSingleBulletSpawn),
+                (10, "Attack1",SpiralBulletSpawn)
             };
             Agent.HealthComponent.OnHealthChange += AgentHealthChange;
         }
@@ -37,11 +37,11 @@ namespace Main.World.Mobs.Boss.States
             if (percent > 0.7)
                 return;
             attackPattern = new (){
-                (20, TripleBulletSpawn),
-                (20, StraightSingleBulletSpawn),
-                (15, ScatteredTripleBulletSpawn),
-                (15, ScatteredSingleBulletSpawn),
-                (10, SpiralBulletSpawn)
+                (20, "Attack2",TripleBulletSpawn),
+                (15, "Attack2",ScatteredTripleBulletSpawn),
+                (20, "Attack1",StraightSingleBulletSpawn),
+                (15, "Attack1",ScatteredSingleBulletSpawn),
+                (10, "Attack1",SpiralBulletSpawn)
             };
             Agent.HealthComponent.OnHealthChange -= AgentHealthChange;
         }
@@ -49,7 +49,6 @@ namespace Main.World.Mobs.Boss.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Agent.Animator.Play("Attack1");
             Executor.AttackOnCd = true;
             Executor.AttackStateDone = false;
             Agent.StartCoroutine(StartSpawningOrbs());
@@ -57,9 +56,7 @@ namespace Main.World.Mobs.Boss.States
 
         private IEnumerator StartSpawningOrbs()
         {
-            yield return new WaitForSeconds(1);
             yield return RandomAttack();
-
             Executor.AttackStateDone = true;
             yield return new WaitForSeconds(2.5f);
             Executor.AttackOnCd = false;
@@ -69,10 +66,12 @@ namespace Main.World.Mobs.Boss.States
         {
             var roll = Random.Range(0,100f); 
             float cumulativeProbability = 0;
-            foreach (var (prob, action) in attackPattern)
+            foreach (var (prob, anim, action) in attackPattern)
             {
                 cumulativeProbability += prob;
                 if (!(roll <= cumulativeProbability)) continue;
+                Agent.Animator.Play(anim);
+                yield return new WaitForSeconds(1);
                 yield return action?.Invoke();
                 yield break;
             }
@@ -89,7 +88,7 @@ namespace Main.World.Mobs.Boss.States
                 var perpendicular = new Vector2(-dir.y, dir.x); // Get a perpendicular vector
                 for (var j = -1; j < 2; j++)
                 {
-                    var translate = perpendicular * (j * 0.5f);
+                    var translate = perpendicular * (j * 0.8f);
                     SpawnProjectile( dir, Agent.ProjectileSpawn + translate);
                 }
                 yield return new WaitForSeconds(0.1f);
@@ -132,7 +131,7 @@ namespace Main.World.Mobs.Boss.States
                 var perpendicular = new Vector2(-dir.y, dir.x); // Get a perpendicular vector
                 for (var j = -1; j < 2; j++)
                 {
-                    var translate = perpendicular * (j * 0.5f);
+                    var translate = perpendicular * (j * 0.8f);
                     SpawnProjectile(Quaternion.Euler(0,0,driftAngle) * dir, Agent.ProjectileSpawn + translate, 6);
                 }
                 yield return new WaitForSeconds(0.3f);

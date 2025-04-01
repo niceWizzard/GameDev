@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathAnimationPrefab: {fileID: -5725734582755648497, guid: f181bcbe1fe41b248a5dc5302efe9c89, type: 3}
+  ghostPrefab: {fileID: 8904548540393660312, guid: 5985cfd3cf65d6f4eb5b724aae160320, type: 3}
