@@ -6,7 +6,7 @@ namespace Main.World.Mobs.Boss.States
 {
     public class TackleState : State<BossFsm, BossController>
     {
-        private float _traveled = 4;
+        private float _traveled = 10;
         private Vector2 _fixedDirection;
         private float _time = 2;
         private bool _animationFinished = false;
@@ -28,7 +28,7 @@ namespace Main.World.Mobs.Boss.States
         public override void OnExit()
         {
             base.OnExit();
-            _traveled = 4;
+            _traveled = 10;
             _time = 2;
         }
 
@@ -38,7 +38,7 @@ namespace Main.World.Mobs.Boss.States
             if (!_animationFinished)
                 return;
             var toTarget = (Agent.detectedPlayer.Position - Agent.Position); 
-            if (_traveled > 2)
+            if (_traveled > 7)
             {
                 var dir = toTarget.normalized;
                 var multiplier = _traveled > 3 ? 1.5f : 3f;
@@ -51,7 +51,10 @@ namespace Main.World.Mobs.Boss.States
             }
             _traveled -= Agent.Velocity.magnitude * Time.fixedDeltaTime;
             _time -= Time.fixedDeltaTime;
-            if (_time > 0 && ( _traveled > 0 || toTarget.magnitude > 0.4)) return;
+            var hit = Physics2D.CircleCast(Agent.Position, Agent.Collider2d.bounds.size.x, Vector2.zero, 1,layerMask:  LayerMask.GetMask("World"));
+            if (_time > 0 && _traveled > 0 && toTarget.magnitude > 0.4 && !hit.collider) return;
+            if(hit.collider)
+                Agent.CinemachineImpulseSource.GenerateImpulse(3);
             Executor.TackleStateDone = true;
             Agent.Velocity *= 0;
             Agent.StartCoroutine(StartTackleCd());
