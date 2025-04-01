@@ -1,28 +1,53 @@
 using System;
 using System.Collections.Generic;
 using Main.Lib.FSM;
-using Main.World.Mobs.Boss;
+using Main.World.Mobs.Boss.States;
 using UnityEngine;
 
-public class BossFsm : StateMachine<BossFsm, BossController>
+namespace Main.World.Mobs.Boss
 {
-    [SerializeField] private BossController bossController;
-    private void Start()
+    public class BossFsm : StateMachine<BossFsm, BossController>
     {
+        [SerializeField] private BossController bossController;
+
+        public bool PlayerInSweetSpot { get; set; } = true;
         
-        var idle = typeof(IdleState);
-        var states = new List<Type>()
+        public bool FleeStartDone { get; set; }
+        public bool FleeFinishDone { get; set; }
+        
+        private void Start()
         {
-            idle,
-        };
         
-        var transitions = new List<Transition>();
-        Setup(
-            bossController,
-            states,
-            transitions,    
-            idle,
-            this
-        );
+            var idle = typeof(IdleState);
+            var chill = typeof(RestState);
+            var fleeStart = typeof(FleeStartState);
+            var fleeFinish = typeof(FleeFinishState);
+            var states = new List<Type>()
+            {
+                idle,
+                chill,
+                fleeStart,
+                fleeFinish
+            };
+
+            var transitions = new List<Transition>()
+            {
+                Transition.Create(idle, chill, () => bossController.detectedPlayer),
+                Transition.MultiFrom(fleeStart, 
+                    () => bossController.detectedPlayer &&
+                                                 Vector2.Distance(bossController.Position, bossController.detectedPlayer.Position) < 1.2f, 
+                chill, idle
+                ),
+                Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),
+                Transition.Create(fleeFinish, chill, () => FleeFinishDone),
+            };
+            Setup(
+                bossController,
+                states,
+                transitions,    
+                idle,
+                this
+            );
+        }
     }
 }
