@@ -40,12 +40,12 @@ namespace Main.Weapons
             TraveledDistance += v.magnitude;
         }
 
-        public virtual void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  RangedStats stats)
+        public virtual void Setup(Vector2 pos,Vector2 dir, IProjectileSender sender,  RangedStats stats, float speed=-1)
         {
             Damage = stats.AttackPower;
             Direction = dir;
             ProjectileSender = sender;
-            Speed = stats.ProjectileSpeed;
+            Speed = Mathf.Approximately(speed, -1) ? stats.ProjectileSpeed : speed;
             DisposeOnDeath = stats.DisposeProjectilesOnDeath;
             var angle = math.atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.localEulerAngles = new Vector3(0,0, angle);
