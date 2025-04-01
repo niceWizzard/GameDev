@@ -18,6 +18,8 @@ namespace Main.World.Mobs.Boss
         public bool AttackOnCd { get; set; }
 
         public bool AttackStateDone { get; set; } = true;
+
+        public float ShouldFlee { get; set; } = 1;
         
         private void Start()
         {
@@ -41,8 +43,7 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(idle, chill, () => bossController.detectedPlayer),
                 Transition.Create(chill, idle, () => !bossController.detectedPlayer),
                 Transition.MultiFrom(fleeStart, 
-                    () => bossController.detectedPlayer &&
-                                                 Vector2.Distance(bossController.Position, bossController.detectedPlayer.Position) < 1.2f, 
+                    () => bossController.detectedPlayer && ShouldFlee <= 0, 
                 chill, idle
                 ),
                 Transition.Create(fleeStart, fleeFinish, () => FleeStartDone),

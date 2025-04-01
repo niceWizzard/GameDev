@@ -1,5 +1,6 @@
 using Main.Lib.FSM;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Main.World.Mobs.Boss.States
 {
@@ -19,6 +20,12 @@ namespace Main.World.Mobs.Boss.States
             Executor.PlayerInSweetSpot = false;
             switch (distance)
             {
+                case < 1.5f:
+                    Executor.ShouldFlee = 0;
+                    break;
+                case < 2:
+                    Executor.ShouldFlee -= Time.fixedDeltaTime;
+                    break;
                 case < 3f:
                     MoveAway(-toTarget);
                     break;
@@ -40,6 +47,7 @@ namespace Main.World.Mobs.Boss.States
         private void MoveTowards(Vector2 dir)
         {
             Agent.Velocity = dir.normalized * Agent.MovementSpeed;
+            Executor.ShouldFlee += Time.fixedDeltaTime;
         }
     }
 }

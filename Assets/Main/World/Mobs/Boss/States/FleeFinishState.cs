@@ -31,6 +31,7 @@ namespace Main.World.Mobs.Boss.States
         {
             base.OnExit();
             Executor.FleeFinishDone = false;
+            Executor.ShouldFlee = 1;
         }
 
         private Vector2 GetRandomPoint(Vector2 origin, float radius = 3f)
