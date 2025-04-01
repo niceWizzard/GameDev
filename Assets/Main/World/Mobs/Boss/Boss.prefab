@@ -526,7 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   health: 8000
-  attackPower: 30
+  attackPower: 45
   specialAttackMultiplier: 1.5
   ammoCapacity: 7
   attackPerSecond: 4
