@@ -11,7 +11,9 @@ namespace Main.World.Mobs.Boss.States
 {
     public class SpawnOrbsState : State<BossFsm, BossController>
     {
-        private  List<(float, Func<IEnumerator>)> attackPattern;
+        private List<(float, Func<IEnumerator>)> attackPattern;
+
+        
 
         public override void OnSetup()
         {
@@ -24,6 +26,24 @@ namespace Main.World.Mobs.Boss.States
                 (5, ScatteredSingleBulletSpawn),
                 (10, SpiralBulletSpawn)
             };
+            Agent.HealthComponent.OnHealthChange += AgentHealthChange;
+        }
+
+        private void AgentHealthChange(float obj)
+        {
+            if (!Agent)
+                return;
+            var percent = Agent.HealthComponent.Health / Agent.HealthComponent.MaxHealth;
+            if (percent > 0.7)
+                return;
+            attackPattern = new (){
+                (20, TripleBulletSpawn),
+                (20, StraightSingleBulletSpawn),
+                (15, ScatteredTripleBulletSpawn),
+                (15, ScatteredSingleBulletSpawn),
+                (10, SpiralBulletSpawn)
+            };
+            Agent.HealthComponent.OnHealthChange -= AgentHealthChange;
         }
 
         public override void OnEnter()
