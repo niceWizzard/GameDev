@@ -35,7 +35,7 @@ namespace Main.World.Mobs.Boss
 
         protected override void OnDeathAnimation(DeathAnimation deathAnimation)
         {
-            deathAnimation.Setup("GhostDeath");
+            deathAnimation.Setup("BossDeath");
         }
     }
 }
