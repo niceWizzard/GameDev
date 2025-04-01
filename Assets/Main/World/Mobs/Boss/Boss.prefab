@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 9067173563880150729}
   - component: {fileID: 1525256536448458512}
   - component: {fileID: 7845373068264997892}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludedMobs:
-  - {fileID: 0}
+  - {fileID: 4104643051168015420}
 --- !u!1 &8239823724864283724
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  health: 5000
+  health: 8000
   attackPower: 30
   specialAttackMultiplier: 1.5
   ammoCapacity: 7
@@ -550,7 +550,7 @@ MonoBehaviour:
   mobDetector: {fileID: 7845373068264997892}
   dangerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   detectedPlayer: {fileID: 0}
   projectilePrefab: {fileID: 5491769752205316236, guid: 9d8ba155662a6e84aa4aa19bc239ee7f, type: 3}
   rangedStats: {fileID: 2707302830366066098}
