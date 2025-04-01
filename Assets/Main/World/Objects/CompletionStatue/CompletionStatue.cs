@@ -22,21 +22,27 @@ namespace Main.World.Objects.CompletionStatue
         Movement,
     }
     [RequireComponent(typeof(SpriteRenderer), typeof(Interactable), typeof(UniqueId))]
+    [RequireComponent(typeof(Animator))]
     public class CompletionStatue : MonoBehaviour
     {
+        private static readonly int IsActivated = Animator.StringToHash("isActivated");
         [SerializeField] private StatType leftRewardType = StatType.Health;
         [SerializeField] private StatType rightRewardType = StatType.Ammo;
 
         [SerializeField] private Interactable leftRewardInteractable;
         [SerializeField] private Interactable rightRewardInteractable;
     
+        
+        
         private Interactable _statueInteractable;
         private bool _isEnabled;
         private UniqueId _uniqueId;
         private bool _inSaveFile;
+        private Animator _animator;
 
         private void Awake()
         {
+            _animator = GetComponent<Animator>();
             _uniqueId = GetComponent<UniqueId>();
             if(!_uniqueId)
                 Debug.LogError($"No unique id found at {name} in {SceneManager.GetActiveScene().name}");
@@ -67,6 +73,7 @@ namespace Main.World.Objects.CompletionStatue
         public void Setup()
         {
             _isEnabled = true;
+            _animator.SetBool(IsActivated, true);
             if (_inSaveFile)
             {
                 _statueInteractable.IsInteractable = true;
@@ -103,6 +110,7 @@ namespace Main.World.Objects.CompletionStatue
         private void GiveReward(StatType statType)
         {
             _statueInteractable.IsInteractable = true;
+            _animator.SetBool(IsActivated, true);
             var upgrade = statType switch
             {
                 StatType.Health => StatUpgrade.Health,
