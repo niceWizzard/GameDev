@@ -1,3 +1,4 @@
+using Main.Lib.Health;
 using Main.Lib.Mobs;
 using Main.Weapons;
 using Main.Weapons.Gun;
@@ -10,9 +11,20 @@ namespace Main.World.Mobs.Boss
     {
         [SerializeField] private ProjectileController projectilePrefab;
         [SerializeField] private RangedStats rangedStats;
-        
+        [SerializeField] private Hitbox bodyHitbox;
         public ProjectileController ProjectilePrefab => projectilePrefab;
         public RangedStats RangedStats => rangedStats;
+
+        protected override void Start()
+        {
+            base.Start();
+            bodyHitbox.HurtboxHit += BodyHitboxOnHurtboxHit;
+        }
+
+        private void BodyHitboxOnHurtboxHit(Hurtbox obj)
+        {
+            obj.TakeDamage(new DamageInfo(RangedStats.AttackPower, gameObject));
+        }
 
         protected override void OnDeathAnimation(DeathAnimation deathAnimation)
         {
