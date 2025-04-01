@@ -16,6 +16,7 @@ namespace Main.World.Mobs.Boss.States
             Agent.Animator.Play("Flee");
             Agent.Collider2d.enabled = true;
             Agent.Hurtbox.Enable();
+            Agent.BodyHitbox.Enable();
             Agent.SpriteRenderer.DOFade(1, 1f).SetLink(Agent.gameObject);
             Agent.Velocity *= 0;
             Agent.Position = GetRandomPoint(Agent.detectedPlayer.Position, 9);

@@ -21,6 +21,7 @@ namespace Main.World.Mobs.Boss
         public Vector2 ProjectileSpawn => projectileSpawnPoint.position;
         public ProjectileController ProjectilePrefab => projectilePrefab;
         public RangedStats RangedStats => rangedStats;
+        public Hitbox BodyHitbox => bodyHitbox;
 
         protected override void Start()
         {

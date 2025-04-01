@@ -43,6 +43,7 @@ namespace Main.World.Mobs.Boss.States
             yield return new WaitForSeconds(1.5f);
             _animFinished = true;
             Agent.Hurtbox.Disable();
+            Agent.BodyHitbox.Disable();
             Agent.Collider2d.enabled = false;
             var ghost1 = PrefabLoader.SpawnGhost(Agent.Position + Vector2.left * 2);
             var ghost2 = PrefabLoader.SpawnGhost(Agent.Position + Vector2.right * 2);

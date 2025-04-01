@@ -14,6 +14,7 @@ namespace Main.World.Mobs.Boss.States
             Executor.FleeStartDone = false;
             Agent.Collider2d.enabled = false;
             Agent.Hurtbox.Disable();
+            Agent.BodyHitbox.Disable();
             Agent.SpriteRenderer.DOFade(0, .5f).SetLink(Agent.gameObject);
             Agent.StartCoroutine(StartFleeTimer());
         }
