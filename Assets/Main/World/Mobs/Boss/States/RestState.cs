@@ -31,7 +31,7 @@ namespace Main.World.Mobs.Boss.States
                     Agent.Velocity = -vel;
                     break;
                 case > 4f:
-                    Agent.Velocity = vel;
+                    Agent.Velocity = vel * 1.5f;
                     break;
                 default:
                     Agent.Velocity = Vector2.zero;
