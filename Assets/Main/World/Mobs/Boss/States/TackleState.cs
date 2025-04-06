@@ -41,13 +41,12 @@ namespace Main.World.Mobs.Boss.States
             if (_traveled > 10)
             {
                 var dir = toTarget.normalized;
-                var multiplier = _traveled > 3 ? 1.5f : 3f;
-                Agent.Velocity = Vector2.Lerp(Agent.Velocity, dir * (Agent.MovementSpeed * multiplier), 0.5f);
+                Agent.Velocity = Vector2.Lerp(Agent.Velocity, dir * (Agent.MovementSpeed), 0.5f);
                 _fixedDirection = dir;
             }
             else
             {
-                Agent.Velocity = Vector2.Lerp(Agent.Velocity, _fixedDirection * (Agent.MovementSpeed * 3f), 0.5f);
+                Agent.Velocity = Vector2.Lerp(Agent.Velocity, _fixedDirection * (Agent.MovementSpeed * 5f), 0.5f);
             }
             _traveled -= Agent.Velocity.magnitude * Time.fixedDeltaTime;
             _time -= Time.fixedDeltaTime;
