@@ -96,6 +96,9 @@ namespace Main.Player
             SetVisibility(true);
             Hurtbox.Disable();
             feetHurtbox.Disable();
+            Time.timeScale = 0;
+            await UniTask.WaitForSeconds(0.05f, ignoreTimeScale: true,cancellationToken: destroyCancellationToken);
+            Time.timeScale = 1;
             try
             {
                 for (var i = 0; i < 3; i++)
