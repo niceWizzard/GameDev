@@ -52,8 +52,8 @@ namespace Main.World.Mobs.Boss.States
                     continue;
                 return point;
             }
-            
-            throw new Exception("While Loop took too long!");
+            Debug.LogError("While Loop took too long!");
+            return Vector2.zero;
         }
         
         
