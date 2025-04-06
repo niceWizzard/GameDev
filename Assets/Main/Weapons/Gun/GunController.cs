@@ -59,7 +59,7 @@ namespace Main.Weapons.Gun
 
         private void AddCameraRecoil(Vector2 direction)
         {
-            _impulseSource.GenerateImpulse(direction.normalized * .2f);
+            _impulseSource.GenerateImpulse(direction.normalized * .15f);
         }
 
 

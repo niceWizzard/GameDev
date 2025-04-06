@@ -91,7 +91,7 @@ namespace Main.Player
             if (InHurtAnimation)
                 return;
             _ = base.HurtAnimation();
-            _impulseSource.GenerateImpulseWithForce(4);
+            _impulseSource.GenerateImpulse(2.5f);
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();

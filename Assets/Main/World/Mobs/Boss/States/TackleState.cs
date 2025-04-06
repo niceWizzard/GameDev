@@ -53,7 +53,7 @@ namespace Main.World.Mobs.Boss.States
             var hit = Physics2D.CircleCast(Agent.Position, Agent.Collider2d.bounds.size.x / 2, Vector2.zero, 1,layerMask:  LayerMask.GetMask("World"));
             if (_time > 0 && _traveled > 0 && toTarget.magnitude > 0.4 && !hit.collider) return;
             if (hit.collider)
-                Agent.CinemachineImpulseSource.GenerateImpulse(3);
+                Agent.CinemachineImpulseSource.GenerateImpulse(2);
             Executor.TackleStateDone = true;
             Agent.Velocity *= 0;
             Agent.StartCoroutine(StartTackleCd());
