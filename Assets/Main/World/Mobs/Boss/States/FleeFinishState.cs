@@ -21,12 +21,21 @@ namespace Main.World.Mobs.Boss.States
             Agent.Velocity *= 0;
             Agent.Position = GetRandomPoint(Agent.detectedPlayer.Position, 9);
             Agent.StartCoroutine(StartTimer());
+            Agent.StartCoroutine(StartSummonCdTimer());
         }
 
         private IEnumerator StartTimer()
         {
             yield return new WaitForSeconds(1f);
             Executor.FleeFinishDone = true;
+        }
+        
+        private IEnumerator StartSummonCdTimer()
+        {
+            if (!Executor.SummonOnCd)
+                yield break;
+            yield return new WaitForSeconds(30);
+            Executor.SummonOnCd = false;
         }
 
         public override void OnExit()

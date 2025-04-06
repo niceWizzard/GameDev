@@ -20,6 +20,7 @@ namespace Main.World.Mobs.Boss.States
             _animFinished = false;
             Executor.SummonStartStateDone = false;
             Agent.Velocity *= 0;
+            Executor.SummonOnCd = true;
             Agent.Animator.Play("Summon");
             Agent.StartCoroutine(StartAction());
         }
@@ -30,12 +31,7 @@ namespace Main.World.Mobs.Boss.States
             _summonedGhosts.Clear();
         }
 
-        private IEnumerator StartSummonCdTimer()
-        {
-            Executor.SummonOnCd = true;
-            yield return new WaitForSeconds(30);
-            Executor.SummonOnCd = false;
-        }
+
 
         private IEnumerator StartAction()
         {
@@ -49,8 +45,6 @@ namespace Main.World.Mobs.Boss.States
             _summonedGhosts.Add(ghost1);
             _summonedGhosts.Add(ghost2);
             yield return Agent.SpriteRenderer.DOFade(0, 0.5f).WaitForCompletion();
-            yield return StartSummonCdTimer();
-
         }
 
         public override void OnUpdate()
