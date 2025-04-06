@@ -12,6 +12,12 @@ namespace Main.World.Mobs.Boss.States
             Agent.Animator.Play("Move");
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            Executor.PlayerInSweetSpot = true;
+        }
+
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();

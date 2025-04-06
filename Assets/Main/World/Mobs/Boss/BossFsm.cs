@@ -63,7 +63,7 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
                 
                 // Summon
-                Transition.Create(chill, summonStartState, () => !SummonOnCd && TackleOnCd && AttackOnCd
+                Transition.Create(chill, summonStartState, () => PlayerInSweetSpot && !SummonOnCd && TackleOnCd && AttackOnCd
                                             && bossController.HealthComponent.HealthPercentage < .75f  
                                             &&Random.Range(0, 20) < 3 
                 ),
