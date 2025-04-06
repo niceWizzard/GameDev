@@ -97,7 +97,15 @@ namespace Main.Player
             Hurtbox.Disable();
             feetHurtbox.Disable();
             Time.timeScale = 0;
-            await UniTask.WaitForSeconds(0.05f, ignoreTimeScale: true,cancellationToken: destroyCancellationToken);
+            try
+            {
+                await UniTask.WaitForSeconds(0.05f, ignoreTimeScale: true, cancellationToken: destroyCancellationToken);
+            }
+            catch (OperationCanceledException e)
+            {
+                Time.timeScale = 1;
+                return;
+            }
             Time.timeScale = 1;
             try
             {
