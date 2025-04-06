@@ -22,7 +22,6 @@ namespace Main.World.Mobs.Boss.States
             Agent.Velocity *= 0;
             Agent.Animator.Play("Summon");
             Agent.StartCoroutine(StartAction());
-            Agent.StartCoroutine(StartSummonCdTimer());
         }
 
         public override void OnExit()
@@ -50,6 +49,8 @@ namespace Main.World.Mobs.Boss.States
             _summonedGhosts.Add(ghost1);
             _summonedGhosts.Add(ghost2);
             yield return Agent.SpriteRenderer.DOFade(0, 0.5f).WaitForCompletion();
+            yield return StartSummonCdTimer();
+
         }
 
         public override void OnUpdate()
