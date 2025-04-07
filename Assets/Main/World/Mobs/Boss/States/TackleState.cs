@@ -41,20 +41,19 @@ namespace Main.World.Mobs.Boss.States
             if (_traveled > 10)
             {
                 var dir = toTarget.normalized;
-                var multiplier = _traveled > 3 ? 1.5f : 3f;
-                Agent.Velocity = Vector2.Lerp(Agent.Velocity, dir * (Agent.MovementSpeed * multiplier), 0.5f);
+                Agent.Velocity = Vector2.Lerp(Agent.Velocity, dir * (Agent.MovementSpeed), 0.5f);
                 _fixedDirection = dir;
             }
             else
             {
-                Agent.Velocity = Vector2.Lerp(Agent.Velocity, _fixedDirection * (Agent.MovementSpeed * 3f), 0.5f);
+                Agent.Velocity = Vector2.Lerp(Agent.Velocity, _fixedDirection * (Agent.MovementSpeed * 5f), 0.5f);
             }
             _traveled -= Agent.Velocity.magnitude * Time.fixedDeltaTime;
             _time -= Time.fixedDeltaTime;
             var hit = Physics2D.CircleCast(Agent.Position, Agent.Collider2d.bounds.size.x / 2, Vector2.zero, 1,layerMask:  LayerMask.GetMask("World"));
             if (_time > 0 && _traveled > 0 && toTarget.magnitude > 0.4 && !hit.collider) return;
             if (hit.collider)
-                Agent.CinemachineImpulseSource.GenerateImpulse(3);
+                Agent.CinemachineImpulseSource.GenerateImpulse(2);
             Executor.TackleStateDone = true;
             Agent.Velocity *= 0;
             Agent.StartCoroutine(StartTackleCd());

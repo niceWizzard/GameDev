@@ -12,6 +12,12 @@ namespace Main.World.Mobs.Boss.States
             Agent.Animator.Play("Move");
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            Executor.PlayerInSweetSpot = true;
+        }
+
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
@@ -31,7 +37,7 @@ namespace Main.World.Mobs.Boss.States
                     Agent.Velocity = -vel;
                     break;
                 case > 4f:
-                    Agent.Velocity = vel;
+                    Agent.Velocity = vel * 1.5f;
                     break;
                 default:
                     Agent.Velocity = Vector2.zero;

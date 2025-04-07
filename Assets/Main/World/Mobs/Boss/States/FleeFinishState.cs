@@ -21,12 +21,21 @@ namespace Main.World.Mobs.Boss.States
             Agent.Velocity *= 0;
             Agent.Position = GetRandomPoint(Agent.detectedPlayer.Position, 9);
             Agent.StartCoroutine(StartTimer());
+            Agent.StartCoroutine(StartSummonCdTimer());
         }
 
         private IEnumerator StartTimer()
         {
             yield return new WaitForSeconds(1f);
             Executor.FleeFinishDone = true;
+        }
+        
+        private IEnumerator StartSummonCdTimer()
+        {
+            if (!Executor.SummonOnCd)
+                yield break;
+            yield return new WaitForSeconds(30);
+            Executor.SummonOnCd = false;
         }
 
         public override void OnExit()
@@ -52,8 +61,8 @@ namespace Main.World.Mobs.Boss.States
                     continue;
                 return point;
             }
-            
-            throw new Exception("While Loop took too long!");
+            Debug.LogError("While Loop took too long!");
+            return Vector2.zero;
         }
         
         

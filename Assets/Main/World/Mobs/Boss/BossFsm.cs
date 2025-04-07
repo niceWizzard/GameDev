@@ -63,9 +63,9 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(fleeFinish, chill, () => FleeFinishDone),
                 
                 // Summon
-                Transition.Create(chill, summonStartState, () => !SummonOnCd && TackleOnCd && AttackOnCd
-                                            && bossController.HealthComponent.HealthPercentage < .75f  
-                                            &&Random.Range(0, 20) < 3 
+                Transition.Create(chill, summonStartState, () => PlayerInSweetSpot && !SummonOnCd && TackleOnCd && AttackOnCd
+                                            && bossController.HealthComponent.HealthPercentage < .6f  
+                                            &&Random.Range(0, 30) < 3 
                 ),
                 Transition.Create(summonStartState, fleeFinish, () => SummonStartStateDone),
                 
@@ -80,7 +80,7 @@ namespace Main.World.Mobs.Boss
                 Transition.Create(spawnOrbAttackState, chill, () => AttackStateDone),
                 
                 // Rampage
-                Transition.Create(chill, rampage, () => !RampageOnCd && bossController.HealthComponent.HealthPercentage < .5f ),
+                Transition.Create(chill, rampage, () => PlayerInSweetSpot && !RampageOnCd && bossController.HealthComponent.HealthPercentage < .5f ),
                 Transition.Create(rampage, chill, () => RampageStateDone),
                 
             };

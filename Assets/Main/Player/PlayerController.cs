@@ -91,11 +91,22 @@ namespace Main.Player
             if (InHurtAnimation)
                 return;
             _ = base.HurtAnimation();
-            _impulseSource.GenerateImpulseWithForce(4);
+            _impulseSource.GenerateImpulse(2.5f);
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();
             feetHurtbox.Disable();
+            Time.timeScale = 0;
+            try
+            {
+                await UniTask.WaitForSeconds(0.05f, ignoreTimeScale: true, cancellationToken: destroyCancellationToken);
+            }
+            catch (OperationCanceledException e)
+            {
+                Time.timeScale = 1;
+                return;
+            }
+            Time.timeScale = 1;
             try
             {
                 for (var i = 0; i < 3; i++)

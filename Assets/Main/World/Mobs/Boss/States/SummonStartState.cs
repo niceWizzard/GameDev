@@ -20,9 +20,9 @@ namespace Main.World.Mobs.Boss.States
             _animFinished = false;
             Executor.SummonStartStateDone = false;
             Agent.Velocity *= 0;
+            Executor.SummonOnCd = true;
             Agent.Animator.Play("Summon");
             Agent.StartCoroutine(StartAction());
-            Agent.StartCoroutine(StartSummonCdTimer());
         }
 
         public override void OnExit()
@@ -31,12 +31,7 @@ namespace Main.World.Mobs.Boss.States
             _summonedGhosts.Clear();
         }
 
-        private IEnumerator StartSummonCdTimer()
-        {
-            Executor.SummonOnCd = true;
-            yield return new WaitForSeconds(30);
-            Executor.SummonOnCd = false;
-        }
+
 
         private IEnumerator StartAction()
         {
@@ -57,7 +52,8 @@ namespace Main.World.Mobs.Boss.States
             base.OnUpdate();
             if (!_animFinished)
                 return;
-            Debug.Log(string.Join(',',_summonedGhosts.Select(v => !!v)));
+            var toHeal = Agent.HealthComponent.MaxHealth * 0.015f;
+            Agent.HealthComponent.Heal(toHeal * Time.deltaTime);
             if (_summonedGhosts.TrueForAll(v => !v))
             {
                 Executor.SummonStartStateDone = true;
