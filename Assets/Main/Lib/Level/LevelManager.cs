@@ -27,7 +27,8 @@ namespace Main.Lib.Level
         [SerializeField] private Transform safeSpawn;
         [Header("Completion Requirements")] 
         [SerializeField] private CompletionStatue completionStatue;
-        public List<Requirement> _requirements = new();
+        
+        private List<Requirement> _requirements = new();
         [SerializeField] private EnemyController boss;
         
         public List<Requirement> Requirements => _requirements;
