@@ -11,7 +11,6 @@ namespace Main.Lib.Save
         HashSet<string> PlayedCutScenes
     )
     {
-        public int LastSaveSlot = 0;
         public HashSet<string> CompletedLevels { get; set; } = CompletedLevels;
         public HashSet<string> BrokenStatues { get; set; } = BrokenStatues;
 
