@@ -52,6 +52,8 @@ namespace Main.World.Mobs.Boss.States
             base.OnUpdate();
             if (!_animFinished)
                 return;
+            var toHeal = Agent.HealthComponent.MaxHealth * 0.015f;
+            Agent.HealthComponent.Heal(toHeal * Time.deltaTime);
             if (_summonedGhosts.TrueForAll(v => !v))
             {
                 Executor.SummonStartStateDone = true;
