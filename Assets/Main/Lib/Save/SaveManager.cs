@@ -105,5 +105,10 @@ namespace Main.Lib.Save
             SaveGameData = ReadSaveGameData(SaveSlot);
             SaveData(SaveGameData);
         }
+
+        public void ClearSlot(int index)
+        {
+            File.Delete(Path.Join(Application.persistentDataPath, GetSaveSlotPath(index)));
+        }
     }
 }
