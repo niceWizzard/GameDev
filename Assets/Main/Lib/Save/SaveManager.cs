@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Main.Lib.Singleton;
 using Newtonsoft.Json;
@@ -13,22 +14,27 @@ namespace Main.Lib.Save
         private FileHandler _fileHandler;
 
         private const int MaxSaveSlot = 5; 
-        public int SaveSlot { get; } = 0;
+        public int SaveSlot { get; private set; } = 0;
         public SaveGameData SaveGameData { get; private set; }
 
+        public bool[] SaveSlotExists { get; private set; }
+        public bool HasAnySaveFile => SaveSlotExists.Any(v => v);
+
+        
         protected override void Awake()
         {
             base.Awake();
             _fileHandler = new FileHandler(Application.persistentDataPath);
             SaveGameData = ReadSaveGameData(SaveSlot);
+            SaveSlotExists = CheckSaveSlot();
         }
 
         public bool[] CheckSaveSlot()
         {
             var saveSlotExisting = new bool[MaxSaveSlot];
-            for (var i = 0; i < SaveSlot; i++)
+            for (var i = 0; i < MaxSaveSlot; i++)
             {
-                saveSlotExisting[i] = File.Exists(GetSaveSlotPath(i));
+                saveSlotExisting[i] = File.Exists(Path.Join(Application.persistentDataPath,GetSaveSlotPath(i)));
             }
             return saveSlotExisting;
         }
@@ -91,7 +97,13 @@ namespace Main.Lib.Save
             #endif
                 + ".sav";
         }
-        
-        
+
+
+        public void LoadSlot(int saveSlot)
+        {
+            SaveSlot = saveSlot;
+            SaveGameData = ReadSaveGameData(SaveSlot);
+            SaveData(SaveGameData);
+        }
     }
 }
