@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Main.Lib.Singleton;
 using Newtonsoft.Json;
@@ -13,22 +14,47 @@ namespace Main.Lib.Save
         private FileHandler _fileHandler;
 
         private const int MaxSaveSlot = 5; 
-        public int SaveSlot { get; } = 0;
+        public int SaveSlot { get; private set; } = 0;
         public SaveGameData SaveGameData { get; private set; }
+
+        public bool[] SaveSlotExists { get; private set; }
+        public bool HasAnySaveFile => SaveSlotExists.Any(v => v);
+        public int LastSaveSlot { get; private set; } = -1;
+
 
         protected override void Awake()
         {
             base.Awake();
             _fileHandler = new FileHandler(Application.persistentDataPath);
+            LoadLastSaveSlot();
             SaveGameData = ReadSaveGameData(SaveSlot);
+            SaveSlotExists = CheckSaveSlot();
+        }
+
+        private void LoadLastSaveSlot()
+        {
+            if (!_fileHandler.HasFile("slot.sav"))
+            {
+                Debug.LogWarning("Save file is missing slot.sav");
+                _fileHandler.SaveFile("slot.sav", "-1");
+            }
+            var dataRes = _fileHandler.LoadFile("slot.sav");
+            if (!dataRes.IsSuccess) return;
+            if (!int.TryParse(dataRes.Value, out var data)) return;
+            LastSaveSlot = data;
+        }
+
+        private void SetLastSaveSlot(int value)
+        {
+            _fileHandler.SaveFile("slot.sav", value.ToString());
         }
 
         public bool[] CheckSaveSlot()
         {
             var saveSlotExisting = new bool[MaxSaveSlot];
-            for (var i = 0; i < SaveSlot; i++)
+            for (var i = 0; i < MaxSaveSlot; i++)
             {
-                saveSlotExisting[i] = File.Exists(GetSaveSlotPath(i));
+                saveSlotExisting[i] = File.Exists(Path.Join(Application.persistentDataPath,GetSaveSlotPath(i)));
             }
             return saveSlotExisting;
         }
@@ -50,6 +76,7 @@ namespace Main.Lib.Save
         public SaveGameData ReadSaveGameData(int saveSlot)
         {
             var path = GetSaveSlotPath(saveSlot);
+            SetLastSaveSlot(saveSlot);
             if (!_fileHandler.HasFile(path))
             {
                 #if UNITY_EDITOR
@@ -91,7 +118,21 @@ namespace Main.Lib.Save
             #endif
                 + ".sav";
         }
-        
-        
+
+
+        public void LoadSlot(int saveSlot)
+        {
+            SaveSlot = saveSlot;
+            LoadLastSaveSlot();
+            SaveGameData = ReadSaveGameData(SaveSlot);
+            SaveData(SaveGameData);
+        }
+
+        public void ClearSlot(int index)
+        {
+            if(LastSaveSlot == index)
+                SetLastSaveSlot(-1);
+            File.Delete(Path.Join(Application.persistentDataPath, GetSaveSlotPath(index)));
+        }
     }
 }
