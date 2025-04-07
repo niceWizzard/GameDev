@@ -52,7 +52,6 @@ namespace Main.World.Mobs.Boss.States
             base.OnUpdate();
             if (!_animFinished)
                 return;
-            Debug.Log(string.Join(',',_summonedGhosts.Select(v => !!v)));
             if (_summonedGhosts.TrueForAll(v => !v))
             {
                 Executor.SummonStartStateDone = true;
