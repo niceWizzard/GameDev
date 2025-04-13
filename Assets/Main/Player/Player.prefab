@@ -1009,7 +1009,7 @@ MonoBehaviour:
   ammoCapacity: 15
   attackPerSecond: 5
   accuracy: 4
-  reloadTime: 2
+  reloadTime: 1
   projectileSpeed: 12
   disposeProjectilesOnDeath: 0
 --- !u!95 &1645421954195471266
