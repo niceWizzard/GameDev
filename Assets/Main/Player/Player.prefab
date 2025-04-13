@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  health: 100
+  health: 200
   attackPower: 20
   specialAttackMultiplier: 1.5
   ammoCapacity: 15
