@@ -30,7 +30,7 @@ namespace Main.Player
         [SerializeField] private Transform leftHandPosition;
         [SerializeField] private Transform rightHandPosition;
 
-        [SerializeField] private TMP_Text reloadingText;
+        [SerializeField] private ReloadAnimation reloadAnimationController;
 
         [SerializeField] private Transform gunAnchor;
         [SerializeField] private Hurtbox feetHurtbox;
@@ -55,9 +55,7 @@ namespace Main.Player
         private void Start()
         {
             gun.OnReloadStart += GunOnReloadStart;
-            gun.OnReloadEnd += GunOnReloadEnd;
             feetHurtbox.OnHurt += OnHurtboxHurt;
-            reloadingText.color = new Vector4(0,0,0,0);
             _camera = Camera.main;
             LoadStats();
             HealthComponent.SetMaxHealth(rangedStats.Health);
@@ -141,14 +139,10 @@ namespace Main.Player
             Gun.SpriteRenderer.enabled = visible;
         }
 
-        private void GunOnReloadEnd()
-        {
-            reloadingText.DOColor(new Vector4(0,0,0,0), 0.2f).SetLink(gameObject);
-        }
 
         private void GunOnReloadStart()
         {
-            reloadingText.DOColor(Color.white, 0.3f).SetLink(gameObject);
+            reloadAnimationController.StartAnimation(rangedStats.ReloadTime);
         }
 
         public void UpdateFacingDirection(int direction)
