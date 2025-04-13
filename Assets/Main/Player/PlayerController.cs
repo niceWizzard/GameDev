@@ -34,9 +34,12 @@ namespace Main.Player
 
         [SerializeField] private Transform gunAnchor;
         [SerializeField] private Hurtbox feetHurtbox;
+        [SerializeField] private AudioSource walkAudioSource;
         
         private Camera _camera;
         private CinemachineImpulseSource _impulseSource;
+        
+        public AudioSource WalkAudioSource => walkAudioSource;
         public GunController Gun => gun;
         public Transform GunAnchor => gunAnchor;
         public float FacingDirection { get; private set; } = 1;

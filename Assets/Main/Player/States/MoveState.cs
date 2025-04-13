@@ -1,7 +1,9 @@
 using Main.Lib.FSM;
+using Mono.Cecil.Cil;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Main.Player.States
 {
@@ -12,6 +14,8 @@ namespace Main.Player.States
         {
             base.OnEnter();
             Agent.Animator.Play("MoveGun");
+            Agent.WalkAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            Agent.WalkAudioSource.Play();
         }
 
         public override void OnUpdate()
@@ -20,7 +24,13 @@ namespace Main.Player.States
             Executor.ProcessAttackInputs();
             _input = Agent.GetMovementInput();
             Agent.RotateGun();
-            
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            if(Agent.WalkAudioSource.isPlaying)
+                Agent.WalkAudioSource.Stop();
         }
 
         public override void OnFixedUpdate()
