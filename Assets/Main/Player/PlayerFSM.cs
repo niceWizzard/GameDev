@@ -52,6 +52,10 @@ namespace Main.Player
 
         public void ProcessAttackInputs()
         {
+            if (!player.Gun.IsReloading && Input.GetKeyDown(KeyCode.R))
+            {
+                player.Gun.StartReload();
+            }
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 player.Gun.NormalAttack();
