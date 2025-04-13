@@ -19,6 +19,7 @@ namespace Main.World.Mobs.Boss.States
         {
             yield return new WaitForSeconds(1.2f);
 
+            yield return PlayAttackAnim();
             yield return Attack();
 
             Executor.RampageStateDone = true;
@@ -31,6 +32,12 @@ namespace Main.World.Mobs.Boss.States
         {
             base.OnFixedUpdate();
             Agent.Velocity *= 0;
+        }
+
+        private IEnumerator PlayAttackAnim()
+        {
+            Agent.Animator.Play("RampageAttack");
+            yield return new WaitForSeconds(0.4f);
         }
 
         private IEnumerator Attack()
@@ -48,7 +55,7 @@ namespace Main.World.Mobs.Boss.States
                     var d = Quaternion.Euler(0,0, angle) * dir;
                     SpawnProjectile(d, Agent.ProjectileSpawn, 5);
                 }
-                yield return new WaitForSeconds(0.25f);
+                yield return PlayAttackAnim();
             }
         }
 
