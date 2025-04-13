@@ -4,6 +4,7 @@ using Main.Lib.Singleton;
 using Main.Weapons.Bullet;
 using Unity.Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Main.Weapons.Gun
 {
@@ -16,6 +17,7 @@ namespace Main.Weapons.Gun
         [SerializeField] private GameObject owner;
         [SerializeField, Space(10)]
         private BulletController normalAttackPrefab;
+        
         [SerializeField]
         private BulletController specialAttackPrefab;
         private SpriteRenderer _spriteRenderer;

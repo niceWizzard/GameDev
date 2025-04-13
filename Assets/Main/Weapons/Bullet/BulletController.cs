@@ -7,12 +7,15 @@ namespace Main.Weapons.Bullet
     public class BulletController : ProjectileController
     {
         [SerializeField] private ParticleSystem hitParticles;
+        [SerializeField] private AudioSource awakeSound;
         private float _driftDirection;
         private int _accuracy = 2;
 
         protected override void Awake()
         {
             base.Awake();
+            awakeSound.pitch = Random.Range(0.9f, 1f);
+            awakeSound.Play();
             _driftDirection = (Random.Range(0, 1)) > 0 ? -1 : 1;
         }
     
