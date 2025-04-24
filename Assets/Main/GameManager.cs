@@ -20,12 +20,14 @@ namespace Main
         {
             _levelManager = levelManager;
             LevelLoaded?.Invoke(levelManager);
+            BgMusic.PlayAmbientMusic();
         }
         
         public void UnregisterLevelManager()
         {
             _levelManager = null;
             LevelUnload?.Invoke();
+            BgMusic.StopAll();
         }
         
         public static void LoadEssentials()
@@ -36,6 +38,7 @@ namespace Main
             CutscenePanel.InitializePrefab("CutscenePanel");
             Dialog.InitializePrefab("Dialog");
             PrefabLoader.InitializePrefab("PrefabLoader");
+            BgMusic.InitializePrefab("BgMusic");
         }
 
     }
