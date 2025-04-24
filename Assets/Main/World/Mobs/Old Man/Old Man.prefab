@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8813964756098038494}
   - component: {fileID: 5134095821908660684}
   - component: {fileID: 4215349463191383131}
-  - component: {fileID: 425426843160214196}
   - component: {fileID: 9040145237409015933}
   - component: {fileID: 688129187181148202}
   m_Layer: 7
@@ -89,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c703a6c408df90c4f91c987ada4d229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  startingHealth: 100
 --- !u!212 &8133285531681952997
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -209,19 +208,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &425426843160214196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587872080770350050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a6d2b74eee19140a818971e200e099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurtbox: {fileID: 9040145237409015933}
 --- !u!114 &9040145237409015933
 MonoBehaviour:
   m_ObjectHideFlags: 0
