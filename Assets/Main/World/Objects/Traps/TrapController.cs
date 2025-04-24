@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Main.World.Objects.Traps
 {
-    [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Animator), typeof(SpriteRenderer), typeof(AudioSource))]
     public class TrapController : MonoBehaviour
     {
         private static readonly int IsActivated = Animator.StringToHash("is_activated");
@@ -18,13 +18,20 @@ namespace Main.World.Objects.Traps
         private Hitbox hitbox;
 
         private Collider2D _collider;
+        private AudioSource _audioSource;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _collider = GetComponent<Collider2D>();
+            _audioSource = GetComponent<AudioSource>();
             hitbox.HurtboxHit += OnHurtboxHit;
-            
+            _audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        }
+
+        public void PlayAudio()
+        {
+            _audioSource.Play();
         }
 
         private void Start()

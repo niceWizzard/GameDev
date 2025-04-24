@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Main.World.Objects.Traps.Timed.TimedSpikes
 {
-    [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
+    [RequireComponent(typeof(SpriteRenderer), typeof(Animator), typeof(AudioSource))]
     public class TimedTrapController : MonoBehaviour
     {
         private static readonly int IsActive = Animator.StringToHash("isActive");
@@ -16,15 +16,23 @@ namespace Main.World.Objects.Traps.Timed.TimedSpikes
 
         private float _time = 0;
         private Animator _animator;
+        private AudioSource _audioSource;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
             hitbox.Disable();
             hitbox.HurtboxHit += HitboxOnHurtboxHit;
             hitbox.Collider.includeLayers = LayerMask.GetMask("Player Feet");
             hitbox.Collider.excludeLayers = LayerMask.GetMask("Player Hurtbox");
             _time = startDelay;
+            _audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        }
+        
+        public void PlayAudio()
+        {
+            _audioSource.Play();
         }
 
         private void OnDestroy()
