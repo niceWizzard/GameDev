@@ -64,9 +64,16 @@ namespace Main.Lib.Singleton
                 Debug.LogError($"Scene <{levelName}> not found. Have you added it to the scene list?");
                 return;
             };
+            if (levelName.ToLower() == "boss" && 
+                !SaveManager.Instance.SaveGameData.PlayedCutScenes.Contains("BossCutscene"))
+            {
+                LoadLevel("BossCutscene");
+                return;
+            }
             StartCoroutine(_LoadLevel(levelName));
         }
-        
+
+
         private IEnumerator _LoadLevel(string levelName)
         {
             Time.timeScale = 0;

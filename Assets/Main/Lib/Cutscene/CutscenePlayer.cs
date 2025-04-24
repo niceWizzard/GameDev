@@ -9,27 +9,32 @@ namespace Main.Lib.Cutscene
     public class CutscenePlayer : MonoBehaviour
     {
         [SerializeField] protected List<Camera> cameras;
-
+        private int _cameraIndex;
+        
+        protected Camera CurrentCamera => cameras[_cameraIndex];
 
         protected virtual void Awake()
         {
             CutscenePanel.ShowImmediately();
             HUDController.Instance.EnterCutsceneMode();
+            foreach (var cam in cameras)
+            {
+                cam.gameObject.SetActive(false);
+            }
             SetCamera(0);
         }
         
         protected void SetCamera(int index)
         {
-            foreach (var cam in cameras)
-            {
-                cam.gameObject.SetActive(false);
-            }
-            cameras[index].gameObject.SetActive(true);
+            _cameraIndex = index;
+            MainCamera.Instance.SetPosition(CurrentCamera.transform.position);
         }
         
         protected async UniTask Wait(float seconds)
         {
             await UniTask.WaitForSeconds(seconds, cancellationToken:destroyCancellationToken);
         }
+
+   
     }
 }
