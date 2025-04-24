@@ -84,5 +84,9 @@ namespace Main.Lib.Singleton
             Time.timeScale = 1;
         }
 
+        public void LoadEndingScene()
+        {
+            LoadLevel("EndingCutscene");
+        }
     }
 }
