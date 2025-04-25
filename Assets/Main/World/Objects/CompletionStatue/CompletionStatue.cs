@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CleverCrow.Fluid.UniqueIds;
+using DG.Tweening;
 using Main.Lib;
 using Main.Lib.Save;
 using Main.Lib.Save.Stats;
@@ -21,7 +22,7 @@ namespace Main.World.Objects.CompletionStatue
         Accuracy,
         Movement,
     }
-    [RequireComponent(typeof(SpriteRenderer), typeof(Interactable), typeof(UniqueId))]
+    [RequireComponent( typeof(Interactable), typeof(UniqueId))]
     [RequireComponent(typeof(Animator))]
     public class CompletionStatue : MonoBehaviour
     {
@@ -31,7 +32,7 @@ namespace Main.World.Objects.CompletionStatue
 
         [SerializeField] private Interactable leftRewardInteractable;
         [SerializeField] private Interactable rightRewardInteractable;
-    
+        [SerializeField] private SpriteRenderer statueSr;
         
         
         private Interactable _statueInteractable;
@@ -74,6 +75,7 @@ namespace Main.World.Objects.CompletionStatue
         {
             _isEnabled = true;
             _animator.SetBool(IsActivated, true);
+            statueSr.transform.DOShakePosition(0.5f, strength: 0.05f, vibrato: 10, randomness: 90).SetLink(gameObject).SetLoops(-1, LoopType.Incremental);
             if (_inSaveFile)
             {
                 _statueInteractable.IsInteractable = true;
