@@ -22,13 +22,11 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -3300396339194205850, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
-    - time: 0.083333336
+    - time: 0.05
       value: {fileID: 1075867228, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
-    - time: 0.16666667
+    - time: 0.1
       value: {fileID: 2131354463, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
-    - time: 0.25
-      value: {fileID: -1376253925, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
-    - time: 0.33333334
+    - time: 0.15
       value: {fileID: 0}
     attribute: m_Sprite
     path: 
@@ -55,14 +53,13 @@ AnimationClip:
     - {fileID: -3300396339194205850, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
     - {fileID: 1075867228, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
     - {fileID: 2131354463, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
-    - {fileID: -1376253925, guid: 2b0af60f62109f44ca8fd6213c2fc7db, type: 3}
     - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.16666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,7 +79,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.33333334
+  - time: 0.15
     functionName: DestroyProjectile
     data: 
     objectReferenceParameter: {fileID: 0}
