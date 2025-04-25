@@ -35,6 +35,7 @@ namespace Main.Player
         [SerializeField] private Transform gunAnchor;
         [SerializeField] private Hurtbox feetHurtbox;
         [SerializeField] private AudioSource walkAudioSource;
+        [SerializeField] private AudioSource hurtAudioSource;
         
         private Camera _camera;
         private CinemachineImpulseSource _impulseSource;
@@ -93,6 +94,7 @@ namespace Main.Player
                 return;
             _ = base.HurtAnimation();
             _impulseSource.GenerateImpulse(2.5f);
+            hurtAudioSource.Play();
             InHurtAnimation = true;
             SetVisibility(true);
             Hurtbox.Disable();
