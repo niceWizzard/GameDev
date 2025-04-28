@@ -15,7 +15,9 @@ namespace Main.World.Mobs.Boss
         [SerializeField] private Hitbox bodyHitbox;
         [SerializeField] private Transform projectileSpawnPoint;
         [SerializeField] private CinemachineImpulseSource impulseSource;
+        [Header("Boss Sfx")]
         [SerializeField] public AudioSource tackleCrashAudioSource;
+        [SerializeField] public AudioSource laughAudioSource;
         public CinemachineImpulseSource CinemachineImpulseSource => impulseSource;
         
         public Vector2 ProjectileSpawn => projectileSpawnPoint.position;

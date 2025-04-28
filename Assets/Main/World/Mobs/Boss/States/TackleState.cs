@@ -16,12 +16,13 @@ namespace Main.World.Mobs.Boss.States
             Executor.TackleStateDone = false;
             _animationFinished = false;
             Agent.Animator.Play("Tackle");
+            Agent.laughAudioSource.Play();
             Agent.StartCoroutine(StartAnimationWaitTimer());
         }
 
         private IEnumerator StartAnimationWaitTimer()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             _animationFinished = true;
         }
 
