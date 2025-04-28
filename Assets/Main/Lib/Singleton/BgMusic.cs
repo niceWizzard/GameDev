@@ -12,7 +12,8 @@ namespace Main.Lib.Singleton
 
         public static void StopAll()
         {
-            Instance.ambientSource.Stop();
+            if(Instance.ambientSource)
+                Instance.ambientSource.Stop();
         }
         
     }
