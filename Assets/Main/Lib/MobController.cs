@@ -30,7 +30,6 @@ namespace Main.Lib
         public Animator Animator { get; private set; }
         
         public Stats Stats { get; private set; }
-        public AudioSource HurtAudioSource => hurtAudioSource;
         
         /// <summary>
         /// The hurtbox of this Mob.
@@ -63,8 +62,6 @@ namespace Main.Lib
 
         private bool _inHurtAnimation = false;
 
-        [SerializeField] private AudioSource hurtAudioSource;
-    
         protected virtual void Awake()
         {
             GetRequiredComponents();
@@ -111,8 +108,7 @@ namespace Main.Lib
         {
             _ = HurtAnimation();
             HealthComponent.ReduceHealth(damageInfo.damage);
-            HurtAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1f);
-            HurtAudioSource.Play();
+            SoundFx.PlayDamagedSound(transform.position, true);
         }
 
         protected virtual async UniTask HurtAnimation()

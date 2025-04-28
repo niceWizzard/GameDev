@@ -39,6 +39,7 @@ namespace Main
             Dialog.InitializePrefab("Dialog");
             PrefabLoader.InitializePrefab("PrefabLoader");
             BgMusic.InitializePrefab("BgMusic");
+            SoundFx.InitializePrefab("SoundFx");
         }
 
     }
