@@ -40,18 +40,19 @@ namespace Scenes.Tutorial
             await CutscenePanel.HideAsync();
             await Dialog.CreateDialogs(new List<string>()
             {
-                "You need to escape this dungeon.",
+                "I am Fladnag Tromedlov, the one who has been watching over you, Prince. You are trapped in this dungeon,bound by a dark spell.",
+                "You must destroy the spell binding you deep within these chambers. I can guide you, but the path is fraught with danger.",
                 "Follow me.",
-            }, "Old man", false);
+            }, "Flagnag", false);
             await Wait(1.5f);
             wizardEntity.SpriteRenderer.flipX = true;
             await Wait(0.5f);
             
-            wizardEntity.WalkTo(wizardWalk[0].position, 1);
-            await Wait(0.5f);
+            // wizardEntity.WalkTo(wizardWalk[0].position, 1);
+            // await Wait(0.5f);
             playerEntity.WalkTo(playerWalk[0].position, 1);
             playerEntity.Play("MoveGun");
-            await Wait(1);
+            await Wait(0.5f);
             await CutscenePanel.ShowAsync();
             await Wait(1);
             playerEntity.Play("Idle");
@@ -69,7 +70,7 @@ namespace Scenes.Tutorial
                 "Listen to me, prince, these lamps are scattered all over the dungeon.",
                 "You must light every lamps to break the seal binding you here.",
                 "Take this gun to protect yourself against monsters"
-            }, "Old man", false);
+            }, "Fladnag", false);
             
             await Wait(1f);
             playerGun.SetActive(true);
@@ -82,7 +83,7 @@ namespace Scenes.Tutorial
                 "You will enter an artificial world",
                 "YOU MUST BREAK THE STATUE IN THAT WORLD!",
                 "Try it now, prince.",
-            }, "Old man", false);
+            }, "Fladnag", false);
             
             playerEntity.WalkTo(playerWalk[1].position, 1.5f);
             playerEntity.Play("MoveGun");
