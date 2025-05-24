@@ -16,12 +16,13 @@ namespace Main.World.Mobs.Boss.States
             Executor.TackleStateDone = false;
             _animationFinished = false;
             Agent.Animator.Play("Tackle");
+            Agent.laughAudioSource.Play();
             Agent.StartCoroutine(StartAnimationWaitTimer());
         }
 
         private IEnumerator StartAnimationWaitTimer()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             _animationFinished = true;
         }
 
@@ -53,7 +54,10 @@ namespace Main.World.Mobs.Boss.States
             var hit = Physics2D.CircleCast(Agent.Position, Agent.Collider2d.bounds.size.x / 2, Vector2.zero, 1,layerMask:  LayerMask.GetMask("World"));
             if (_time > 0 && _traveled > 0 && toTarget.magnitude > 0.4 && !hit.collider) return;
             if (hit.collider)
+            {
                 Agent.CinemachineImpulseSource.GenerateImpulse(2);
+                Agent.tackleCrashAudioSource.Play();
+            }
             Executor.TackleStateDone = true;
             Agent.Velocity *= 0;
             Agent.StartCoroutine(StartTackleCd());

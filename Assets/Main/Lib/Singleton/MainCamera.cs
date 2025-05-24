@@ -36,11 +36,22 @@ namespace Main.Lib.Singleton
 
         }
         
-        public void Follow(PlayerController playerController)
+        public void Follow(Component playerController, bool updatePos=true)
         {
-            cmCamera.Target.TrackingTarget = playerController.transform;   
-            cmCamera.ForceCameraPosition(playerController.transform.position, Quaternion.identity);
+            cmCamera.Target.TrackingTarget = playerController.transform;  
+            if (updatePos)
+                cmCamera.ForceCameraPosition(playerController.transform.position, Quaternion.identity);
         }
 
+        public void Unfollow()
+        {
+            cmCamera.Target.TrackingTarget = null;
+        }
+
+
+        public void SetPosition(Vector3 pos)
+        {
+            cmCamera.ForceCameraPosition(pos, Quaternion.identity);
+        }
     }
 }

@@ -52,24 +52,14 @@ namespace Main.Player
 
         public void ProcessAttackInputs()
         {
-            float x = 0;
-            float y = 0;
-            if (Input.GetKey(KeyCode.DownArrow))
-                y -= 1;
-            if (Input.GetKey(KeyCode.UpArrow))
-                y += 1;
-            if (Input.GetKey(KeyCode.LeftArrow))
-                x -= 1;
-            if (Input.GetKey(KeyCode.RightArrow))
-                x += 1;
-            var arrowInput = new Vector2(x, y);
-            if (arrowInput != Vector2.zero)
-                player.Gun.NormalAttack(arrowInput);
+            if (!player.Gun.IsReloading && Input.GetKeyDown(KeyCode.R))
+            {
+                player.Gun.StartReload();
+            }
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 player.Gun.NormalAttack();
-            }
-            else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
+            } else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
             {
                 player.Gun.SpecialAttack();
             } 

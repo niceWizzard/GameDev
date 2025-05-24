@@ -6,14 +6,16 @@ using Random = UnityEngine.Random;
 
 namespace Main.Lib.Items
 {
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(SpriteRenderer), typeof(AudioSource))]
     public class Item : MonoBehaviour
     {
+        [SerializeField] protected AudioSource pickupAudio;
         private enum ItemState
         {
             Disabled,
             Dropped,
             Stationary,
+            PickedUp,
         }
 
         private Vector2 _velocity;
@@ -23,6 +25,7 @@ namespace Main.Lib.Items
         private readonly float _minSpeed = 0.01f; // Stop movement when very slow
         
         private SpriteRenderer _spriteRenderer;
+        
         
 
         protected virtual void Awake()
@@ -67,7 +70,7 @@ namespace Main.Lib.Items
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag("Player") || _state == ItemState.PickedUp) return;
             if (!other.TryGetComponent<PlayerController>(out var player))
                 return;
             OnPickedUp(player);
@@ -75,7 +78,10 @@ namespace Main.Lib.Items
 
         protected virtual void OnPickedUp(PlayerController player)
         {
-            Destroy(gameObject);
+            _state = ItemState.PickedUp;
+            pickupAudio.Play();
+            _spriteRenderer.enabled = false;
+            Destroy(gameObject, 2);
         }
     }
 }

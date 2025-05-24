@@ -9,12 +9,17 @@ using UnityEngine.Serialization;
 
 namespace Main.World.Objects.Door
 {
-    [RequireComponent(typeof(Collider2D), typeof(Interactable))]
+    [RequireComponent(typeof(Collider2D), typeof(Interactable), typeof(AudioSource))]
     public class Door : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer leftDoor;
         [SerializeField] private SpriteRenderer rightDoor;
         [SerializeField] private List<KeyItem> requiredKeys = new();
+        [SerializeField]
+        private AudioSource lockedDoorSfx;
+        
+        [SerializeField]
+        private AudioSource doorOpenSfx;
         
         private List<string> _keyIds = new();
         private Collider2D _collider;
@@ -23,6 +28,7 @@ namespace Main.World.Objects.Door
         private void Awake()
         {
             _interactable = GetComponent<Interactable>();
+            lockedDoorSfx = GetComponent<AudioSource>();
             VerifyRequirements();
             _collider = GetComponent<Collider2D>();
             _interactable.OnInteract += Open;
@@ -51,6 +57,8 @@ namespace Main.World.Objects.Door
                 Debug.LogError($"Right door is not set at {name}");
             if(!_interactable)
                 Debug.LogError($"Interactable is not set at {name}");
+            if(!lockedDoorSfx)
+                Debug.LogError($"Locked door is not set at {name}");
         }
 
         public int KeysCollected() => _keyIds.Count(v => GameManager.CurrentLevel.CollectedKeys.Contains(v));
@@ -66,12 +74,17 @@ namespace Main.World.Objects.Door
         private void Open()
         {
             var level = GameManager.CurrentLevel;
-            if (_keyIds.Count > 0)
+            if (_keyIds.Count > 0 && !IsKeysCollected())
             {
-                if (!IsKeysCollected())
+                if (lockedDoorSfx.isPlaying) 
                     return;
+                leftDoor.transform.DOShakePosition(0.5f, strength: new Vector3(0.03f, 0f, 0f), vibrato: 10).SetLink(gameObject);
+                rightDoor.transform.DOShakePosition(0.5f, strength: new Vector3(0.03f, 0f, 0f), vibrato: 10).SetLink(gameObject);
+                lockedDoorSfx.Play();
+                return;
             }
             _interactable.IsInteractable = false;
+            doorOpenSfx.Play();
             leftDoor.transform.DOMoveX(transform.position.x - 1, 0.8f).SetLink(gameObject);
             rightDoor.transform.DOMoveX(transform.position.x + 1, 0.8f).SetLink(gameObject);
             leftDoor.DOFade(0, 0.2f).SetLink(gameObject);

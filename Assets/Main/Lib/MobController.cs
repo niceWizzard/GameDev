@@ -61,7 +61,7 @@ namespace Main.Lib
         public float MovementSpeed => Stats.MovementSpeed;
 
         private bool _inHurtAnimation = false;
-    
+
         protected virtual void Awake()
         {
             GetRequiredComponents();
@@ -108,6 +108,7 @@ namespace Main.Lib
         {
             _ = HurtAnimation();
             HealthComponent.ReduceHealth(damageInfo.damage);
+            SoundFx.PlayDamagedSound(transform.position, true);
         }
 
         protected virtual async UniTask HurtAnimation()

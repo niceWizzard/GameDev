@@ -238,7 +238,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae7e434385470b34a9a05adb49cd3627
+      spriteID: 3a7e6c7eda0bb6d499d3cc117bd4edcf
       internalID: 1075867228
       vertices: []
       indices: 
@@ -260,30 +260,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e469a4188401d5449951538dced26a54
+      spriteID: 21e98e4b28188ec4f9ac8803916bad1e
       internalID: 2131354463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bullet_6
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bbb31debeef722f4699be2054d679159
-      internalID: -1376253925
       vertices: []
       indices: 
       edges: []
@@ -308,7 +286,6 @@ TextureImporter:
       Bullet_3: -3300396339194205850
       Bullet_4: 1075867228
       Bullet_5: 2131354463
-      Bullet_6: -1376253925
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

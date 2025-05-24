@@ -20,6 +20,8 @@ namespace Main.Lib.Singleton
         [SerializeField] private TMP_Text dialogText;
         [SerializeField] private TMP_Text senderText;
         [SerializeField] private TMP_Text continueText;
+
+        [SerializeField] private AudioSource dialogAudioSource;
         
         private bool _isAnimatingText = false;
         private string _currentDialogMessage;
@@ -142,6 +144,7 @@ namespace Main.Lib.Singleton
 
         private async UniTask AnimateDialogText(string message, string sender)
         {
+            dialogAudioSource.Play();
             _currentDialogMessage = message;
             _isAnimatingText = true;
             var t = "";
@@ -151,6 +154,7 @@ namespace Main.Lib.Singleton
                 dialogText.text = t;
                 await UniTask.WaitForSeconds(0.05f, ignoreTimeScale:true, cancellationToken:destroyCancellationToken);
             }
+            dialogAudioSource.Stop();
             _isAnimatingText = false;
             if(_dialogButtons.Count == 0)
                 continueText.gameObject.SetActive(true);

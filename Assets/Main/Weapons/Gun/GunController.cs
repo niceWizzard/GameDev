@@ -4,6 +4,7 @@ using Main.Lib.Singleton;
 using Main.Weapons.Bullet;
 using Unity.Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Main.Weapons.Gun
 {
@@ -16,6 +17,7 @@ namespace Main.Weapons.Gun
         [SerializeField] private GameObject owner;
         [SerializeField, Space(10)]
         private BulletController normalAttackPrefab;
+        
         [SerializeField]
         private BulletController specialAttackPrefab;
         private SpriteRenderer _spriteRenderer;
@@ -45,7 +47,7 @@ namespace Main.Weapons.Gun
         
 
         private bool _canShoot = true;
-        private bool _isReloading = false;
+        public bool IsReloading { get; private set; } = false;
         private CinemachineImpulseSource _impulseSource;
         private float AttackCd => 1f / ownerStats.AttackPerSecond;
         private void Awake()
@@ -70,7 +72,7 @@ namespace Main.Weapons.Gun
 
         public void NormalAttack(Vector2? dir=null)
         {
-            if (!_camera || !_canShoot || _isReloading)
+            if (!_camera || !_canShoot || IsReloading)
                 return;
             var projectile = Instantiate(normalAttackPrefab, transform.position, Quaternion.identity);
             _canShoot = false;
@@ -83,7 +85,7 @@ namespace Main.Weapons.Gun
 
         public void SpecialAttack()
         {
-            if (!_camera || !_canShoot || _isReloading || CurrentAmmo < 5)
+            if (!_camera || !_canShoot || IsReloading || CurrentAmmo < 5)
                 return;
             var projectile = Instantiate(specialAttackPrefab, transform.position, Quaternion.identity);
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -98,16 +100,21 @@ namespace Main.Weapons.Gun
         {
             CurrentAmmo = newCapacity;
             
-        }        
+        }
+
+        public void StartReload()
+        {
+            StartCoroutine(StartReloadTimer());
+        }
         
         private IEnumerator StartReloadTimer()
         {
-            _isReloading = true;
+            IsReloading = true;
             CurrentAmmo = 0;
             OnReloadStart?.Invoke();
             yield return new WaitForSeconds(ownerStats.ReloadTime);
             OnReloadEnd?.Invoke();
-            _isReloading = false;
+            IsReloading = false;
             CurrentAmmo = ownerStats.AmmoCapacity;
             _canShoot = true;
         }
