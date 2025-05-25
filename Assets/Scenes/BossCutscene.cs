@@ -47,11 +47,11 @@ namespace Scenes
             
             await Dialog.CreateDialog("....... invader ...", "..", false);
             
-            LevelLoader.Instance.LoadLevel("Boss");
             await SaveManager.Instance.SaveDataAsync(v => v with
             {
                 PlayedCutScenes = v.PlayedCutScenes.Append(SceneManager.GetActiveScene().name).ToHashSet()
             });
+            LevelLoader.Instance.LoadLevel("Boss");
             await Wait(0.2f);
             HUDController.Instance.ExitCutsceneMode();
         }
