@@ -68,7 +68,7 @@ namespace Scenes.Tutorial
             {
                 "These are the Seal Lamps",
                 "Listen to me, prince, these lamps are scattered all over the dungeon.",
-                "You must light every lamps to break the seal binding you here.",
+                "You must destroy every lamps to break the seal binding you here.",
                 "Take this gun to protect yourself against monsters"
             }, "Fladnag", false);
             
@@ -82,6 +82,7 @@ namespace Scenes.Tutorial
                 "Every lamps propose a challenge for you to defeat.",
                 "You will enter an artificial world",
                 "YOU MUST BREAK THE STATUE IN THAT WORLD!",
+                "But before so, you have to complete its challenge.",
                 "Try it now, prince.",
             }, "Fladnag", false);
             

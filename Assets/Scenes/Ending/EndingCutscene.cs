@@ -47,7 +47,7 @@ namespace Scenes.Ending
                 "You have finally released my seals young prince...",
                 "Thank you for your service!",
                 "This world shall know pain!"
-            }, "Old Man", pause: false);
+            }, "The Cursed Wizard", pause: false);
             await Wait(0.1f);
             await wizardEntity.SpriteRenderer.DOFade(0, 0.5f).SetLink(gameObject).AsyncWaitForCompletion();
             await Wait(1.5f);
