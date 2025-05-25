@@ -239,7 +239,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3890371823879880324, guid: 0c02e4aacc1cf704b8a53bfea236fbd4, type: 3}
       propertyPath: levelName
-      value: BossCutscene
+      value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 3890371823879880324, guid: 0c02e4aacc1cf704b8a53bfea236fbd4, type: 3}
       propertyPath: activateFirst
