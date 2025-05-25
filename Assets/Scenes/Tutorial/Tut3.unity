@@ -133830,11 +133830,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1919324429396944793, guid: ae53d0ddd5c0c9f4aa33b08c0f939cb3, type: 3}
       propertyPath: leftRewardType
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1919324429396944793, guid: ae53d0ddd5c0c9f4aa33b08c0f939cb3, type: 3}
       propertyPath: rightRewardType
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5698297731853072232, guid: ae53d0ddd5c0c9f4aa33b08c0f939cb3, type: 3}
       propertyPath: _id
