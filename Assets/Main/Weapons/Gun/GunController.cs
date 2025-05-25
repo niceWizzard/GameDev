@@ -70,7 +70,7 @@ namespace Main.Weapons.Gun
             _spriteRenderer.flipY = isFlipped;
         }
 
-        public void NormalAttack()
+        public void NormalAttack(Vector2? dir=null)
         {
             if (!_camera || !_canShoot || IsReloading)
                 return;
@@ -78,7 +78,7 @@ namespace Main.Weapons.Gun
             _canShoot = false;
             var mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mouseDir = (mouse - Owner.GameObject.transform.position).normalized;
-            projectile.Setup(NozzleTransform.position,mouseDir, Owner , ownerStats);
+            projectile.Setup(NozzleTransform.position,dir ?? mouseDir, Owner , ownerStats);
             AddCameraRecoil(-mouseDir);
             StartCoroutine(--CurrentAmmo <= 0 ? StartReloadTimer() : StartAttackCdTimer());
         }
