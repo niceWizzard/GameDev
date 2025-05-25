@@ -14686,7 +14686,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.007
+  m_Intensity: 0.008
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 714d826e000000006fc1a137f9dce7f5ffff556a
@@ -14982,7 +14982,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 342106667987069692, guid: 40ca549a2056a1c49937d794e61b6288, type: 3}
       propertyPath: health
-      value: 400
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 342106667987069692, guid: 40ca549a2056a1c49937d794e61b6288, type: 3}
       propertyPath: attackPower
@@ -47795,7 +47795,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 342106667987069692, guid: 40ca549a2056a1c49937d794e61b6288, type: 3}
       propertyPath: health
-      value: 400
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 342106667987069692, guid: 40ca549a2056a1c49937d794e61b6288, type: 3}
       propertyPath: attackPower
