@@ -120789,30 +120789,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_Intensity
-      value: 0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_FalloffIntensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_OverlapOperation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_PointLightInnerAngle
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 1.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 3432766486620605812, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 1.93
-      objectReference: {fileID: 0}
     - target: {fileID: 8794085217770710426, guid: 14199c2014e080c4fafb1a173cf4b58c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
